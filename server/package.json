@@ -1,15 +1,24 @@
 {
-  "name": "workspace",
+  "name": "server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "test": "veve",
+    "test:watch": "veve -w",
+    "dev": "node dist/index.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "author": "A. Shaheen",
+  "description": "The main server of review.click",
   "dependencies": {
+    "@fastify/swagger": "^9.4.0",
+    "@fastify/swagger-ui": "^5.2.0",
     "fastify": "^5.2.1"
+  },
+  "devDependencies": {
+    "veve": "^1.1.15"
   }
 }
