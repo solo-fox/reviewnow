@@ -1,9 +1,26 @@
 {
   "name": "database",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./server": {
+      "import": "./dist/server.js",
+    },
+    "./client": {
+      "import": "./dist/client.js"
+    }
+  }
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc -w"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.47.12"
+  },
+  "devDependencies": {
+    "supabase": "^2.2.1"
   }
 }
