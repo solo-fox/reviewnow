@@ -3,19 +3,19 @@
   "version": "1.0.0",
   "exports": {
     ".": {
-      "import": "./dist/index.js"
+      "import": "./index.ts"
     },
     "./server": {
-      "import": "./dist/server.js",
+      "import": "./server.ts"
     },
-    "./client": {
-      "import": "./dist/client.js"
+    "./browser": {
+      "import": "./browser.ts"
+    },
+    "./models": {
+      "import": "./models/index.ts"
     }
-  }
-  "scripts": {
-    "build": "tsc",
-    "build:watch": "tsc -w"
   },
+  "scripts": {},
   "dependencies": {
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.12"
