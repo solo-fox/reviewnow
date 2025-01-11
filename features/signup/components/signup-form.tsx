@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import signUpFormSchema from "../schemas/signup-form.schema";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast"
 import {
   Form,
   FormControl,
@@ -15,8 +16,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link"
+import { useState } from "react";
+import LoadingIcon from "@/components/loading-icon";
 
 export default function SignUpForm() {
+  const [pending, setPending] = useState(false)
+  const { toast } = useToast()
   const signUpForm = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
@@ -24,13 +29,14 @@ export default function SignUpForm() {
       password: ""
     }
   });
-
+  
   function onSubmit(values: z.infer<typeof signUpFormSchema>, event: React.BaseSyntheticEvent | undefined) {
     event?.preventDefault();
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    
+    setPending(true)
   }
+
+  
 
   return (
     <Form {...signUpForm}>
@@ -61,7 +67,9 @@ export default function SignUpForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">Create a new account</Button>
+        <Button disabled={pending} type="submit" className="w-full">
+          {pending ? <LoadingIcon /> : ""} Create a new account
+        </Button>
         <div className="text-center text-sm">
           Already have an account?{" "}
           <Link href="/signin" className="underline underline-offset-4">
