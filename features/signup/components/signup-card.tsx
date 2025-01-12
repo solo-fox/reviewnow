@@ -11,11 +11,11 @@ import SignUpForm from "./signup-form";
 
 export function SignUpCard() {
   return (
-    <Card>
+    <Card className="w-full md:w-1/2 sm:w-3/4">
       <CardHeader className="text-center">
         <CardTitle className="text-xl">Hello, Newcomer!</CardTitle>
         <CardDescription>
-          Sign up with your GitHub or Google account
+          Sign up with your GitHub account
         </CardDescription>
       </CardHeader>
       <CardContent>

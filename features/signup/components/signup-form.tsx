@@ -4,8 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import signUpFormSchema from "../schemas/signup-form.schema";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast"
 import {
   Form,
   FormControl,
@@ -16,12 +14,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link"
-import { useState } from "react";
+import useSignUp from "../hooks/use-signup"
+import { Button } from "@/components/ui/button";
 import LoadingIcon from "@/components/loading-icon";
+import { useState } from "react";
 
 export default function SignUpForm() {
-  const [pending, setPending] = useState(false)
-  const { toast } = useToast()
+  const [pending, setPending] = useState<boolean>(false);
+  
   const signUpForm = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
@@ -29,18 +29,11 @@ export default function SignUpForm() {
       password: ""
     }
   });
-  
-  function onSubmit(values: z.infer<typeof signUpFormSchema>, event: React.BaseSyntheticEvent | undefined) {
-    event?.preventDefault();
-    
-    setPending(true)
-  }
-
-  
+  const signUp = useSignUp(setPending);
 
   return (
-    <Form {...signUpForm}>
-      <form onSubmit={signUpForm.handleSubmit(onSubmit)} className="space-y-8">
+    <Form {...signUpForm} >
+      <form onSubmit={signUpForm.handleSubmit(signUp)} className="space-y-8">
         <FormField
           control={signUpForm.control}
           name="email"
@@ -67,8 +60,8 @@ export default function SignUpForm() {
             </FormItem>
           )}
         />
-        <Button disabled={pending} type="submit" className="w-full">
-          {pending ? <LoadingIcon /> : ""} Create a new account
+        <Button disabled={pending} className="w-full" type="submit" >
+          {pending ? <LoadingIcon /> : ""} <p>Create a free account</p>
         </Button>
         <div className="text-center text-sm">
           Already have an account?{" "}
