@@ -11,8 +11,9 @@ import {
 import { Laptop, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import LoadingIcon from "./loading-icon";
 
-const ThemeSwitcher = () => {
+export default function ThemeSwitcher () {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -22,10 +23,8 @@ const ThemeSwitcher = () => {
   }, []);
 
   if (!mounted) {
-    return null;
+    return <LoadingIcon />;
   }
-
-  const ICON_SIZE = 16;
 
   return (
     <DropdownMenu>
@@ -34,19 +33,19 @@ const ThemeSwitcher = () => {
           {theme === "light" ? (
             <Sun
               key="light"
-              size={ICON_SIZE}
+              size={16}
               className={"text-muted-foreground"}
             />
           ) : theme === "dark" ? (
             <Moon
               key="dark"
-              size={ICON_SIZE}
+              size={16}
               className={"text-muted-foreground"}
             />
           ) : (
             <Laptop
               key="system"
-              size={ICON_SIZE}
+              size={16}
               className={"text-muted-foreground"}
             />
           )}
@@ -58,15 +57,15 @@ const ThemeSwitcher = () => {
           onValueChange={(e) => setTheme(e)}
         >
           <DropdownMenuRadioItem className="flex gap-2" value="light">
-            <Sun size={ICON_SIZE} className="text-muted-foreground" />{" "}
+            <Sun size={16} className="text-muted-foreground" />{" "}
             <span>Light</span>
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem className="flex gap-2" value="dark">
-            <Moon size={ICON_SIZE} className="text-muted-foreground" />{" "}
+            <Moon size={16} className="text-muted-foreground" />{" "}
             <span>Dark</span>
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem className="flex gap-2" value="system">
-            <Laptop size={ICON_SIZE} className="text-muted-foreground" />{" "}
+            <Laptop size={16} className="text-muted-foreground" />{" "}
             <span>System</span>
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
@@ -74,5 +73,3 @@ const ThemeSwitcher = () => {
     </DropdownMenu>
   );
 };
-
-export { ThemeSwitcher };
