@@ -23,7 +23,7 @@ export default function Footer() {
         </Link>
       </div>
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
+        <div className="hidden md:flex items-center gap-2">
           <div className="bg-blue-500 rounded-full size-2"></div>
           <p className="text-blue-500 font-semibold">All systems oprational.</p>
         </div>
