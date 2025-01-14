@@ -1,11 +1,15 @@
 "use client"
 
-import { SignInForm } from "./signin-form";
+import SignInForm  from "./signin-form";
 
 export default function SignInPage() {
   return (
-    <div className="flex flex-col items-center justify-center w-screen h-screen md:p-10">
-        <SignInForm />
+    <div className="grid min-h-svh lg:grid-cols-2">
+      <div className="flex flex-1 items-center justify-center p-6 md:p-10">
+        <div className="w-full max-w-xs">
+          <SignInForm />
+        </div>
+      </div>
     </div>
   );
 }

@@ -2,9 +2,9 @@
 
 import { z } from "zod"
 
-const signUpFormSchema = z.object({
+const authSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8)
 }).required()
 
-export default signUpFormSchema
+export default authSchema

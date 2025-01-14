@@ -1,7 +1,7 @@
 "use client";
 
 import { z } from "zod";
-import signUpFormSchema from "../schemas/signup-form.schema";
+import authSchema from "@/schemas/auth.schema";
 import { useToast } from "@/hooks/use-toast";
 import { createClient } from "@/lib/client";
 import { User } from "database/models";
@@ -10,7 +10,7 @@ export default function useSignUp(setPending: (arg: boolean) => void) {
   const { toast } = useToast();
 
   return async function signUp(
-    values: z.infer<typeof signUpFormSchema>,
+    values: z.infer<typeof authSchema>,
     event?: React.BaseSyntheticEvent
   ) {
     setPending(true)

@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import signUpFormSchema from "../schemas/signup-form.schema";
 import {
   Form,
   FormControl,
@@ -19,12 +18,13 @@ import { Button } from "@/components/ui/button";
 import LoadingIcon from "@/components/loading-icon";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import authSchema from "@/schemas/auth.schema";
 
 export default function SignUpForm() {
   const [pending, setPending] = useState<boolean>(false);
 
-  const signUpForm = useForm<z.infer<typeof signUpFormSchema>>({
-    resolver: zodResolver(signUpFormSchema),
+  const signUpForm = useForm<z.infer<typeof authSchema>>({
+    resolver: zodResolver(authSchema),
     defaultValues: {
       email: "",
       password: "",
