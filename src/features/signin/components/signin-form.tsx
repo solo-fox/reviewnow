@@ -14,11 +14,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import useSignIn from "../hooks/use-signin";
+import signIn from "../actions/signin.action";
 import { Button } from "@/components/ui/button";
 import LoadingIcon from "@/components/loading-icon";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+import Alert from "@/components/alert"
 
 export default function SignInForm() {
   const [pending, setPending] = useState<boolean>(false);
@@ -31,13 +31,21 @@ export default function SignInForm() {
     },
   });
 
-  const signIn = useSignIn(setPending);
+  async function onSubmit(values: z.infer<typeof authSchema>, event?: React.BaseSyntheticEvent) {
+    event?.preventDefault()
+    setPending(true)
+    await signIn({
+      email: values.email,
+      password: values.password
+    })
+    setPending(false)
+  }
 
   return (
     <Form {...signInForm}>
       <form
-        onSubmit={signInForm.handleSubmit(signIn)}
-        className={cn("flex flex-col gap-6")}
+        onSubmit={signInForm.handleSubmit(onSubmit)}
+        className="flex flex-col gap-6"
       >
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="text-2xl font-bold">Login to your account</h1>
@@ -45,6 +53,8 @@ export default function SignInForm() {
             Enter your email and password to login to your account
           </p>
         </div>
+
+        <Alert type="error" />
 
         <div className="grid gap-6">
           <FormField

@@ -55,7 +55,7 @@ export default function SignUpForm() {
           </p>
         </div>
 
-         <Alert type="error" /> 
+        <Alert type="error" /> 
 
         <div className="grid gap-6">
           <FormField

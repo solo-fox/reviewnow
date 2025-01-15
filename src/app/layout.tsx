@@ -5,13 +5,10 @@ import "./globals.css";
 import Footer from "@/components/footer";
 import { NuqsAdapter } from "nuqs/adapters/react";
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
 
 export const metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: "review.click",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL as string),
+  title: "Review Hub",
   description: "The fastest way to create reviews and beta previewing.",
 };
 
