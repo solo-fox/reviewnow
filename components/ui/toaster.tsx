@@ -29,8 +29,8 @@ export function Toaster() {
             <div className="grid gap-1">
               {title && (
                 <ToastTitle className="flex items-center gap-2">
-                  {variant === "warning" ? <TriangleAlert  className="size-16"/> : ""}
-                  {variant === "destructive" ? <CircleX className="size-16"/> : ""}
+                  {variant === "warning" ? <TriangleAlert  className="size-4"/> : ""}
+                  {variant === "destructive" ? <CircleX className="size-4"/> : ""}
                   {title}
                 </ToastTitle>
               )}
