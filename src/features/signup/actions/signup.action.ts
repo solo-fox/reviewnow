@@ -6,10 +6,10 @@ interface SignUpAction {
 }
 import { createClient } from "@/lib/server";
 import { encodedRedirect } from "@/lib/utils";
+import { headers } from "next/headers"
+import { redirect } from "next/navigation";
 
 export default async function signUp(user: SignUpAction) {
-  const { headers } = await import('next/headers')
-  
   const origin = (await headers()).get("origin");
   const supabase = await createClient();
   
@@ -23,13 +23,9 @@ export default async function signUp(user: SignUpAction) {
 
   if (error) {
     console.error(error.code + " " + error.message);
-    return encodedRedirect("error", "/signup", error.message);
+    return encodedRedirect("/signup", error.message);
   } else {
-    return encodedRedirect(
-      "success",
-      "/sign-up",
-      "Thanks for signing up! Please check your email for a verification link.",
-    );
+    return redirect("/signin")
   }
   
 }

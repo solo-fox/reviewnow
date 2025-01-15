@@ -18,10 +18,12 @@ import LoadingIcon from "@/components/loading-icon";
 import { useState } from "react";
 import authSchema from "@/schemas/auth.schema";
 import signUp from "../actions/signup.action"
+import Alert from "@/components/alert"
 
 export default function SignUpForm() {
   const [pending, setPending] = useState<boolean>(false);
-
+  
+  
   const signUpForm = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
     defaultValues: {
@@ -42,7 +44,6 @@ export default function SignUpForm() {
 
   return (
     <Form {...signUpForm}>
-      
       <form
         onSubmit={signUpForm.handleSubmit(onSubmit)}
         className="flex flex-col gap-6"
@@ -53,6 +54,8 @@ export default function SignUpForm() {
             Enter your email and password to create a new account
           </p>
         </div>
+
+         <Alert type="error" /> 
 
         <div className="grid gap-6">
           <FormField
