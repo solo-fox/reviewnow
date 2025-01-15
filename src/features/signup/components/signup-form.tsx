@@ -13,12 +13,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import useSignUp from "../hooks/use-signup";
 import { Button } from "@/components/ui/button";
 import LoadingIcon from "@/components/loading-icon";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 import authSchema from "@/schemas/auth.schema";
+import signUp from "../actions/signup.action"
 
 export default function SignUpForm() {
   const [pending, setPending] = useState<boolean>(false);
@@ -31,13 +30,22 @@ export default function SignUpForm() {
     },
   });
 
-  const signUp = useSignUp(setPending);
+  async function onSubmit(values: z.infer<typeof authSchema>, event?: React.BaseSyntheticEvent) {
+    event?.preventDefault()
+    setPending(true)
+    await signUp({
+      email: values.email,
+      password: values.password
+    })
+    setPending(false)
+  }
 
   return (
     <Form {...signUpForm}>
+      
       <form
-        onSubmit={signUpForm.handleSubmit(signUp)}
-        className={cn("flex flex-col gap-6")}
+        onSubmit={signUpForm.handleSubmit(onSubmit)}
+        className="flex flex-col gap-6"
       >
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="text-2xl font-bold">Create your account</h1>
