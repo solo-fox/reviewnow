@@ -1,5 +1,6 @@
 import Client from "database/server";
 import { type NextRequest, NextResponse } from "next/server";
+import routes from "./routes";
 
 export const updateSession = async (request: NextRequest) => {
   // Create an unmodified response
@@ -33,20 +34,17 @@ export const updateSession = async (request: NextRequest) => {
   const user = await supabase.auth.getUser();
 
   // protected routes
-  if (request.nextUrl.pathname.startsWith("/dashboard") && user.error) {
-    return NextResponse.redirect(new URL("/signin", request.url));
+  if (request.nextUrl.pathname.startsWith(routes.protected.dashboard) && user.error) {
+    return NextResponse.redirect(new URL(routes.auth.signin, request.url));
   }
 
   if (request.nextUrl.pathname === "/" && !user.error) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL(routes.protected.dashboard, request.url));
   }
 
-  if(request.nextUrl.pathname === "/signin" && !user.error) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+  if((request.nextUrl.pathname === routes.auth.signin || request.nextUrl.pathname === routes.auth.signup) && !user.error) {
+    return NextResponse.redirect(new URL(routes.protected.dashboard, request.url));
   }
 
-  if(request.nextUrl.pathname === "/signup" && !user.error) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
-  }
   return response;
 };

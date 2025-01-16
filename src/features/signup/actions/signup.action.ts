@@ -4,8 +4,8 @@ interface SignUpAction {
   email: string,
   password: string
 }
+import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
-import { encodedRedirect } from "@/lib/utils";
 import { redirect } from "next/navigation";
 
 export default async function signUp(user: SignUpAction) {
@@ -15,14 +15,14 @@ export default async function signUp(user: SignUpAction) {
     email: user.email,
     password: user.password,
     options: {
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+      emailRedirectTo: routes.api.auth.callback
     },
   });
 
   if (error) {
-    return encodedRedirect("/signup", error.message);
+    return redirect(`${routes.auth.signup}?message=${error.message}`);
   } else {
-    return redirect("/signin")
+    return redirect(routes.auth.signin)
   }
   
 }

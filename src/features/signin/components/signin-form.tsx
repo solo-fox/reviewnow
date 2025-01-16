@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import LoadingIcon from "@/components/loading-icon";
 import { useState } from "react";
 import Alert from "@/components/alert"
+import routes from "@/lib/routes";
 
 export default function SignInForm() {
   const [pending, setPending] = useState<boolean>(false);
@@ -117,7 +118,7 @@ export default function SignInForm() {
 
         <div className="text-center text-sm">
           Do not have an account?{" "}
-          <Link href="/signup" className="underline underline-offset-4">
+          <Link href={routes.auth.signup} className="underline underline-offset-4">
             Sign Up
           </Link>
         </div>

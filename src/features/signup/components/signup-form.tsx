@@ -19,6 +19,7 @@ import { useState } from "react";
 import authSchema from "@/schemas/auth.schema";
 import signUp from "../actions/signup.action"
 import Alert from "@/components/alert"
+import routes from "@/lib/routes";
 
 export default function SignUpForm() {
   const [pending, setPending] = useState<boolean>(false);
@@ -118,7 +119,7 @@ export default function SignUpForm() {
 
         <div className="text-center text-sm">
           Already have an account?{" "}
-          <Link href="/signin" className="underline underline-offset-4">
+          <Link href={routes.auth.signin} className="underline underline-offset-4">
             Sign In
           </Link>
         </div>

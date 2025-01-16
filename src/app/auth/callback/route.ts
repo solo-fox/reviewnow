@@ -1,3 +1,4 @@
+import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
 import { NextResponse } from "next/server";
 
@@ -14,5 +15,5 @@ export async function GET(request: Request) {
   }
 
   // URL to redirect to after sign up process completes
-  return NextResponse.redirect(`${process.env.NEXT_PUBLIC_SITE_URL}/dashboard`);
+  return NextResponse.redirect(`${routes.base}${routes.protected.dashboard}`);
 }
