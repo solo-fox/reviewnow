@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import signIn from "../actions/signin.action";
+import signInAction from "../actions/signin.action";
 import { Button } from "@/components/ui/button";
 import LoadingIcon from "@/components/loading-icon";
 import { useState } from "react";
@@ -35,7 +35,7 @@ export default function SignInForm() {
   async function onSubmit(values: z.infer<typeof authSchema>, event?: React.BaseSyntheticEvent) {
     event?.preventDefault()
     setPending(true)
-    await signIn({
+    await signInAction({
       email: values.email,
       password: values.password
     })
@@ -55,7 +55,7 @@ export default function SignInForm() {
           </p>
         </div>
 
-        <Alert type="error" />
+        <Alert />
 
         <div className="grid gap-6">
           <FormField

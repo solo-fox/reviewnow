@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import LoadingIcon from "@/components/loading-icon";
 import { useState } from "react";
 import authSchema from "@/schemas/auth.schema";
-import signUp from "../actions/signup.action"
+import signUpAction from "../actions/signup.action"
 import Alert from "@/components/alert"
 import routes from "@/lib/routes";
 
@@ -36,7 +36,7 @@ export default function SignUpForm() {
   async function onSubmit(values: z.infer<typeof authSchema>, event?: React.BaseSyntheticEvent) {
     event?.preventDefault()
     setPending(true)
-    await signUp({
+    await signUpAction({
       email: values.email,
       password: values.password
     })
@@ -56,7 +56,7 @@ export default function SignUpForm() {
           </p>
         </div>
 
-        <Alert type="error" /> 
+        <Alert /> 
 
         <div className="grid gap-6">
           <FormField

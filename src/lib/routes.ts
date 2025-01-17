@@ -7,7 +7,8 @@ const routes = {
   },
   auth: {
     signin: "/signin",
-    signup: "/signup"
+    signup: "/signup",
+    verify: "/verify"
   },
   protected: {
     dashboard: "/dashboard"

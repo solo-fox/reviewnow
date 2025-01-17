@@ -32,19 +32,34 @@ export const updateSession = async (request: NextRequest) => {
   // This will refresh session if expired - required for Server Components
   // https://supabase.com/docs/guides/auth/server-side/nextjs
   const user = await supabase.auth.getUser();
-
-  // protected routes
+  
+  
+  // Handle unauthenticated users trying to access protected routes
   if (request.nextUrl.pathname.startsWith(routes.protected.dashboard) && user.error) {
     return NextResponse.redirect(new URL(routes.auth.signin, request.url));
   }
 
-  if (request.nextUrl.pathname === "/" && !user.error) {
+  // Redirect unverified users to email verification
+  if (request.nextUrl.pathname.startsWith(routes.protected.dashboard) && 
+      !user.error && 
+      user.data.user?.email_confirmed_at === null) {
+    return NextResponse.redirect(new URL(routes.auth.verify, request.url));
+  }
+
+  // Redirect verified users away from verification page
+  if (request.nextUrl.pathname === routes.auth.verify && 
+      !user.error && 
+      user.data.user?.email_confirmed_at !== null) {
     return NextResponse.redirect(new URL(routes.protected.dashboard, request.url));
   }
 
-  if((request.nextUrl.pathname === routes.auth.signin || request.nextUrl.pathname === routes.auth.signup) && !user.error) {
+  // Redirect authenticated users away from auth pages
+  if ((request.nextUrl.pathname === routes.auth.signin || 
+       request.nextUrl.pathname === routes.auth.signup) && 
+      !user.error) {
     return NextResponse.redirect(new URL(routes.protected.dashboard, request.url));
   }
+  
 
   return response;
 };
