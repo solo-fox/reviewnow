@@ -1,7 +1,3 @@
-export default function P() {
-  return (
-    <>
-      Protected
-    </>
-  )
+export default function Page() {
+  return <>ö</>;
 }

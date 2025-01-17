@@ -6,9 +6,9 @@ const routes = {
     }
   },
   auth: {
-    signin: "/signin",
-    signup: "/signup",
-    verify: "/verify"
+    signin: "/auth/signin",
+    signup: "/auth/signup",
+    verify: "/auth/verify"
   },
   protected: {
     dashboard: "/dashboard"

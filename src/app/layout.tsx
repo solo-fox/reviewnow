@@ -2,7 +2,6 @@ import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
-import Footer from "@/components/footer";
 import { NuqsAdapter } from "nuqs/adapters/react";
 
 
@@ -28,7 +27,6 @@ export default function RootLayout({
         <NuqsAdapter>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
-            <Footer />
             <Toaster />
           </ThemeProvider>
         </NuqsAdapter>
