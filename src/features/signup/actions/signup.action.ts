@@ -6,7 +6,7 @@ interface SignUpAction {
 }
 import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
-import { redirect } from "next/navigation";
+import { encodedRedirect } from "@/lib/utils";
 
 export default async function signUpAction(user: SignUpAction) {
   const supabase = await createClient();
@@ -20,7 +20,10 @@ export default async function signUpAction(user: SignUpAction) {
   });
 
   if (error) {
-    return redirect(`${routes.auth.signup}?message=${error.message}&type=error`);
+    return encodedRedirect(routes.auth.signup, {
+      message: error.message,
+      type: "error",
+    });
   }
-  return redirect(routes.auth.signin);
+  return encodedRedirect(routes.auth.verify);
 }

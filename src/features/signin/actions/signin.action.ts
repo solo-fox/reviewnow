@@ -6,7 +6,7 @@ interface SignInAction {
 }
 import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
-import { redirect } from "next/navigation";
+import { encodedRedirect } from "@/lib/utils";
 
 export default async function signInAction(user: SignInAction) {
   const supabase = await createClient();
@@ -17,9 +17,12 @@ export default async function signInAction(user: SignInAction) {
   });
 
   if (error) {
-    return redirect(`${routes.auth.signin}?message=${error.message}&type=error`);
+    return encodedRedirect(routes.auth.signin, {
+      message: error.message,
+      type: "error"
+    });
   }
 
-  return redirect(routes.protected.dashboard);
+  return encodedRedirect(routes.protected.dashboard);
 
 }
