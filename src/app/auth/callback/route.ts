@@ -1,6 +1,6 @@
 import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
-import { NextResponse } from "next/server";
+import { encodedRedirect } from "@/lib/utils";
 
 export async function GET(request: Request) {
   // The `/auth/callback` route is required for the server-side auth flow implemented
@@ -13,12 +13,25 @@ export async function GET(request: Request) {
   if (code) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-  }
+    if (error) {
+      return encodedRedirect(`${routes.base}${routes.auth.signin}`, {
+        message: error.message,
+        type: "error"
+      });
+    }
 
-  // URL to redirect to after sign up process completes
-  if (!next) {
-    return NextResponse.redirect(`${routes.base}${routes.protected.dashboard}`);
+    // URL to redirect to after sign up process completes
+    if (!next) {
+      return encodedRedirect(
+        `${routes.base}${routes.protected.dashboard}`,
+      );
+    }
+
+    return encodedRedirect(`${routes.base}${next}`);
   } else {
-    return NextResponse.redirect(`${routes.base}${next}`);
+    return encodedRedirect(`${routes.base}${routes.auth.signin}`, {
+      message: "No authentiaction code was found",
+      typw: "error"
+    });
   }
 }
