@@ -33,6 +33,7 @@ export const updateSession = async (request: NextRequest) => {
   // https://supabase.com/docs/guides/auth/server-side/nextjs
   const user = await supabase.auth.getUser();
 
+  
   // Handle unauthenticated users trying to access protected routes
   if (request.nextUrl.pathname.startsWith(routes.protected.dashboard) && user.error) {
     return NextResponse.redirect(new URL(routes.auth.signin, request.url));
@@ -58,7 +59,15 @@ export const updateSession = async (request: NextRequest) => {
       !user.error) {
     return NextResponse.redirect(new URL(routes.protected.dashboard, request.url));
   }
-  
+
+  // Redirect users trying to access dashboard without an org_name
+  if (request.nextUrl.pathname.startsWith(routes.protected.dashboard) && !user.error && user.data.user.id) {
+    const onboardingComplete = await supabase.from("profiles").select("onboarding_complete").eq("id", user.data.user.id).single()
+    
+    if(onboardingComplete.data.onboarding_complete === false) {
+      return NextResponse.redirect(new URL(routes.auth.onboarding, request.url));
+    }
+  }
 
   return response;
 };

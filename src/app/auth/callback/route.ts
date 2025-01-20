@@ -30,8 +30,8 @@ export async function GET(request: Request) {
     return encodedRedirect(`${routes.base}${next}`);
   } else {
     return encodedRedirect(`${routes.base}${routes.auth.signin}`, {
-      message: "No authentiaction code was found",
-      typw: "error"
+      message: "No+authentiaction+code+was+found",
+      type: "error"
     });
   }
 }

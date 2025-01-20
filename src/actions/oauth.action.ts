@@ -13,7 +13,7 @@ export async function signInWithGitHub() {
       redirectTo: routes.api.auth.callback,
     },
   });
-
+  
   if(error) {
     return encodedRedirect(routes.auth.signup, {
       message: error.message,
