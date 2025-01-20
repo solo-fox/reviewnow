@@ -15,7 +15,9 @@
       "import": "./models/index.ts"
     }
   },
-  "scripts": {},
+  "scripts": {
+    "build:types": "node ./scripts/generate-types.js"
+  },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.12"

@@ -9,184 +9,26 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      organizations: {
+      profiles: {
         Row: {
-          created_at: string | null
-          description: string | null
-          id: number
-          name: string
-          updated_at: string | null
-          user_id: string
+          active: boolean | null
+          id: string
+          onboarding_complete: boolean | null
+          org_name: string | null
         }
         Insert: {
-          created_at?: string | null
-          description?: string | null
-          id?: number
-          name: string
-          updated_at?: string | null
-          user_id: string
+          active?: boolean | null
+          id: string
+          onboarding_complete?: boolean | null
+          org_name?: string | null
         }
         Update: {
-          created_at?: string | null
-          description?: string | null
-          id?: number
-          name?: string
-          updated_at?: string | null
-          user_id?: string
+          active?: boolean | null
+          id?: string
+          onboarding_complete?: boolean | null
+          org_name?: string | null
         }
         Relationships: []
-      }
-      project_reviewers: {
-        Row: {
-          created_at: string | null
-          id: number
-          project_id: number
-          reviewer_id: number
-          updated_at: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          id?: number
-          project_id: number
-          reviewer_id: number
-          updated_at?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          id?: number
-          project_id?: number
-          reviewer_id?: number
-          updated_at?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "project_reviewers_project_id_fkey"
-            columns: ["project_id"]
-            isOneToOne: false
-            referencedRelation: "projects"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "project_reviewers_reviewer_id_fkey"
-            columns: ["reviewer_id"]
-            isOneToOne: false
-            referencedRelation: "reviewers"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      projects: {
-        Row: {
-          api_key: string
-          created_at: string | null
-          id: number
-          name: string
-          org_id: number
-          updated_at: string | null
-        }
-        Insert: {
-          api_key: string
-          created_at?: string | null
-          id?: number
-          name: string
-          org_id: number
-          updated_at?: string | null
-        }
-        Update: {
-          api_key?: string
-          created_at?: string | null
-          id?: number
-          name?: string
-          org_id?: number
-          updated_at?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "projects_org_id_fkey"
-            columns: ["org_id"]
-            isOneToOne: false
-            referencedRelation: "organizations"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      reviewers: {
-        Row: {
-          created_at: string | null
-          email: string | null
-          id: number
-          name: string | null
-          password: string | null
-          review_count: number | null
-          updated_at: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          email?: string | null
-          id?: number
-          name?: string | null
-          password?: string | null
-          review_count?: number | null
-          updated_at?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          email?: string | null
-          id?: number
-          name?: string | null
-          password?: string | null
-          review_count?: number | null
-          updated_at?: string | null
-        }
-        Relationships: []
-      }
-      reviews: {
-        Row: {
-          comment: string | null
-          created_at: string | null
-          id: number
-          likes: boolean | null
-          project_id: number
-          rating: number | null
-          reviewer_id: number
-          updated_at: string | null
-        }
-        Insert: {
-          comment?: string | null
-          created_at?: string | null
-          id?: number
-          likes?: boolean | null
-          project_id: number
-          rating?: number | null
-          reviewer_id: number
-          updated_at?: string | null
-        }
-        Update: {
-          comment?: string | null
-          created_at?: string | null
-          id?: number
-          likes?: boolean | null
-          project_id?: number
-          rating?: number | null
-          reviewer_id?: number
-          updated_at?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "reviews_project_id_fkey"
-            columns: ["project_id"]
-            isOneToOne: false
-            referencedRelation: "projects"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "reviews_reviewer_id_fkey"
-            columns: ["reviewer_id"]
-            isOneToOne: false
-            referencedRelation: "reviewers"
-            referencedColumns: ["id"]
-          },
-        ]
       }
     }
     Views: {
