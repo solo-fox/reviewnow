@@ -90,8 +90,12 @@
     width: 100%;
     height: 100%;
     z-index: -1;
-    background-image: radial-gradient(circle, hsl(var(--foreground)) 1px, transparent 1px);
-    background-size: 30px 30px;
-    opacity: 0.2;
+    background: 
+      linear-gradient(to bottom, transparent 70%, rgba(0, 128, 0, 0.3) 85%, rgba(0, 128, 0, 0.5) 100%), /* Smooth green gradient */
+      radial-gradient(circle, hsl(var(--foreground)) 1px, transparent 1px); /* Dotted pattern */
+    background-size: 100% 100%, 30px 30px; /* Full gradient size and dotted spacing */
+    background-repeat: no-repeat, repeat; /* Gradient does not repeat, dots do */
+    opacity: 0.1;
   }
+
 }
