@@ -9,12 +9,10 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
 import { Button } from "@/components/ui/button";
-
 import { useState } from "react";
 import {
   Card,
@@ -23,6 +21,7 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox"
 import authSchema from "@/schemas/auth.schema";
 import signUpAction from "../actions/signup.action";
 import Alert from "@/components/alert";
@@ -39,6 +38,7 @@ export default function SignUpForm() {
     defaultValues: {
       email: "",
       password: "",
+      terms_accepted: false
     },
   });
 
@@ -67,7 +67,11 @@ export default function SignUpForm() {
       <CardContent className="flex flex-col gap-6 justify-center">
         <Alert />
         <Form {...signUpForm}>
-          <form onSubmit={signUpForm.handleSubmit(onSubmit)}>
+          <form
+            method="post"
+            onSubmit={signUpForm.handleSubmit(onSubmit)}
+            className="flex flex-col gap-6 justify-center"
+          >
             <FormField
               control={signUpForm.control}
               name="email"
@@ -104,12 +108,31 @@ export default function SignUpForm() {
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={signUpForm.control}
+              name="terms_accepted"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      By clicking sign up you accept our terms.
+                    </FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <Button disabled={pending} className="w-full" type="submit">
+              {pending ? <LoadingIcon /> : ""} <p>Create a free account</p>
+            </Button>
           </form>
         </Form>
-
-        <Button disabled={pending} className="w-full" type="submit">
-          {pending ? <LoadingIcon /> : ""} <p>Create a free account</p>
-        </Button>
 
         <OAuthButton />
 

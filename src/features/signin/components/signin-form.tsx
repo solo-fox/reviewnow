@@ -37,6 +37,7 @@ export default function SignInForm() {
     defaultValues: {
       email: "",
       password: "",
+      terms_accepted: true,
     },
   });
 
@@ -67,7 +68,10 @@ export default function SignInForm() {
       <CardContent className="flex flex-col gap-6 justify-center">
         <Alert />
         <Form {...signInForm}>
-          <form onSubmit={signInForm.handleSubmit(onSubmit)}>
+          <form
+            onSubmit={signInForm.handleSubmit(onSubmit)}
+            className="flex flex-col gap-6 justify-center"
+          >
             <FormField
               control={signInForm.control}
               name="email"
@@ -104,12 +108,12 @@ export default function SignInForm() {
                 </FormItem>
               )}
             />
+
+            <Button disabled={pending} className="w-full" type="submit">
+              {pending ? <LoadingIcon /> : ""} <p>Login to your account</p>
+            </Button>
           </form>
         </Form>
-
-        <Button disabled={pending} className="w-full" type="submit">
-          {pending ? <LoadingIcon /> : ""} <p>Login to your account</p>
-        </Button>
 
         <OAuthButton />
 
