@@ -12,15 +12,22 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import signInAction from "../actions/signin.action";
-import { Button } from "@/components/ui/button";
 import LoadingIcon from "@/components/loading-icon";
-import { useState } from "react";
 import Alert from "@/components/alert";
 import routes from "@/lib/routes";
-import OAuthButton from "@/components/oauth-button"
+import OAuthButton from "@/components/oauth-button";
 
 export default function SignInForm() {
   const [pending, setPending] = useState<boolean>(false);
@@ -47,65 +54,64 @@ export default function SignInForm() {
   }
 
   return (
-    <Form {...signInForm}>
-      <form
-        onSubmit={signInForm.handleSubmit(onSubmit)}
-        className="flex flex-col gap-6"
-      >
-        <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-2xl font-bold">Login to your account</h1>
-          <p className="text-balance text-sm text-muted-foreground">
-            Enter your email and password to login to your account
-          </p>
-        </div>
+    <Card>
+      <CardHeader className="text-center">
+        <CardTitle className="text-2xl font-bold">
+          Login to your account
+        </CardTitle>
+        <CardDescription className="text-balance text-sm">
+          Enter your email and password to login to your account
+        </CardDescription>
+      </CardHeader>
 
+      <CardContent className="flex flex-col gap-6 justify-center">
         <Alert />
+        <Form {...signInForm}>
+          <form onSubmit={signInForm.handleSubmit(onSubmit)}>
+            <FormField
+              control={signInForm.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      id="email"
+                      placeholder="example@gmail.com"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <div className="grid gap-6">
-          <FormField
-            control={signInForm.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    id="email"
-                    placeholder="example@gmail.com"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={signInForm.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="*******"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
 
-          <FormField
-            control={signInForm.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="*******"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          
-          <Button disabled={pending} className="w-full" type="submit">
-            {pending ? <LoadingIcon /> : ""} <p>Login to your account</p>
-          </Button>
+        <Button disabled={pending} className="w-full" type="submit">
+          {pending ? <LoadingIcon /> : ""} <p>Login to your account</p>
+        </Button>
 
-          <OAuthButton />
-        </div>
+        <OAuthButton />
 
         <div className="text-center text-sm">
           Do not have an account?{" "}
@@ -116,7 +122,7 @@ export default function SignInForm() {
             Sign Up
           </Link>
         </div>
-      </form>
-    </Form>
+      </CardContent>
+    </Card>
   );
 }
