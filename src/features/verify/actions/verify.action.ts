@@ -11,9 +11,9 @@ export default async function verifyAction() {
   const user = await supabase.auth.getUser();
 
   if (user.error) {
-    return encodedRedirect(routes.auth.verify, {
+    return encodedRedirect(routes.auth.signin, {
       message: user.error.message,
-      typw: "error",
+      type: "error",
     });
   }
 
