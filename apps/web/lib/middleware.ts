@@ -85,7 +85,7 @@ export const updateSession = async (request: NextRequest) => {
       .eq("id", user.data.user.id)
       .single();
 
-    if (onboardingComplete.data.onboarding_complete === false) {
+    if (onboardingComplete.data?.onboarding_complete === false) {
       return NextResponse.redirect(
         new URL(routes.auth.onboarding, request.url),
       );

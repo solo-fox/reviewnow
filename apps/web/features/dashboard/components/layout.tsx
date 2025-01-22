@@ -1,10 +1,10 @@
 import { AppSidebar } from "./app-sidebar";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@workspace/ui/components/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
+} from "@workspace/ui/components/sidebar";
 import DynamicBreadcrumbs from "./dynamic-breadcrumbs";
 
 export default function DashboardLayout({
