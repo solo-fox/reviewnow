@@ -1,0 +1,16 @@
+{
+  "name": "@workspace/database",
+  "version": "0.0.0",
+  "scripts": {
+    "gen:types": "node ./scripts/generate-types.js"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.47.12"
+  },
+  "exports": {
+    "./server": "./server.ts",
+    "./browser": "./browser.ts",
+    "./models": "./models/index.ts"
+  }
+}
