@@ -1,6 +1,7 @@
 import Client from "database/server";
 import { type NextRequest, NextResponse } from "next/server";
 import routes from "./routes";
+import { encodedRedirect } from "./utils";
 
 export const updateSession = async (request: NextRequest) => {
   // Create an unmodified response
@@ -62,9 +63,15 @@ export const updateSession = async (request: NextRequest) => {
 
   // Redirect users trying to access dashboard without an org_name
   if (request.nextUrl.pathname.startsWith(routes.protected.dashboard) && !user.error && user.data.user.id) {
-    const onboardingComplete = await supabase.from("profiles").select("onboarding_complete").eq("id", user.data.user.id).single()
+    const {data, error} = await supabase.from("profiles").select("onboarding_complete").eq("id", user.data.user.id).single()
+    if(error) {
+       return encodedRedirect(routes.auth.signin, {
+         message: "Something went wrong. Please try again later.",
+         type: "error"
+       })
+    }
     
-    if(onboardingComplete.data.onboarding_complete === false) {
+    if(data?.onboarding_complete === false) {
       return NextResponse.redirect(new URL(routes.auth.onboarding, request.url));
     }
   }
