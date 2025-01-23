@@ -6,7 +6,7 @@ import { NuqsAdapter } from "nuqs/adapters/react";
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL as string),
-  title: "Review Hub",
+  title: "Reviewnow",
   description: "The fastest way to create reviews and beta previewing.",
 };
 
