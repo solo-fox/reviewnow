@@ -13,15 +13,15 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (error) {
-      return encodedRedirect(`${routes.base}${routes.auth.signin}`, {
+      return encodedRedirect(`${routes.auth.signin}`, {
         message: error.message,
         type: "error",
       });
     }
-
-    return encodedRedirect(`${routes.base}${routes.protected.dashboard}`);
+    
+    return encodedRedirect(`${routes.protected.dashboard}`);
   } else {
-    return encodedRedirect(`${routes.base}${routes.auth.signin}`, {
+    return encodedRedirect(`${routes.auth.signin}`, {
       message: "No+authentiaction+code+was+found",
       type: "error",
     });

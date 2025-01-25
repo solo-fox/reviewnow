@@ -28,15 +28,13 @@ import LoadingIcon from "@/_components/loading-icon";
 import Alert from "@/_components/alert";
 import routes from "@/lib/routes";
 import OAuthButton from "@/_components/oauth-button";
-import { Checkbox } from "@workspace/ui/components/checkbox";
 
 export default function SignUpForm() {
   const signUpForm = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
     defaultValues: {
       email: "",
-      password: "",
-      terms_accepted: false,
+      password: ""
     },
   });
 
@@ -107,25 +105,6 @@ export default function SignUpForm() {
               )}
             />
 
-            <FormField
-              control={signUpForm.control}
-              name="terms_accepted"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel>
-                      By clicking sign up you accept our terms.
-                    </FormLabel>
-                  </div>
-                </FormItem>
-              )}
-            />
             <Button disabled={isPending} className="w-full" type="submit">
               {isPending ? <LoadingIcon /> : ""} <p>Create a free account</p>
             </Button>
