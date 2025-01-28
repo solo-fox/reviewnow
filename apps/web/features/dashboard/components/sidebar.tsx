@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import { ArrowUpRight, Cog, LogOut, Frame } from "lucide-react";
@@ -6,6 +6,7 @@ import { Button } from "@workspace/ui/components/button";
 import { useMutation } from "@tanstack/react-query";
 import signOutAction from "../actions/signout.action";
 import LoadingIcon from "@/_components/loading-icon";
+import Alert from "@/_components/alert";
 
 export default function Sidebar() {
   const {
@@ -19,7 +20,7 @@ export default function Sidebar() {
 
   return (
     <div className="flex flex-col min-h-svh w-[280px] border-r">
-      <div className="flex items-center h-[3rem] p-4 border-b">
+      <div className="flex items-center gap-6 h-[3rem] p-4 border-b">
         <p className="text-xl font-bold">Dashboard</p>
       </div>
 
@@ -49,6 +50,7 @@ export default function Sidebar() {
           <Cog className="size-4" />
           Settings
         </Link>
+        <Alert message={(error as Error)?.message} isError={isError} />
         <Button
           disabled={isPending}
           variant={"ghost"}

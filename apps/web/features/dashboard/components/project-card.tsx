@@ -1,9 +1,9 @@
-import { Card } from "@workspace/ui/components/card"
-import { ChevronRight } from "lucide-react"
+import { Card } from "@workspace/ui/components/card";
+import { ChevronRight } from "lucide-react";
 
 interface ProjectCardProps {
-  name: string
-  description: string
+  name: string;
+  description: string;
 }
 
 export default function ProjectCard(props: ProjectCardProps) {
@@ -12,11 +12,12 @@ export default function ProjectCard(props: ProjectCardProps) {
       <div className="flex items-start justify-between">
         <div>
           <h3 className="text-lg font-medium">{props.name}</h3>
-          <p className="text-sm text-muted-foreground mt-1">{props.description}</p>
+          <p className="text-sm text-muted-foreground mt-1">
+            {props.description}
+          </p>
         </div>
         <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition-colors" />
       </div>
     </Card>
-  )
+  );
 }
-

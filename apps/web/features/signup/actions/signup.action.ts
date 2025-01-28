@@ -14,10 +14,10 @@ export default async function signUpAction(user: SignUpAction) {
 
   const { error } = await supabase.auth.signUp({
     email: user.email,
-    password: user.password
+    password: user.password,
   });
 
-  if(error) throw error
-  
+  if (error) throw error;
+
   return encodedRedirect(routes.protected.dashboard);
 }

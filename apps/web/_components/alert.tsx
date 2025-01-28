@@ -19,13 +19,18 @@ export default function Alert({ message, isError }: AlertProps) {
 
   return (
     <AlertUi variant={isError ? "destructive" : "default"}>
-      {isError ? (
-        <AlertCircle className="h-4 w-4" />
-      ) : (
-        <CheckCircle className="h-4 w-4" />
-      )}
-      <AlertTitle>{title}</AlertTitle>
-      <AlertDescription>{decodeURIComponent(message)}</AlertDescription>
+      <AlertTitle className="flex items-center gap-2">
+        {isError ? (
+          <AlertCircle className="size-4" />
+        ) : (
+          <CheckCircle className="size-4" />
+        )}{" "}
+        {title}
+      </AlertTitle>
+
+      <AlertDescription>
+        <p>{decodeURIComponent(message)}</p>
+      </AlertDescription>
     </AlertUi>
   );
 }

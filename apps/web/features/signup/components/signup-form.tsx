@@ -34,7 +34,7 @@ export default function SignUpForm() {
     resolver: zodResolver(authSchema),
     defaultValues: {
       email: "",
-      password: ""
+      password: "",
     },
   });
 
@@ -42,9 +42,9 @@ export default function SignUpForm() {
     mutate: signUp,
     isPending,
     isError,
-    error
+    error,
   } = useMutation({
-    mutationFn: signUpAction
+    mutationFn: signUpAction,
   });
 
   const onSubmit = (values: z.infer<typeof authSchema>) => {
@@ -61,7 +61,10 @@ export default function SignUpForm() {
       </CardHeader>
 
       <CardContent className="flex flex-col gap-6 justify-center">
-        <Alert message={(error as Error)?.message as string} isError={isError} />
+        <Alert
+          message={(error as Error)?.message as string}
+          isError={isError}
+        />
         <Form {...signUpForm}>
           <form
             method="post"

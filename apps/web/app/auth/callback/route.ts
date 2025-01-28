@@ -18,7 +18,7 @@ export async function GET(request: Request) {
         type: "error",
       });
     }
-    
+
     return encodedRedirect(`${routes.protected.dashboard}`);
   } else {
     return encodedRedirect(`${routes.auth.signin}`, {

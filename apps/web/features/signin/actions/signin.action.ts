@@ -16,7 +16,7 @@ export default async function signInAction(user: SignInAction) {
     password: user.password,
   });
 
-  if (error) throw error
+  if (error) throw error;
 
   return encodedRedirect(routes.protected.dashboard);
 }

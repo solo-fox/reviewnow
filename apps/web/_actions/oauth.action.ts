@@ -14,8 +14,8 @@ export async function signInWithGitHub() {
     },
   });
 
-  if (error) throw error
+  if (error) throw error;
 
-  if(data?.url) encodedRedirect(data?.url)
-  else throw new Error("Try again later.")
+  if (data?.url) encodedRedirect(data?.url);
+  else throw new Error("Try again later.");
 }

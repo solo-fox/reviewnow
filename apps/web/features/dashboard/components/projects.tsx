@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@workspace/ui/components/button";
 import { Input } from "@workspace/ui/components/input";
@@ -16,7 +16,7 @@ export default function Projects() {
           <div className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2">
             <Search className="h-4 w-4 text-gray-500" />
           </div>
-          <Input 
+          <Input
             type="search"
             placeholder="Search..."
             className="w-full pl-10 pr-4"
@@ -39,10 +39,7 @@ export default function Projects() {
 
       {/* Scrollable Grid Section */}
       <div className="grid grid-cols-2 gap-4 w-full h-0 flex-grow overflow-y-scroll">
-        <ProjectCard
-          name="reviewnow"
-          description="Hard coded example"
-        />
+        <ProjectCard name="reviewnow" description="Hard coded example" />
       </div>
     </div>
   );

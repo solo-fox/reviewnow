@@ -1,7 +1,13 @@
 import { redirect } from "next/navigation";
-type SearchParamsObject = Record<string, string | number | boolean | null | undefined>;
+type SearchParamsObject = Record<
+  string,
+  string | number | boolean | null | undefined
+>;
 
-export function encodedRedirect(path: string, searchParams?: SearchParamsObject) {
+export function encodedRedirect(
+  path: string,
+  searchParams?: SearchParamsObject,
+) {
   // If no search params, just redirect to the path
   if (!searchParams || Object.keys(searchParams).length === 0) {
     return redirect(path);

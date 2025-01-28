@@ -22,4 +22,4 @@ export async function createClient(): Promise<ClientConnection> {
       }
     },
   });
-};
+}
