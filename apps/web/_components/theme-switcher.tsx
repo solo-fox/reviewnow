@@ -29,7 +29,7 @@ export default function ThemeSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size={"sm"} className="p-0 m-0">
+        <Button variant="ghost" size={"sm"} className="p-4">
           {theme === "light" ? (
             <Sun key="light" size={16} />
           ) : theme === "dark" ? (

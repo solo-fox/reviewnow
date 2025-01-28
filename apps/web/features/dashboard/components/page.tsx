@@ -1,10 +1,15 @@
-import { Button } from "@workspace/ui/components/button";
+import Sidebar from "./sidebar";
+import Header from "./header";
+import Projects from "./projects";
 
 export default function DashboardPage() {
   return (
-    <div className="w-full h-full border border-1 border-muted rounded-md flex flex-col items-center justify-center gap-6">
-      <p className="text-2xl font-bold">No Projects were found.</p>
-      <Button>Create your first project.</Button>
+    <div className="min-h-svh w-full bg-background flex">
+      <Sidebar />
+      <div className="flex flex-col w-full min-h-svh">
+        <Header />
+        <Projects />
+      </div>
     </div>
   );
 }
