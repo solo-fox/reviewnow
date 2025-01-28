@@ -1,4 +1,4 @@
-import { CircleHelp } from "lucide-react";
+import { Bell, CircleHelp } from "lucide-react";
 import ThemeSwitcher from "@/_components/theme-switcher";
 
 export default function Header() {
@@ -7,6 +7,7 @@ export default function Header() {
       <p className="text-sm text-muted-foreground">Projects</p>
       <div className="flex items-center gap-4">
         <ThemeSwitcher />
+        <Bell className="size-4"/>
         <CircleHelp className="size-4" />
       </div>
     </nav>

@@ -1,6 +1,6 @@
 import { Button } from "@workspace/ui/components/button";
 import { Input } from "@workspace/ui/components/input";
-import { Filter } from "lucide-react";
+import { Filter, Search } from "lucide-react";
 import { Badge } from "@workspace/ui/components/badge";
 import ProjectCard from "./project-card";
 
@@ -10,7 +10,16 @@ export default function Projects() {
       {/* Header Section */}
       <div className="flex gap-4 max-w-sm">
         <Button size={"sm"}>New project</Button>
-        <Input placeholder="Search projects" type="text" />
+        <div className="relative">
+          <div className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2">
+            <Search className="h-4 w-4 text-gray-500" />
+          </div>
+          <Input 
+            type="search"
+            placeholder="Search..."
+            className="w-full pl-10 pr-4"
+          />
+        </div>
         <Button
           size={"icon"}
           variant={"outline"}
