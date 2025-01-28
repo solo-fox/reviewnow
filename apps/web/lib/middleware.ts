@@ -73,24 +73,5 @@ export const updateSession = async (request: NextRequest) => {
     );
   }
 
-  // Redirect users trying to access dashboard without an org_name
-  if (
-    request.nextUrl.pathname.startsWith(routes.protected.dashboard) &&
-    !user.error &&
-    user.data.user.id
-  ) {
-    const onboardingComplete = await supabase
-      .from("profiles")
-      .select("onboarding_complete")
-      .eq("id", user.data.user.id)
-      .single();
-
-    if (onboardingComplete.data?.onboarding_complete === false) {
-      return NextResponse.redirect(
-        new URL(routes.auth.onboarding, request.url),
-      );
-    }
-  }
-
   return response;
 };

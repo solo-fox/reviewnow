@@ -1,7 +1,22 @@
+"use client"
+
 import Link from "next/link";
 import { ArrowUpRight, Cog, LogOut, Frame } from "lucide-react";
+import { Button } from "@workspace/ui/components/button";
+import { useMutation } from "@tanstack/react-query";
+import signOutAction from "../actions/signout.action";
+import LoadingIcon from "@/_components/loading-icon";
 
 export default function Sidebar() {
+  const {
+    mutate: signOut,
+    isPending,
+    isError,
+    error,
+  } = useMutation({
+    mutationFn: signOutAction,
+  });
+
   return (
     <div className="flex flex-col min-h-svh w-[280px] border-r">
       <div className="flex items-center h-[3rem] p-4 border-b">
@@ -34,10 +49,15 @@ export default function Sidebar() {
           <Cog className="size-4" />
           Settings
         </Link>
-        <Link href="#" className="text-sm flex items-center gap-4">
-          <LogOut className="size-4" />
+        <Button
+          disabled={isPending}
+          variant={"ghost"}
+          onClick={() => signOut()}
+          className="m-0 p-0 text-sm flex items-center justify-start gap-4 hover:text-destructive hover:bg-background"
+        >
+          {!isPending ? <LogOut className="size-4" /> : <LoadingIcon />}
           Log out
-        </Link>
+        </Button>
       </div>
     </div>
   );
