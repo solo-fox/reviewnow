@@ -5,7 +5,6 @@ import "@workspace/ui/styles/globals.css";
 import QueryProvider from "@/_components/query-provider";
 
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL as string),
   title: "Reviewnow",
   description: "The fastest way to create reviews and beta previewing.",
 };
