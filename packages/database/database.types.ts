@@ -4,160 +4,166 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json | undefined }
-  | Json[];
+  | Json[]
 
 export type Database = {
   public: {
     Tables: {
       profiles: {
         Row: {
-          banned: boolean | null;
-          id: string;
-          last_login: string | null;
-          notes: string | null;
-        };
+          banned: boolean | null
+          id: string
+          last_login: string | null
+          notes: string | null
+          org_name: string | null
+          plan: string
+        }
         Insert: {
-          banned?: boolean | null;
-          id: string;
-          last_login?: string | null;
-          notes?: string | null;
-        };
+          banned?: boolean | null
+          id: string
+          last_login?: string | null
+          notes?: string | null
+          org_name?: string | null
+          plan?: string
+        }
         Update: {
-          banned?: boolean | null;
-          id?: string;
-          last_login?: string | null;
-          notes?: string | null;
-        };
-        Relationships: [];
-      };
+          banned?: boolean | null
+          id?: string
+          last_login?: string | null
+          notes?: string | null
+          org_name?: string | null
+          plan?: string
+        }
+        Relationships: []
+      }
       project_metrics: {
         Row: {
-          api_calls: number;
-          id: number;
-          project_id: string;
-          usage_date: string;
-        };
+          api_calls: number
+          id: number
+          project_id: string
+          usage_date: string
+        }
         Insert: {
-          api_calls?: number;
-          id?: number;
-          project_id: string;
-          usage_date?: string;
-        };
+          api_calls?: number
+          id?: number
+          project_id: string
+          usage_date?: string
+        }
         Update: {
-          api_calls?: number;
-          id?: number;
-          project_id?: string;
-          usage_date?: string;
-        };
+          api_calls?: number
+          id?: number
+          project_id?: string
+          usage_date?: string
+        }
         Relationships: [
           {
-            foreignKeyName: "metrics_project_id_fkey";
-            columns: ["project_id"];
-            isOneToOne: true;
-            referencedRelation: "projects";
-            referencedColumns: ["id"];
+            foreignKeyName: "metrics_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: true
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
           },
-        ];
-      };
+        ]
+      }
       projects: {
         Row: {
-          api_key: string;
-          api_limit: number;
-          api_requests: number;
-          created_at: string;
-          description: string | null;
-          id: string;
-          last_use: string;
-          logs: Json | null;
-          name: string;
-          restricted: boolean;
-          user_id: string;
-        };
+          api_key: string
+          api_limit: number
+          api_requests: number
+          created_at: string
+          description: string | null
+          id: string
+          last_use: string
+          logs: Json | null
+          name: string
+          restricted: boolean
+          user_id: string
+        }
         Insert: {
-          api_key: string;
-          api_limit?: number;
-          api_requests?: number;
-          created_at?: string;
-          description?: string | null;
-          id?: string;
-          last_use?: string;
-          logs?: Json | null;
-          name: string;
-          restricted?: boolean;
-          user_id: string;
-        };
+          api_key: string
+          api_limit?: number
+          api_requests?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          last_use?: string
+          logs?: Json | null
+          name: string
+          restricted?: boolean
+          user_id: string
+        }
         Update: {
-          api_key?: string;
-          api_limit?: number;
-          api_requests?: number;
-          created_at?: string;
-          description?: string | null;
-          id?: string;
-          last_use?: string;
-          logs?: Json | null;
-          name?: string;
-          restricted?: boolean;
-          user_id?: string;
-        };
+          api_key?: string
+          api_limit?: number
+          api_requests?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          last_use?: string
+          logs?: Json | null
+          name?: string
+          restricted?: boolean
+          user_id?: string
+        }
         Relationships: [
           {
-            foreignKeyName: "projects_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
+            foreignKeyName: "projects_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
-        ];
-      };
+        ]
+      }
       reviews: {
         Row: {
-          created_at: string;
-          id: number;
-          project_id: string;
-          review: number;
-          text: string;
-        };
+          created_at: string
+          id: number
+          project_id: string
+          review: number
+          text: string
+        }
         Insert: {
-          created_at?: string;
-          id?: number;
-          project_id: string;
-          review: number;
-          text: string;
-        };
+          created_at?: string
+          id?: number
+          project_id: string
+          review: number
+          text: string
+        }
         Update: {
-          created_at?: string;
-          id?: number;
-          project_id?: string;
-          review?: number;
-          text?: string;
-        };
+          created_at?: string
+          id?: number
+          project_id?: string
+          review?: number
+          text?: string
+        }
         Relationships: [
           {
-            foreignKeyName: "reviews_project_id_fkey";
-            columns: ["project_id"];
-            isOneToOne: false;
-            referencedRelation: "projects";
-            referencedColumns: ["id"];
+            foreignKeyName: "reviews_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
           },
-        ];
-      };
-    };
+        ]
+      }
+    }
     Views: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Functions: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Enums: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     CompositeTypes: {
-      [_ in never]: never;
-    };
-  };
-};
+      [_ in never]: never
+    }
+  }
+}
 
-type PublicSchema = Database[Extract<keyof Database, "public">];
+type PublicSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
   PublicTableNameOrOptions extends
@@ -170,7 +176,7 @@ export type Tables<
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
       Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R;
+      Row: infer R
     }
     ? R
     : never
@@ -178,11 +184,11 @@ export type Tables<
         PublicSchema["Views"])
     ? (PublicSchema["Tables"] &
         PublicSchema["Views"])[PublicTableNameOrOptions] extends {
-        Row: infer R;
+        Row: infer R
       }
       ? R
       : never
-    : never;
+    : never
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
@@ -193,17 +199,17 @@ export type TablesInsert<
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I;
+      Insert: infer I
     }
     ? I
     : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
     ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Insert: infer I;
+        Insert: infer I
       }
       ? I
       : never
-    : never;
+    : never
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
@@ -214,17 +220,17 @@ export type TablesUpdate<
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U;
+      Update: infer U
     }
     ? U
     : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
     ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Update: infer U;
+        Update: infer U
       }
       ? U
       : never
-    : never;
+    : never
 
 export type Enums<
   PublicEnumNameOrOptions extends
@@ -237,14 +243,14 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
-    : never;
+    : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof PublicSchema["CompositeTypes"]
     | { schema: keyof Database },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof Database;
+    schema: keyof Database
   }
     ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
@@ -252,4 +258,4 @@ export type CompositeTypes<
   ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
   : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
     ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
-    : never;
+    : never

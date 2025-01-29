@@ -4,8 +4,17 @@ import { Bell, CircleHelp } from "lucide-react";
 import { usePathname } from "next/navigation";
 import ThemeSwitcher from "@/_components/theme-switcher";
 import Logo from "@/_components/Logo";
+import { Skeleton } from "@workspace/ui/components/skeleton";
+import { Badge } from "@workspace/ui/components/badge";
+import profileAction from "@/_actions/profile.action";
+import { useQuery } from "@tanstack/react-query";
+import Link from "next/link"
 
 export default function Header() {
+  const { data, error, isError, isPending } = useQuery({
+    queryKey: ["profile"],
+    queryFn: () => profileAction(),
+  });
   const pathname = usePathname();
   const segments = pathname.split("/").filter((segment) => segment !== "");
 
@@ -15,7 +24,18 @@ export default function Header() {
         <Logo />
         <p className="text-muted-foreground">/</p>
 
-        <p className="text-sm">solo-fox</p>
+        <div className="flex itemsxcenter gap-4 text-sm">
+          {isPending ? (
+            <Skeleton className="h-4 w-[100px]" />
+          ) : (
+            <>
+              <Link href="/dashboard">{data?.org_name?.toLowerCase()}</Link>
+              <Badge className="text-muted-foreground rounded-full bg-background border-border">
+                {data?.plan}
+              </Badge>
+            </>
+          )}
+        </div>
 
         {segments.map((segment, index) => (
           <div key={`${segment}-${index}`} className="flex items-center gap-6">
