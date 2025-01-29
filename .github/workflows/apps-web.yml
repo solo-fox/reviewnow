@@ -2,8 +2,7 @@ name: apps/web Preview
 
 on:
   push:
-    branches: ["preview"]
-  workflow_dispatch:
+    branches: ["dev"]
 
 jobs:
   build:
