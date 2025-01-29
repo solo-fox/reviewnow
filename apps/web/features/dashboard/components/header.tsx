@@ -8,7 +8,7 @@ import { Skeleton } from "@workspace/ui/components/skeleton";
 import { Badge } from "@workspace/ui/components/badge";
 import profileAction from "@/_actions/profile.action";
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link"
+import Link from "next/link";
 
 export default function Header() {
   const { data, error, isError, isPending } = useQuery({

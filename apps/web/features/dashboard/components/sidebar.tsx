@@ -50,7 +50,10 @@ export default function Sidebar() {
 
       <div className="gap-4 flex flex-col p-4 border-b">
         <p className="text-xs text-muted-foreground">Account</p>
-        <Link href="/dashboard/settings" className="text-sm flex items-center gap-4">
+        <Link
+          href="/dashboard/settings"
+          className="text-sm flex items-center gap-4"
+        >
           <Cog className="size-4" />
           Settings
         </Link>

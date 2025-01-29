@@ -6,7 +6,6 @@ import ProjectCard from "./project-card";
 export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-6 h-full p-4">
-    
       <div className="flex gap-4 max-w-sm">
         <Button size={"sm"}>New project</Button>
         <div className="relative">
