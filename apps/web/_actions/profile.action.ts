@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/server";
 import { Database } from "../../../packages/database/database.types";
+import { encodedRedirect } from "@/lib/utils";
 
 type Profile = Database['public']['Tables']['profiles']['Row'];
 
