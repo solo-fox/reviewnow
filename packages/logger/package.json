@@ -1,0 +1,13 @@
+{
+  "name": "@workspace/logger",
+  "version": "0.0.0",
+  "private": true,
+  "main": "logger.ts",
+  "license": "PROPRIETARY",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "pino": "^9.6.0"
+  }
+}

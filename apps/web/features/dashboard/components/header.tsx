@@ -9,15 +9,20 @@ import { Badge } from "@workspace/ui/components/badge";
 import profileAction from "@/_actions/profile.action";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { encodedRedirect } from "@/lib/utils";
+import routes from "@/lib/routes";
 
 export default function Header() {
-  const { data, error, isError, isPending } = useQuery({
+  const { data, isError, error, isPending } = useQuery({
     queryKey: ["profile"],
     queryFn: () => profileAction(),
+    retry: 0
   });
   const pathname = usePathname();
   const segments = pathname.split("/").filter((segment) => segment !== "");
 
+  if(isError) return encodedRedirect(routes.error)
+    
   return (
     <nav className="flex justify-between items-center w-full h-[3rem] border-b p-4">
       <div className="flex gap-6 items-center">

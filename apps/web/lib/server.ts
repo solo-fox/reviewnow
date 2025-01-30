@@ -1,4 +1,5 @@
 import Client, { ClientConnection } from "@workspace/database/server";
+import logger from "@workspace/logger";
 import { cookies } from "next/headers";
 
 export async function createClient(): Promise<ClientConnection> {
@@ -19,7 +20,7 @@ export async function createClient(): Promise<ClientConnection> {
         // The `set` method was called from a Server Component.
         // This can be ignored if you have middleware refreshing
         // user sessions.
-        console.log(
+        logger.error(
           "[SERVER][ERR] Failed to set cookies for some reason \n",
           error,
         );
