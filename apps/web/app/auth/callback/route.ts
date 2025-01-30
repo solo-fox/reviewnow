@@ -20,8 +20,6 @@ export async function GET(request: Request) {
 
     return encodedRedirect(`${routes.protected.dashboard}`);
   } else {
-    return encodedRedirect(`${routes.error}`, {
-      message: "No authentiaction code was found",
-    });
+    return encodedRedirect(`${routes.auth.signin}`)
   }
 }

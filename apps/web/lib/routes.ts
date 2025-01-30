@@ -1,6 +1,7 @@
 const routes = {
   base: process.env.NEXT_PUBLIC_SITE_URL,
   error: "/error",
+  home: "/",
   api: {
     auth: {
       callback: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
@@ -14,6 +15,11 @@ const routes = {
   protected: {
     dashboard: "/dashboard",
   },
+  resources: {
+    docs: "#",
+    contact: "#",
+    help: "#"
+  }
 };
 
 export default routes;

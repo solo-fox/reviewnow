@@ -18,7 +18,7 @@ export default function Alert({ message, isError }: AlertProps) {
   const title = isError ? "Error" : "Success";
 
   return (
-    <AlertUi variant={isError ? "destructive" : "default"}>
+    <AlertUi variant={isError ? "destructive" : "default"} className="max-w-md">
       <AlertTitle className="flex items-center gap-2">
         {isError ? (
           <AlertCircle className="size-4" />

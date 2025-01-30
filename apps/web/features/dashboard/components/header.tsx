@@ -21,7 +21,9 @@ export default function Header() {
   const pathname = usePathname();
   const segments = pathname.split("/").filter((segment) => segment !== "");
 
-  if(isError) return encodedRedirect(routes.error)
+  if(isError) return encodedRedirect(routes.error, {
+    message: error.message
+  })
     
   return (
     <nav className="flex justify-between items-center w-full h-[3rem] border-b p-4">

@@ -3,6 +3,7 @@ import { ThemeProvider } from "next-themes";
 import { Toaster } from "@workspace/ui/components/toaster";
 import "@workspace/ui/styles/globals.css";
 import QueryProvider from "@/_components/query-provider";
+import { NuqsAdapter } from "nuqs/adapters/next";
 
 export const metadata = {
   title: {
@@ -11,7 +12,7 @@ export const metadata = {
   },
   description: "ReviewNow",
   keywords: ["review", "now", "fast"],
-  robots: { index: true, follow: true }
+  robots: { index: true, follow: true },
 };
 
 const geistSans = Geist({
@@ -27,12 +28,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground ">
-        <QueryProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            {children}
-            <Toaster />
-          </ThemeProvider>
-        </QueryProvider>
+        <NuqsAdapter>
+          <QueryProvider>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              {children}
+              <Toaster />
+            </ThemeProvider>
+          </QueryProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );
