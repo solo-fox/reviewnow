@@ -1,7 +1,7 @@
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Sign In',
+  title: "Sign In",
 };
 
 export default function SignInLayout({
@@ -9,5 +9,5 @@ export default function SignInLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children
+  return children;
 }

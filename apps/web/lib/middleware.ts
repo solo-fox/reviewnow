@@ -33,10 +33,12 @@ export const updateSession = async (request: NextRequest) => {
   // https://supabase.com/docs/guides/auth/server-side/nextjs
   const user = await supabase.auth.getUser();
   const isAuthenticated = !user.error;
-  const isSigninOrSignup = 
-    request.nextUrl.pathname === routes.auth.signin || 
+  const isSigninOrSignup =
+    request.nextUrl.pathname === routes.auth.signin ||
     request.nextUrl.pathname === routes.auth.signup;
-  const isDashboard = request.nextUrl.pathname.startsWith(routes.protected.dashboard);
+  const isDashboard = request.nextUrl.pathname.startsWith(
+    routes.protected.dashboard,
+  );
 
   // If the user is unauthenticated and trying to access protected routes
   if (isDashboard && !isAuthenticated) {
@@ -45,7 +47,9 @@ export const updateSession = async (request: NextRequest) => {
 
   // If the user is authenticated and trying to access signin or signup pages
   if (isSigninOrSignup && isAuthenticated) {
-    return NextResponse.redirect(new URL(routes.protected.dashboard, request.url));
+    return NextResponse.redirect(
+      new URL(routes.protected.dashboard, request.url),
+    );
   }
 
   // No redirect needed in other cases

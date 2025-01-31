@@ -20,6 +20,6 @@ export async function GET(request: Request) {
 
     return encodedRedirect(`${routes.protected.dashboard}`);
   } else {
-    return encodedRedirect(`${routes.auth.signin}`)
+    return encodedRedirect(`${routes.auth.signin}`);
   }
 }

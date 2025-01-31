@@ -18,8 +18,8 @@ const routes = {
   resources: {
     docs: "#",
     contact: "#",
-    help: "#"
-  }
+    help: "#",
+  },
 };
 
 export default routes;

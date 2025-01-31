@@ -1,3 +1,3 @@
-import ErrorPage from "@/features/error/components/page"
+import ErrorPage from "@/features/error/components/page";
 
 export default ErrorPage;

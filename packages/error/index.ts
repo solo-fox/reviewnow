@@ -11,14 +11,13 @@ const err = {
   web: {
     auth: {
       oauth: {
-        500: "Cannot sign in with GitHub. Try again later. If the problem persists, contact support."
+        500: "Cannot sign in with GitHub. Try again later. If the problem persists, contact support.",
       },
       cookies: {
-        500: "Cannot set cookies. Try again later. If the problem persists, contact support."
-      }
+        500: "Cannot set cookies. Try again later. If the problem persists, contact support.",
+      },
     },
-    
-  }
+  },
 };
 
 export default err;
