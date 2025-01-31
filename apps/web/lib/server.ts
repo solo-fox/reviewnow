@@ -1,4 +1,5 @@
 import Client, { ClientConnection } from "@workspace/database/server";
+import err from "@workspace/error";
 import logger from "@workspace/logger";
 import { cookies } from "next/headers";
 
@@ -21,7 +22,7 @@ export async function createClient(): Promise<ClientConnection> {
         // This can be ignored if you have middleware refreshing
         // user sessions.
         logger.error(
-          "[SERVER][ERR] Failed to set cookies for some reason \n",
+          err.web.auth.cookies[500],
           error,
         );
       }

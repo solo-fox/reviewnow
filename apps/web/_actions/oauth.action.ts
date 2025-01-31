@@ -3,6 +3,7 @@
 import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
 import { encodedRedirect } from "@/lib/utils";
+import err from "@workspace/error";
 
 export async function signInWithGitHub() {
   const supabase = await createClient();
@@ -17,5 +18,7 @@ export async function signInWithGitHub() {
   if (error) throw error;
 
   if (data?.url) encodedRedirect(data?.url);
-  else throw new Error("Try again later.");
+  else {
+    throw new Error(err.web.auth.oauth[500]);
+  }
 }

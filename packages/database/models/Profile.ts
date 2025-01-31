@@ -1,6 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Database } from "../database.types";
-import err from "../err";
+import err from "@workspace/error";
 import logger from "@workspace/logger";
 
 export type ProfileShow = Database["public"]["Tables"]["profiles"]["Row"];
@@ -19,15 +19,15 @@ export default class Profile {
 
       if (error) {
         logger.error(error.message, error.cause, error.hint);
-        throw new Error(err.profile.show[500]);
+        throw new Error(err.database.profile.show[500]);
       }
       if (data === undefined || data === null)
-        throw new Error(err.profile.show[404]);
+        throw new Error(err.database.profile.show[404]);
 
       return data;
     } catch (error: any) {
       logger.error(error.message, error.cause);
-      throw new Error(err.profile.show[500]);
+      throw new Error(err.database.profile.show[500]);
     }
   }
 }

@@ -32,6 +32,9 @@ importers:
       '@workspace/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@workspace/error':
+        specifier: workspace:*
+        version: link:../../packages/error
       '@workspace/logger':
         specifier: workspace:*
         version: link:../../packages/logger
@@ -93,9 +96,14 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.47.12
         version: 2.48.0
+      '@workspace/error':
+        specifier: workspace:*
+        version: link:../error
       '@workspace/logger':
         specifier: workspace:*
         version: link:../logger
+
+  packages/error: {}
 
   packages/logger:
     dependencies:

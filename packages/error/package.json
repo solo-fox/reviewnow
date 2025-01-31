@@ -1,13 +1,10 @@
 {
-  "name": "@workspace/logger",
+  "name": "@workspace/error",
   "version": "0.0.0",
-  "private": true,
   "main": "index.ts",
+  "private": true,
   "license": "PROPRIETARY",
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "pino": "^9.6.0"
   }
 }
