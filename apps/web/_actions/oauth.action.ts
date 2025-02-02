@@ -1,11 +1,12 @@
 "use server";
 
+import ServerActionReturn from "@/_types/server-actions";
 import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
-import { encodedRedirect } from "@/lib/utils";
-import err from "@workspace/error";
 
-export async function signInWithGitHub() {
+export async function signInWithGitHub(): Promise<
+  ServerActionReturn<undefined>
+> {
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.signInWithOAuth({
@@ -15,10 +16,21 @@ export async function signInWithGitHub() {
     },
   });
 
-  if (error) throw error;
-
-  if (data?.url) encodedRedirect(data?.url);
-  else {
-    throw new Error(err.web.auth.oauth[500]);
+  if (error) {
+    return {
+      data: undefined,
+      success: false,
+      error: error.message,
+      url: undefined,
+      redirect: false,
+    };
   }
+
+  return {
+    data: undefined,
+    success: true,
+    error: undefined,
+    url: data.url,
+    redirect: true,
+  };
 }

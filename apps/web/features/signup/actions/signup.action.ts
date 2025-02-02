@@ -1,15 +1,13 @@
 "use server";
 
-interface SignUpAction {
+import { createClient } from "@/lib/server";
+import ServerActionReturn from "@/_types/server-actions";
+import routes from "@/lib/routes";
+
+export default async function signUpAction(user: {
   email: string;
   password: string;
-}
-
-import routes from "@/lib/routes";
-import { createClient } from "@/lib/server";
-import { encodedRedirect } from "@/lib/utils";
-
-export default async function signUpAction(user: SignUpAction) {
+}): Promise<ServerActionReturn<undefined>> {
   const supabase = await createClient();
 
   const { error } = await supabase.auth.signUp({
@@ -17,7 +15,21 @@ export default async function signUpAction(user: SignUpAction) {
     password: user.password,
   });
 
-  if (error) throw error;
+  if (error) {
+    return {
+      success: false,
+      error: error.message,
+      data: undefined,
+      redirect: false,
+      url: undefined,
+    };
+  }
 
-  return encodedRedirect(routes.protected.dashboard);
+  return {
+    success: true,
+    error: undefined,
+    data: undefined,
+    redirect: true,
+    url: routes.protected.dashboard,
+  };
 }

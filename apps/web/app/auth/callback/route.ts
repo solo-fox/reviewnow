@@ -1,25 +1,22 @@
 import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
-import { encodedRedirect } from "@/lib/utils";
 
 export async function GET(request: Request) {
-  // The `/auth/callback` route is required for the server-side auth flow implemented
-  // by the SSR package. It exchanges an auth code for the user's session.
-  // https://supabase.com/docs/guides/auth/server-side/nextjs
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
 
   if (code) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
+
     if (error) {
-      return encodedRedirect(`${routes.error}`, {
-        message: error.message,
-      });
+      const errorUrl = new URL(routes.error);
+      errorUrl.searchParams.set("message", error.message);
+      return Response.redirect(errorUrl.toString(), 302);
     }
 
-    return encodedRedirect(`${routes.protected.dashboard}`);
-  } else {
-    return encodedRedirect(`${routes.auth.signin}`);
+    return Response.redirect(routes.protected.dashboard, 302);
   }
+
+  return Response.redirect(routes.auth.signin, 302);
 }

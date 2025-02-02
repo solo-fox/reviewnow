@@ -9,22 +9,17 @@ import { Badge } from "@workspace/ui/components/badge";
 import profileAction from "@/_actions/profile.action";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { encodedRedirect } from "@/lib/utils";
-import routes from "@/lib/routes";
+import serverAction from "@/lib/serverAction";
 
 export default function Header() {
-  const { data, isError, error, isPending } = useQuery({
+  const { data: profile, isPending } = useQuery({
     queryKey: ["profile"],
-    queryFn: () => profileAction(),
+    queryFn: () => serverAction(() => profileAction()),
     retry: 0,
   });
+
   const pathname = usePathname();
   const segments = pathname.split("/").filter((segment) => segment !== "");
-
-  if (isError)
-    return encodedRedirect(routes.error, {
-      message: error.message,
-    });
 
   return (
     <nav className="flex justify-between items-center w-full h-[3rem] border-b p-4">
@@ -37,9 +32,11 @@ export default function Header() {
             <Skeleton className="h-4 w-[100px]" />
           ) : (
             <>
-              <Link href="/dashboard">{data?.org_name?.toLowerCase()}</Link>
+              <Link href="/dashboard">
+                {profile?.data?.org_name?.toLowerCase()}
+              </Link>
               <Badge className="text-muted-foreground rounded-full bg-background border-border">
-                {data?.plan}
+                {profile?.data?.plan}
               </Badge>
             </>
           )}

@@ -32,9 +32,6 @@ importers:
       '@workspace/database':
         specifier: workspace:*
         version: link:../../packages/database
-      '@workspace/error':
-        specifier: workspace:*
-        version: link:../../packages/error
       '@workspace/logger':
         specifier: workspace:*
         version: link:../../packages/logger
@@ -99,9 +96,6 @@ importers:
       '@workspace/error':
         specifier: workspace:*
         version: link:../error
-      '@workspace/logger':
-        specifier: workspace:*
-        version: link:../logger
 
   packages/error: {}
 

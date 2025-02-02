@@ -7,15 +7,23 @@ import { useMutation } from "@tanstack/react-query";
 import signOutAction from "../actions/signout.action";
 import LoadingIcon from "@/_components/loading-icon";
 import Alert from "@/_components/alert";
+import serverAction from "@/lib/serverAction";
+import { useRouter } from "next/navigation";
 
 export default function Sidebar() {
+  const router = useRouter()
   const {
     mutate: signOut,
     isPending,
     isError,
     error,
   } = useMutation({
-    mutationFn: signOutAction,
+    mutationFn: () => serverAction(signOutAction),
+    onSuccess: (data) => {
+      if (data && data.redirect && data.url) {
+        router.push(data.url);
+      }
+    },
   });
 
   return (

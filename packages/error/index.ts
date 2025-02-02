@@ -10,6 +10,9 @@ const err = {
 
   web: {
     auth: {
+      signout: {
+        500: "There was an error signing you out. Try again later. If the problem persists, contact support."
+      },
       oauth: {
         500: "Cannot sign in with GitHub. Try again later. If the problem persists, contact support.",
       },

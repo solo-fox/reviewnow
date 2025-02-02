@@ -28,6 +28,8 @@ import LoadingIcon from "@/_components/loading-icon";
 import Alert from "@/_components/alert";
 import routes from "@/lib/routes";
 import OAuthButton from "@/_components/oauth-button";
+import serverAction from "@/lib/serverAction";
+import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
   const signUpForm = useForm<z.infer<typeof authSchema>>({
@@ -38,17 +40,29 @@ export default function SignUpForm() {
     },
   });
 
+  const router = useRouter()
+
   const {
     mutate: signUp,
     isPending,
     isError,
     error,
   } = useMutation({
-    mutationFn: signUpAction,
+    mutationFn: (user: { email: string; password: string }) =>
+      serverAction(() => signUpAction(user)),
+
+    onSuccess: (data) => {
+      if (data && data.redirect && data.url) {
+        router.push(data.url);
+      }
+    },
   });
 
   const onSubmit = (values: z.infer<typeof authSchema>) => {
-    signUp(values);
+    signUp({
+      email: values.email,
+      password: values.password,
+    });
   };
 
   return (

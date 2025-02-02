@@ -1,14 +1,13 @@
 "use server";
 
-interface SignInAction {
-  email: string;
-  password: string;
-}
+import ServerActionReturn from "@/_types/server-actions";
 import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
-import { encodedRedirect } from "@/lib/utils";
 
-export default async function signInAction(user: SignInAction) {
+export default async function signInAction(user: {
+  email: string;
+  password: string;
+}): Promise<ServerActionReturn<undefined>> {
   const supabase = await createClient();
 
   const { error } = await supabase.auth.signInWithPassword({
@@ -16,7 +15,21 @@ export default async function signInAction(user: SignInAction) {
     password: user.password,
   });
 
-  if (error) throw error;
+  if (error) {
+    return {
+      success: false,
+      error: error.message,
+      data: undefined,
+      redirect: false,
+      url: undefined,
+    };
+  }
 
-  return encodedRedirect(routes.protected.dashboard);
+  return {
+    success: true,
+    error: undefined,
+    data: undefined,
+    redirect: true,
+    url: routes.protected.dashboard,
+  };
 }

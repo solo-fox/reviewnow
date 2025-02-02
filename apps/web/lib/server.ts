@@ -1,5 +1,4 @@
 import Client, { ClientConnection } from "@workspace/database/server";
-import err from "@workspace/error";
 import logger from "@workspace/logger";
 import { cookies } from "next/headers";
 
@@ -21,7 +20,7 @@ export async function createClient(): Promise<ClientConnection> {
         // The `set` method was called from a Server Component.
         // This can be ignored if you have middleware refreshing
         // user sessions.
-        logger.error(err.web.auth.cookies[500], error);
+        logger.error(error);
       }
     },
   });

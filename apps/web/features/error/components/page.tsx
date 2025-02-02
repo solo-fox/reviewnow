@@ -6,11 +6,12 @@ import Footer from "@/_components/footer";
 import Alert from "@/_components/alert";
 import Link from "next/link";
 import routes from "@/lib/routes";
-import { encodedRedirect } from "@/lib/utils";
+import { useRouter } from "next/router";
 
 export default function ErrorPage() {
   const [message, _] = useQueryState("message");
-  if (!message) return encodedRedirect(routes.home);
+  const router = useRouter();
+  if (!message) return router.push(routes.home);
 
   return (
     <>

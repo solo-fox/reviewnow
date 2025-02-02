@@ -3,15 +3,23 @@ import { Button } from "@workspace/ui/components/button";
 import LoadingIcon from "@/_components/loading-icon";
 import { useMutation } from "@tanstack/react-query";
 import Alert from "./alert";
+import serverAction from "@/lib/serverAction";
+import {useRouter} from "next/navigation"
 
 export default function OAuthButton() {
+  const router = useRouter()
   const {
     mutate: signInWithOAuth,
     isPending,
     isError,
     error,
   } = useMutation({
-    mutationFn: signInWithGitHub,
+    mutationFn: () => serverAction(() => signInWithGitHub()),
+    onSuccess: (data) => {
+      if (data && data.redirect && data.url) {
+        router.push(data.url);
+      }
+    },
   });
 
   return (
