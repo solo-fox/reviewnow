@@ -1,8 +1,9 @@
 export class AppError extends Error {
-  constructor(origin, message) {
+  public origin: any;
+  constructor(origin: any, message: string) {
     super(message);
     this.origin = origin;
-    this.name = 'AppError';
+    this.name = "AppError";
 
     // Preserve the original stack trace
     if (origin instanceof Error) {
