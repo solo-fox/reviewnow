@@ -16,7 +16,7 @@ export default async function DashboardLayout({
 
   await queryClient.prefetchQuery({
     queryKey: ["profile"],
-    queryFn: profileAction
+    queryFn: profileAction,
   });
 
   return (
