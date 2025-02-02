@@ -3,6 +3,7 @@
 import ServerActionReturn from "@/_types/server-actions";
 import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
+import { AppError } from "@workspace/error";
 
 export async function signInWithGitHub(): Promise<
   ServerActionReturn<undefined>
@@ -20,7 +21,7 @@ export async function signInWithGitHub(): Promise<
     return {
       data: undefined,
       success: false,
-      error: error.message,
+      error: new AppError(error, error.message),
       url: undefined,
       redirect: false,
     };

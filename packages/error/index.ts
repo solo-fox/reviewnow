@@ -1,26 +1,25 @@
-const err = {
-  database: {
-    profile: {
-      show: {
-        404: "Profile not found. Try again later. If the problem persists, contact support.",
-        500: "There was an error retrieving the profile. Try again later. If the problem persists, contact support.",
-      },
-    },
-  },
+export class AppError extends Error {
+  constructor(origin, message) {
+    super(message);
+    this.origin = origin;
+    this.name = 'AppError';
 
-  web: {
-    auth: {
-      signout: {
-        500: "There was an error signing you out. Try again later. If the problem persists, contact support.",
-      },
-      oauth: {
-        500: "Cannot sign in with GitHub. Try again later. If the problem persists, contact support.",
-      },
-      cookies: {
-        500: "Cannot set cookies. Try again later. If the problem persists, contact support.",
-      },
+    // Preserve the original stack trace
+    if (origin instanceof Error) {
+      this.stack = `${this.stack}\nCaused by: ${origin.stack}`;
+    }
+  }
+}
+
+const errorMessages = {
+  profile: {
+    view: {
+      notFound:
+        "Profile not found. Try again later. If the problem persists, contact support.",
+      serverError:
+        "There was an error retrieving the profile. Try again later. If the problem persists, contact support.",
     },
   },
 };
 
-export default err;
+export default errorMessages;

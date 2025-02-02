@@ -6,7 +6,7 @@ import Footer from "@/_components/footer";
 import Alert from "@/_components/alert";
 import Link from "next/link";
 import routes from "@/lib/routes";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function ErrorPage() {
   const [message, _] = useQueryState("message");

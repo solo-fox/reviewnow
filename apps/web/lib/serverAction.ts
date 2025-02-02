@@ -6,15 +6,10 @@ export default async function serverAction<T>(
 ): Promise<ServerActionReturn<T>> {
   let returnData: ServerActionReturn<T>;
 
-  try {
-    returnData = await fn();
-    if (!returnData.success) {
-      logger.error(returnData.error);
-      throw new Error(returnData.error);
-    }
-  } catch (error) {
-    logger.error(error instanceof Error ? error.message : "Unexpected error");
-    throw error;
+  returnData = await fn();
+  if (!returnData.success) {
+    logger.error(returnData.error);
+    throw new Error(returnData.error?.message);
   }
 
   return returnData;

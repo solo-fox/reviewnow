@@ -1,7 +1,9 @@
+import { AppError } from "../../../packages/error";
+
 export default interface ServerActionReturn<T> {
   success: boolean;
   redirect: boolean;
-  error?: string;
+  error?: AppError;
   data: T;
   url?: string;
 }

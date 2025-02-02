@@ -3,6 +3,7 @@
 import ServerActionReturn from "@/_types/server-actions";
 import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
+import { AppError } from "@workspace/error";
 
 export default async function signInAction(user: {
   email: string;
@@ -18,7 +19,7 @@ export default async function signInAction(user: {
   if (error) {
     return {
       success: false,
-      error: error.message,
+      error: new AppError(error, error.message),
       data: undefined,
       redirect: false,
       url: undefined,

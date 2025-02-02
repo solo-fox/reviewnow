@@ -3,16 +3,17 @@
 import ServerActionReturn from "@/_types/server-actions";
 import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
-import Profile, { ProfileShow } from "@workspace/database/models/Profile";
+import Profile, { ProfileView } from "@workspace/database/models/Profile";
+import { AppError } from "@workspace/error";
 
 export default async function profileAction(): Promise<
-  ServerActionReturn<ProfileShow | undefined>
+  ServerActionReturn<ProfileView | undefined>
 > {
   const supabase = await createClient();
   const user = await supabase.auth.getUser();
   if (user.error || !user.data.user.id) {
     return {
-      success: false,
+      success: true,
       error: undefined,
       data: undefined,
       redirect: true,
@@ -21,7 +22,7 @@ export default async function profileAction(): Promise<
   }
 
   try {
-    const userProfile = await new Profile(supabase).show(user.data.user.id);
+    const userProfile = await new Profile(supabase).view(user.data.user.id);
     return {
       success: true,
       error: undefined,
@@ -32,7 +33,7 @@ export default async function profileAction(): Promise<
   } catch (error: any) {
     return {
       success: false,
-      error: error.message,
+      error: new AppError(error, error.message),
       data: undefined,
       redirect: false,
       url: routes.error,

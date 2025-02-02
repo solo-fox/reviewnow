@@ -3,6 +3,7 @@
 import ServerActionReturn from "@/_types/server-actions";
 import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
+import { AppError } from "@workspace/error";
 
 export default async function signOutAction(): Promise<
   ServerActionReturn<undefined>
@@ -13,7 +14,7 @@ export default async function signOutAction(): Promise<
   if (error) {
     return {
       success: false,
-      error: error.message,
+      error: new AppError(error, error.message),
       data: undefined,
       redirect: false,
       url: undefined,

@@ -1,13 +1,13 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Database } from "../database.types";
-import err from "@workspace/error";
+import errorMessages, { AppError } from "@workspace/error";
 
-export type ProfileShow = Database["public"]["Tables"]["profiles"]["Row"];
+export type ProfileView = Database["public"]["Tables"]["profiles"]["Row"];
 
 export default class Profile {
   constructor(public client: SupabaseClient<Database>) {}
 
-  public async show(user_id: string): Promise<NonNullable<ProfileShow>> {
+  public async view(user_id: string): Promise<NonNullable<ProfileView>> {
     try {
       const { data, error } = await this.client
         .from("profiles")
@@ -17,14 +17,14 @@ export default class Profile {
         .single();
 
       if (error) {
-        throw new Error(err.database.profile.show[500]);
+        throw new AppError(error, errorMessages.profile.view.serverError);
       }
       if (data === undefined || data === null)
-        throw new Error(err.database.profile.show[404]);
+        throw new AppError(error, errorMessages.profile.view.notFound);
 
       return data;
     } catch (error: any) {
-      throw new Error(err.database.profile.show[500]);
+      throw new AppError(error, errorMessages.profile.view.serverError);
     }
   }
 }
