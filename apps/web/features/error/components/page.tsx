@@ -7,6 +7,7 @@ import Alert from "@/_components/alert";
 import Link from "next/link";
 import routes from "@/lib/routes";
 import { useRouter } from "next/navigation";
+import { Suspense } from "react";
 
 export default function ErrorPage() {
   const [message, _] = useQueryState("message");
@@ -14,7 +15,7 @@ export default function ErrorPage() {
   if (!message) return router.push(routes.home);
 
   return (
-    <>
+    <Suspense>
       <div className="min-h-svh flex flex-col justify-center items-center p-6 gap-6">
         <div className="dotted-background"></div>
         <Illustration />
@@ -31,6 +32,6 @@ export default function ErrorPage() {
         </div>
       </div>
       <Footer />
-    </>
+    </Suspense>
   );
 }
