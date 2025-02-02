@@ -40,7 +40,7 @@ export default function SignUpForm() {
     },
   });
 
-  const router = useRouter()
+  const router = useRouter();
 
   const {
     mutate: signUp,

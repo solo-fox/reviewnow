@@ -4,10 +4,10 @@ import LoadingIcon from "@/_components/loading-icon";
 import { useMutation } from "@tanstack/react-query";
 import Alert from "./alert";
 import serverAction from "@/lib/serverAction";
-import {useRouter} from "next/navigation"
+import { useRouter } from "next/navigation";
 
 export default function OAuthButton() {
-  const router = useRouter()
+  const router = useRouter();
   const {
     mutate: signInWithOAuth,
     isPending,

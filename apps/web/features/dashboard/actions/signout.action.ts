@@ -4,7 +4,9 @@ import ServerActionReturn from "@/_types/server-actions";
 import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
 
-export default async function signOutAction(): Promise<ServerActionReturn<undefined>> {
+export default async function signOutAction(): Promise<
+  ServerActionReturn<undefined>
+> {
   const supabase = await createClient();
   const { error } = await supabase.auth.signOut();
 
@@ -14,14 +16,14 @@ export default async function signOutAction(): Promise<ServerActionReturn<undefi
       error: error.message,
       data: undefined,
       redirect: false,
-      url: undefined
-    }
+      url: undefined,
+    };
   }
   return {
     success: true,
     error: undefined,
     data: undefined,
     redirect: true,
-    url: routes.protected.dashboard
-  }
+    url: routes.protected.dashboard,
+  };
 }
