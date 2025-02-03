@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
-import authSchema from "@/_schemas/auth.schema";
+import authSchema from "../schema/auth.schema";
 import {
   Form,
   FormControl,
@@ -26,39 +26,38 @@ import Link from "next/link";
 import signInAction from "../actions/signin.action";
 import LoadingIcon from "@/_components/loading-icon";
 import Alert from "@/_components/alert";
-import routes from "@/lib/routes";
-import OAuthButton from "@/_components/oauth-button";
-import serverAction from "@/lib/serverAction";
-import { useRouter } from "next/navigation";
+import OAuthButton from "./oauth-button";
+import { AsyncAction, useAction } from "@/hooks/useAction";
+import { ServerActionResult } from "@/lib/action-utils";
 
-export default function SignInForm() {
-  const signUpForm = useForm<z.infer<typeof authSchema>>({
+interface AuthFormProps {
+  action: AsyncAction<{ email: string, password: string}, ServerActionResult<{ redirectTo: string }>>,
+  header: string;
+  buttonText: string;
+  link: string;
+  linkText: string;
+}
+
+export default function AuthForm(props: AuthFormProps) {
+  const authForm = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
     defaultValues: {
       email: "",
       password: "",
     },
-  });
-
-  const router = useRouter();
+  })
 
   const {
-    mutate: signIn,
+    mutate: auth,
     isPending,
     isError,
     error,
   } = useMutation({
-    mutationFn: (user: { email: string; password: string }) =>
-      serverAction(() => signInAction(user)),
-    onSuccess: (data) => {
-      if (data && data.redirect && data.url) {
-        router.push(data.url);
-      }
-    },
+    mutationFn: useAction(props.action)
   });
 
   const onSubmit = (values: z.infer<typeof authSchema>) => {
-    signIn({
+    auth({
       email: values.email,
       password: values.password,
     });
@@ -67,9 +66,9 @@ export default function SignInForm() {
   return (
     <Card>
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl font-bold">Sign In</CardTitle>
+        <CardTitle className="text-2xl font-bold">{props.header}</CardTitle>
         <CardDescription className="text-balance text-sm">
-          Enter your email and password to sign in a new account
+          Enter your email and password to let the magic happen.
         </CardDescription>
       </CardHeader>
 
@@ -78,14 +77,14 @@ export default function SignInForm() {
           message={(error as Error)?.message as string}
           isError={isError}
         />
-        <Form {...signUpForm}>
+        <Form {...authForm}>
           <form
             method="post"
-            onSubmit={signUpForm.handleSubmit(onSubmit)}
+            onSubmit={authForm.handleSubmit(onSubmit)}
             className="flex flex-col gap-6 justify-center"
           >
             <FormField
-              control={signUpForm.control}
+              control={authForm.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
@@ -103,7 +102,7 @@ export default function SignInForm() {
             />
 
             <FormField
-              control={signUpForm.control}
+              control={authForm.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
@@ -130,12 +129,12 @@ export default function SignInForm() {
         <OAuthButton />
 
         <div className="text-center text-sm">
-          Do not have an account?{" "}
+          {props.buttonText}{" "}
           <Link
-            href={routes.auth.signup}
+            href={props.link}
             className="underline underline-offset-4"
           >
-            Sign Up
+            {props.linkText}
           </Link>
         </div>
       </CardContent>

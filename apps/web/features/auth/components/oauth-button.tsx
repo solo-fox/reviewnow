@@ -1,25 +1,18 @@
-import { signInWithGitHub } from "@/_actions/oauth.action";
+import oauthAction from "../actions/oauth.action";
 import { Button } from "@workspace/ui/components/button";
 import LoadingIcon from "@/_components/loading-icon";
 import { useMutation } from "@tanstack/react-query";
-import Alert from "./alert";
-import serverAction from "@/lib/serverAction";
-import { useRouter } from "next/navigation";
+import Alert from "@/_components/alert";
+import { useAction } from "@/hooks/useAction";
 
 export default function OAuthButton() {
-  const router = useRouter();
   const {
-    mutate: signInWithOAuth,
+    mutate: auth,
     isPending,
     isError,
     error,
   } = useMutation({
-    mutationFn: () => serverAction(() => signInWithGitHub()),
-    onSuccess: (data) => {
-      if (data && data.redirect && data.url) {
-        router.push(data.url);
-      }
-    },
+    mutationFn: useAction(oauthAction)
   });
 
   return (
@@ -34,7 +27,7 @@ export default function OAuthButton() {
         disabled={isPending}
         variant="outline"
         className="w-full"
-        onClick={() => signInWithOAuth()}
+        onClick={() =>  auth() }
       >
         {!isPending ? (
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
