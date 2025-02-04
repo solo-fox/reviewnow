@@ -17,7 +17,7 @@ import { Plus } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import onboardAction from "../actions/onboard.action";
 import { useAction } from "@/hooks/useAction";
-import Alert from "@/_components/alert";
+import ErrorAlert from '@/_components/error-alert';
 import LoadingIcon from "@/_components/loading-icon";
 
 export default function ProjectSetup() {
@@ -47,7 +47,7 @@ export default function ProjectSetup() {
 
   return (
     <Form {...form}>
-      <Alert message={(error as Error)?.message as string} isError={isError} />
+      <ErrorAlert message={(error as Error)?.message as string}  />
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}

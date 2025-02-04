@@ -23,9 +23,8 @@ import {
 import { Input } from "@workspace/ui/components/input";
 import { Button } from "@workspace/ui/components/button";
 import Link from "next/link";
-import signInAction from "../actions/signin.action";
 import LoadingIcon from "@/_components/loading-icon";
-import Alert from "@/_components/alert";
+import ErrorAlert from '@/_components/error-alert';
 import OAuthButton from "./oauth-button";
 import { AsyncAction, useAction } from "@/hooks/useAction";
 import { ServerActionResult } from "@/lib/action-utils";
@@ -76,9 +75,9 @@ export default function AuthForm(props: AuthFormProps) {
       </CardHeader>
 
       <CardContent className="flex flex-col gap-6 justify-center">
-        <Alert
+        <ErrorAlert
           message={(error as Error)?.message as string}
-          isError={isError}
+          
         />
         <Form {...authForm}>
           <form

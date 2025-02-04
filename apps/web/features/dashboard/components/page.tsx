@@ -1,7 +1,7 @@
 import { Button } from "@workspace/ui/components/button";
 import { Input } from "@workspace/ui/components/input";
 import { Filter, Search } from "lucide-react";
-import ProjectCard from "./project-card";
+import Projects from "./projects";
 
 export default function DashboardPage() {
   return (
@@ -29,9 +29,7 @@ export default function DashboardPage() {
 
       <p className="text-2xl">Projects</p>
 
-      <div className="grid grid-cols-2 gap-4 w-full h-0 flex-grow overflow-y-scroll">
-        <ProjectCard name="reviewnow" description="Hard coded example" />
-      </div>
+      <Projects />
     </div>
   );
 }
