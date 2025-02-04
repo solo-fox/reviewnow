@@ -7,6 +7,7 @@ import Alert from "@/_components/alert";
 import { useAction } from "@/hooks/useAction";
 import profileAction from "../actions/profile.action";
 import { Skeleton } from "@workspace/ui/components/skeleton";
+import OnboardingDialog from "@/features/onboarding/components/onboarding-dialog";
 
 export default function UserOrg() {
   const {
@@ -21,6 +22,7 @@ export default function UserOrg() {
   });
 
   if(isPending) return <Skeleton className="w-[250px] h-3" />
+  if(profile?.success && profile.data.org_name === null) return <OnboardingDialog />
   
   return (
     <div className="flex itemsxcenter gap-4 text-sm">
