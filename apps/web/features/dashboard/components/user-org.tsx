@@ -21,11 +21,11 @@ export default function UserOrg() {
     retry: 0,
   });
 
-  if(isPending) return <Skeleton className="w-[250px] h-3" />
-  if(profile?.success && profile.data.org_name === null) return <OnboardingDialog />
-  
+  if (isPending) return <Skeleton className="w-[150px] h-3" />
+  if (profile?.success && profile.data.org_name === null) return <OnboardingDialog />
+
   return (
-    <div className="flex itemsxcenter gap-4 text-sm">
+    <div className="flex items-center gap-4 text-sm">
       {isError ? (
         <Alert message={(error as Error).message} isError={isError} />
       ) : (

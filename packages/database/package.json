@@ -7,7 +7,9 @@
   "dependencies": {
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.12",
-    "@workspace/error": "workspace:*"
+    "@workspace/error": "workspace:*",
+    "@workspace/logger": "workspace:*",
+    "uuid-apikey": "^1.5.3"
   },
   "exports": {
     "./server": "./server.ts",

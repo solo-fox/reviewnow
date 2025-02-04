@@ -20,3 +20,12 @@ author = 38784889
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "cd server && npm run build && npm run dev"
+
+[rules]
+
+[rules.formatter]
+
+[rules.formatter.fileExtensions]
+
+[rules.formatter.fileExtensions.".ts"]
+id = "module:nodejs-20/formatter:prettier"
