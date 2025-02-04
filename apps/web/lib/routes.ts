@@ -13,7 +13,7 @@ const routes = {
   },
   protected: {
     dashboard: "/dashboard",
-    project: (id: string) => `/project/${id}`
+    project: (id: string) => `/project/${id}`,
   },
   resources: {
     docs: "#",

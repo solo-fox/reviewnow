@@ -21,8 +21,9 @@ export default function UserOrg() {
     retry: 0,
   });
 
-  if (isPending) return <Skeleton className="w-[150px] h-3" />
-  if (profile?.success && profile.data.org_name === null) return <OnboardingDialog />
+  if (isPending) return <Skeleton className="w-[150px] h-3" />;
+  if (profile?.success && profile.data.org_name === null)
+    return <OnboardingDialog />;
 
   return (
     <div className="flex items-center gap-4 text-sm">

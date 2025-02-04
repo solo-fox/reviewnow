@@ -21,4 +21,4 @@ const oauthAction = createServerAction(async () => {
   };
 });
 
-export default oauthAction
+export default oauthAction;

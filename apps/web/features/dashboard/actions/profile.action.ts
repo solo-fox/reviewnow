@@ -8,7 +8,7 @@ const profileAction = createServerAction(async () => {
   const supabase = await createClient();
   const user = await supabase.auth.getUser();
 
-  if(user.error) throw new ServerActionError(user.error.message)
+  if (user.error) throw new ServerActionError(user.error.message);
 
   try {
     return new Profile(supabase).view(user.data.user.id);

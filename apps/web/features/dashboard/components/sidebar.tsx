@@ -6,7 +6,7 @@ import { Button } from "@workspace/ui/components/button";
 import { useMutation } from "@tanstack/react-query";
 import signOutAction from "../actions/signout.action";
 import LoadingIcon from "@/_components/loading-icon";
-import Alert from "@/_components/alert"
+import Alert from "@/_components/alert";
 import { useAction } from "@/hooks/useAction";
 
 export default function Sidebar() {
@@ -16,7 +16,7 @@ export default function Sidebar() {
     isError,
     error,
   } = useMutation({
-    mutationFn: useAction(signOutAction)
+    mutationFn: useAction(signOutAction),
   });
 
   return (

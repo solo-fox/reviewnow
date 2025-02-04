@@ -12,7 +12,7 @@ export default function OAuthButton() {
     isError,
     error,
   } = useMutation({
-    mutationFn: useAction(oauthAction)
+    mutationFn: useAction(oauthAction),
   });
 
   return (
@@ -27,7 +27,7 @@ export default function OAuthButton() {
         disabled={isPending}
         variant="outline"
         className="w-full"
-        onClick={() =>  auth() }
+        onClick={() => auth()}
       >
         {!isPending ? (
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

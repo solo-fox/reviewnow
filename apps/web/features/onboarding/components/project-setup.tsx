@@ -1,16 +1,24 @@
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@workspace/ui/components/form"
-import { Input } from "@workspace/ui/components/input"
-import onboardSchema from "../schema/onboard.schema"
-import { Button } from "@workspace/ui/components/button"
-import { Plus } from "lucide-react"
-import { useMutation } from "@tanstack/react-query"
-import onboardAction from "../actions/onboard.action"
-import { useAction } from "@/hooks/useAction"
-import Alert from "@/_components/alert"
-import LoadingIcon from "@/_components/loading-icon"
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@workspace/ui/components/form";
+import { Input } from "@workspace/ui/components/input";
+import onboardSchema from "../schema/onboard.schema";
+import { Button } from "@workspace/ui/components/button";
+import { Plus } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import onboardAction from "../actions/onboard.action";
+import { useAction } from "@/hooks/useAction";
+import Alert from "@/_components/alert";
+import LoadingIcon from "@/_components/loading-icon";
 
 export default function ProjectSetup() {
   const form = useForm<z.infer<typeof onboardSchema>>({
@@ -19,7 +27,7 @@ export default function ProjectSetup() {
       orgName: "",
       projectName: "",
     },
-  })
+  });
 
   const {
     mutate: onboard,
@@ -27,23 +35,19 @@ export default function ProjectSetup() {
     isError,
     error,
   } = useMutation({
-    mutationFn: useAction(onboardAction)
+    mutationFn: useAction(onboardAction),
   });
-
 
   function onSubmit(values: z.infer<typeof onboardSchema>) {
     onboard({
       orgName: values.orgName,
-      projectName: values.projectName
-    })
+      projectName: values.projectName,
+    });
   }
 
   return (
     <Form {...form}>
-      <Alert
-        message={(error as Error)?.message as string}
-        isError={isError}
-      />
+      <Alert message={(error as Error)?.message as string} isError={isError} />
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
@@ -77,6 +81,5 @@ export default function ProjectSetup() {
         </Button>
       </form>
     </Form>
-  )
+  );
 }
-

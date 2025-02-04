@@ -17,32 +17,30 @@ export default class Project {
     },
   ): Promise<string> {
     const date = new Date().toISOString(); // ISO format for consistency
-    const api_key = uuidAPIKey.create()
+    const api_key = uuidAPIKey.create();
 
-    const { error } = await this.client
-      .from("projects")
-      .insert([
-        {
-          id: api_key.uuid,
-          api_key: api_key.apiKey,
-          api_limit: 1000,
-          description: payload.description,
-          logs: [
-            {
-              timestamp: date,
-              message: "Project was created.",
-            },
-          ],
-          name: payload.name,
-          user_id,
-        },
-      ])
+    const { error } = await this.client.from("projects").insert([
+      {
+        id: api_key.uuid,
+        api_key: api_key.apiKey,
+        api_limit: 1000,
+        description: payload.description,
+        logs: [
+          {
+            timestamp: date,
+            message: "Project was created.",
+          },
+        ],
+        name: payload.name,
+        user_id,
+      },
+    ]);
 
     if (error) {
       logger.error(error);
       throw new Error(errorMessages.project.create.serverError);
     }
 
-    return api_key.uuid
+    return api_key.uuid;
   }
 }

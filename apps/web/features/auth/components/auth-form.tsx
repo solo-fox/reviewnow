@@ -31,7 +31,10 @@ import { AsyncAction, useAction } from "@/hooks/useAction";
 import { ServerActionResult } from "@/lib/action-utils";
 
 interface AuthFormProps {
-  action: AsyncAction<{ email: string, password: string}, ServerActionResult<{ redirectTo: string }>>,
+  action: AsyncAction<
+    { email: string; password: string },
+    ServerActionResult<{ redirectTo: string }>
+  >;
   header: string;
   buttonText: string;
   link: string;
@@ -45,7 +48,7 @@ export default function AuthForm(props: AuthFormProps) {
       email: "",
       password: "",
     },
-  })
+  });
 
   const {
     mutate: auth,
@@ -53,7 +56,7 @@ export default function AuthForm(props: AuthFormProps) {
     isError,
     error,
   } = useMutation({
-    mutationFn: useAction(props.action)
+    mutationFn: useAction(props.action),
   });
 
   const onSubmit = (values: z.infer<typeof authSchema>) => {
@@ -130,10 +133,7 @@ export default function AuthForm(props: AuthFormProps) {
 
         <div className="text-center text-sm">
           {props.buttonText}{" "}
-          <Link
-            href={props.link}
-            className="underline underline-offset-4"
-          >
+          <Link href={props.link} className="underline underline-offset-4">
             {props.linkText}
           </Link>
         </div>

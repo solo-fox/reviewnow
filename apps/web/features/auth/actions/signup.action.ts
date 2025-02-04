@@ -21,4 +21,4 @@ const signUpAction = createServerAction(
   },
 );
 
-export default signUpAction
+export default signUpAction;

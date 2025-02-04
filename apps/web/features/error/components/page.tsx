@@ -10,8 +10,8 @@ import { useRouter } from "next/navigation";
 import { Suspense } from "react";
 
 function ErrorContent() {
-  const [message] = useQueryState("message", { defaultValue: "" })
-  
+  const [message] = useQueryState("message", { defaultValue: "" });
+
   return (
     <div className="min-h-svh flex flex-col justify-center items-center p-6 gap-6">
       <div className="dotted-background"></div>

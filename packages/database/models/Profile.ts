@@ -17,7 +17,7 @@ export default class Profile {
       .single();
 
     if (error) {
-      logger.error(error)
+      logger.error(error);
       throw new Error(errorMessages.profile.view.serverError);
     }
     if (data === undefined || data === null)
@@ -28,12 +28,12 @@ export default class Profile {
 
   async update(user_id: string, payload: Partial<ProfileView>): Promise<void> {
     const { error } = await this.client
-    .from("profiles")
-    .update(payload)
-    .eq("id", user_id)
+      .from("profiles")
+      .update(payload)
+      .eq("id", user_id);
 
     if (error) {
-      logger.error(error)
+      logger.error(error);
       throw new Error(errorMessages.profile.view.serverError);
     }
   }

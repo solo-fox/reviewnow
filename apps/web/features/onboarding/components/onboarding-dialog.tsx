@@ -17,7 +17,9 @@ export default function OnboardingDialog() {
         onEscapeKeyDown={(e) => e.preventDefault()}
       >
         <DialogHeader className="flex items-center justify-center">
-          <DialogTitle className="font-bold text-3xl bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">Let us finish this.</DialogTitle>
+          <DialogTitle className="font-bold text-3xl bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+            Let us finish this.
+          </DialogTitle>
         </DialogHeader>
         <ProjectSetup />
       </DialogContent>

@@ -20,6 +20,6 @@ export function createServerAction<Return, Args extends unknown[] = []>(
       if (error instanceof ServerActionError)
         return { success: false, error: error.message };
       throw error;
-    } 
+    }
   };
 }
