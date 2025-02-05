@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Cog, LogOut, Frame, Plus } from "lucide-react";
+import { ArrowUpRight, Cog, LogOut, Frame } from "lucide-react";
 import { Button } from "@workspace/ui/components/button";
 import { useMutation } from "@tanstack/react-query";
 import signOutAction from "../actions/signout.action";
@@ -13,7 +13,6 @@ export default function Sidebar() {
   const {
     mutate: signOut,
     isPending,
-    isError,
     error,
   } = useMutation({
     mutationFn: useAction(signOutAction),
@@ -27,10 +26,6 @@ export default function Sidebar() {
 
       <div className="gap-4 flex flex-col p-4 border-b">
         <p className="text-xs text-muted-foreground">Projects</p>
-        <Link href="/dashboard" className="text-sm flex items-center gap-4">
-          <Plus className="size-4" />
-          New Project
-        </Link>
         <Link href="#" className="text-sm flex items-center gap-4">
           <Frame className="size-4" />
           All Projects

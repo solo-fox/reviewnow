@@ -1,3 +1,5 @@
+"use client"
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -19,20 +21,20 @@ import onboardAction from "../actions/onboard.action";
 import { useAction } from "@/hooks/useAction";
 import ErrorAlert from '@/_components/error-alert';
 import LoadingIcon from "@/_components/loading-icon";
+import randomProjectName from "@/lib/projectnames";
 
 export default function ProjectSetup() {
   const form = useForm<z.infer<typeof onboardSchema>>({
     resolver: zodResolver(onboardSchema),
     defaultValues: {
       orgName: "",
-      projectName: "",
+      projectName: randomProjectName(),
     },
   });
 
   const {
     mutate: onboard,
     isPending,
-    isError,
     error,
   } = useMutation({
     mutationFn: useAction(onboardAction),
@@ -56,7 +58,7 @@ export default function ProjectSetup() {
             <FormItem>
               <FormLabel>Organization Name</FormLabel>
               <FormControl>
-                <Input placeholder="Lovely Org" {...field} />
+                <Input placeholder="Organization Name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -69,7 +71,7 @@ export default function ProjectSetup() {
             <FormItem>
               <FormLabel>Project Name</FormLabel>
               <FormControl>
-                <Input placeholder="My Awesome Project" {...field} />
+                <Input placeholder="Project Name" {...field} />
               </FormControl>
               <FormDescription>You can change this later.</FormDescription>
               <FormMessage />

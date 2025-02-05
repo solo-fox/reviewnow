@@ -4,12 +4,13 @@ import { Filter, Search } from "lucide-react";
 import { Suspense } from "react";
 import Projects, { ProjectsSkeleton } from "./projects";
 import { ErrorBoundary } from "@/_components/error-boundary";
+import NewProject from "./new-project";
 
 export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-6 h-full p-4">
       <div className="flex gap-4 max-w-sm">
-        <Button size={"sm"}>New project</Button>
+        <NewProject />
         <div className="relative">
           <div className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2">
             <Search className="h-4 w-4 text-gray-500" />
