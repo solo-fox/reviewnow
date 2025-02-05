@@ -12,7 +12,7 @@ export default function Header() {
       <div className="flex flex-grow gap-6 items-center">
         <Logo />
         <p className="text-muted-foreground">/</p>
-        
+
         <ErrorBoundary>
           <Suspense fallback={<UserOrgSkeleton />}>
             <UserOrg />

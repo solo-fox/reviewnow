@@ -5,9 +5,7 @@ import OnboardingDialog from "@/features/onboarding/components/onboarding-dialog
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
 export function UserOrgSkeleton() {
-  return (
-    <Skeleton className="w-[150px] h-3" />
-  )
+  return <Skeleton className="w-[150px] h-3" />;
 }
 
 export default async function UserOrg() {

@@ -102,5 +102,5 @@ const projectNames = [
 ];
 
 export default function randomProjectName() {
-  return projectNames[Math.floor(Math.random() * projectNames.length)]
+  return projectNames[Math.floor(Math.random() * projectNames.length)];
 }

@@ -50,7 +50,6 @@ export default function NewProject() {
     onSuccess: () => {
       toast({
         title: "Project created",
-        description: `Project ${values.projectName} was created`,
       });
     },
   });

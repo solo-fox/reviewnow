@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,7 +19,7 @@ import { Plus } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import onboardAction from "../actions/onboard.action";
 import { useAction } from "@/hooks/useAction";
-import ErrorAlert from '@/_components/error-alert';
+import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";
 import randomProjectName from "@/lib/projectnames";
 import { useToast } from "@workspace/ui/hooks/use-toast";
@@ -33,7 +33,7 @@ export default function ProjectSetup() {
     },
   });
 
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const {
     mutate: onboard,
@@ -44,11 +44,9 @@ export default function ProjectSetup() {
     onSuccess: () => {
       toast({
         title: "Project created",
-        description: `Project ${values.projectName} was created`
-      })
-    }
+      });
+    },
   });
-  
 
   function onSubmit(values: z.infer<typeof onboardSchema>) {
     onboard({
@@ -59,7 +57,7 @@ export default function ProjectSetup() {
 
   return (
     <Form {...form}>
-      <ErrorAlert message={(error as Error)?.message as string}  />
+      <ErrorAlert message={(error as Error)?.message as string} />
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}

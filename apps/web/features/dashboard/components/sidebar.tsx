@@ -6,7 +6,7 @@ import { Button } from "@workspace/ui/components/button";
 import { useMutation } from "@tanstack/react-query";
 import signOutAction from "../actions/signout.action";
 import LoadingIcon from "@/_components/loading-icon";
-import ErrorAlert from '@/_components/error-alert';
+import ErrorAlert from "@/_components/error-alert";
 import { useAction } from "@/hooks/useAction";
 
 export default function Sidebar() {
@@ -53,7 +53,7 @@ export default function Sidebar() {
           <Cog className="size-4" />
           Settings
         </Link>
-        <ErrorAlert message={(error as Error)?.message}  />
+        <ErrorAlert message={(error as Error)?.message} />
         <Button
           disabled={isPending}
           variant={"ghost"}

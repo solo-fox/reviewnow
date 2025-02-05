@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { Component, ReactNode } from 'react';
-import ErrorAlert from './error-alert';
+import { Component, ReactNode } from "react";
+import ErrorAlert from "./error-alert";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -12,7 +12,10 @@ interface ErrorBoundaryState {
   error: Error | null;
 }
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null };
@@ -28,7 +31,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
     if (hasError) {
       // Render custom error fallback UI
-      return <ErrorAlert message={(error as Error).message} />
+      return <ErrorAlert message={(error as Error).message} />;
     }
 
     return children;

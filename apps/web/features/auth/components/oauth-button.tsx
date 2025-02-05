@@ -2,7 +2,7 @@ import oauthAction from "../actions/oauth.action";
 import { Button } from "@workspace/ui/components/button";
 import LoadingIcon from "@/_components/loading-icon";
 import { useMutation } from "@tanstack/react-query";
-import ErrorAlert from '@/_components/error-alert';
+import ErrorAlert from "@/_components/error-alert";
 import { useAction } from "@/hooks/useAction";
 
 export default function OAuthButton() {
