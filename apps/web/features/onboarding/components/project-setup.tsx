@@ -22,6 +22,7 @@ import { useAction } from "@/hooks/useAction";
 import ErrorAlert from '@/_components/error-alert';
 import LoadingIcon from "@/_components/loading-icon";
 import randomProjectName from "@/lib/projectnames";
+import { useToast } from "@workspace/ui/hooks/use-toast";
 
 export default function ProjectSetup() {
   const form = useForm<z.infer<typeof onboardSchema>>({
@@ -32,13 +33,22 @@ export default function ProjectSetup() {
     },
   });
 
+  const { toast } = useToast()
+
   const {
     mutate: onboard,
     isPending,
     error,
   } = useMutation({
     mutationFn: useAction(onboardAction),
+    onSuccess: () => {
+      toast({
+        title: "Project created",
+        description: `Project ${values.projectName} was created`
+      })
+    }
   });
+  
 
   function onSubmit(values: z.infer<typeof onboardSchema>) {
     onboard({

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import LoadingIcon from "@/_components/loading-icon";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,6 +27,9 @@ import { z } from "zod";
 import ErrorAlert from "@/_components/error-alert";
 import { Plus } from "lucide-react";
 import randomProjectName from "@/lib/projectnames";
+import { useAction } from "@/hooks/useAction";
+import newProjectAction from "../actions/newproject.action";
+import { useToast } from "@workspace/ui/hooks/use-toast";
 
 export default function NewProject() {
   const form = useForm<z.infer<typeof newProjectSchema>>({
@@ -36,18 +39,29 @@ export default function NewProject() {
       projectName: randomProjectName(),
     },
   });
+  const { toast } = useToast();
 
   const {
     mutate: createNewProject,
     isPending,
     error,
   } = useMutation({
-    mutationFn: () => {},
+    mutationFn: useAction(newProjectAction),
+    onSuccess: () => {
+      toast({
+        title: "Project created",
+        description: `Project ${values.projectName} was created`,
+      });
+    },
   });
 
   function onSubmit(values: z.infer<typeof newProjectSchema>) {
+    createNewProject({
+      projectName: values.projectName,
+      projectDescription: values.projectDescription,
+    });
   }
-    
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -62,12 +76,12 @@ export default function NewProject() {
         </DialogHeader>
 
         <Form {...form}>
-          <ErrorAlert message={(error as Error)?.message as string}  />
+          <ErrorAlert message={(error as Error)?.message as string} />
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
               name="projectName"
-              render={({ field,  }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Project Name</FormLabel>
                   <FormControl>
