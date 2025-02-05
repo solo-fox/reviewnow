@@ -2,9 +2,8 @@ import { Bell, CircleHelp } from "lucide-react";
 import ThemeSwitcher from "@/_components/theme-switcher";
 import Logo from "@/_components/Logo";
 import Breadcrumb from "./breadcrumb";
-import UserOrg from "./user-org";
+import UserOrg, { UserOrgSkeleton } from "./user-org";
 import { Suspense } from "react";
-import { Skeleton } from "@workspace/ui/components/skeleton";
 import { ErrorBoundary } from "@/_components/error-boundary";
 
 export default function Header() {
@@ -15,7 +14,7 @@ export default function Header() {
         <p className="text-muted-foreground">/</p>
         
         <ErrorBoundary>
-          <Suspense fallback={<Skeleton className="w-[150px] h-3" />}>
+          <Suspense fallback={<UserOrgSkeleton />}>
             <UserOrg />
           </Suspense>
         </ErrorBoundary>

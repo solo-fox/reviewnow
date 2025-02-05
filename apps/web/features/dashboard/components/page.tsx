@@ -1,7 +1,9 @@
 import { Button } from "@workspace/ui/components/button";
 import { Input } from "@workspace/ui/components/input";
 import { Filter, Search } from "lucide-react";
-import Projects from "./projects";
+import { Suspense } from "react";
+import Projects, { ProjectsSkeleton } from "./projects";
+import { ErrorBoundary } from "@/_components/error-boundary";
 
 export default function DashboardPage() {
   return (
@@ -28,8 +30,11 @@ export default function DashboardPage() {
       </div>
 
       <p className="text-2xl">Projects</p>
-
-      <Projects />
+      <ErrorBoundary>
+        <Suspense fallback={<ProjectsSkeleton />}>
+          <Projects />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 }

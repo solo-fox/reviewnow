@@ -6,6 +6,7 @@ interface ProjectCardProps {
   description: string;
 }
 
+
 export default function ProjectCard(props: ProjectCardProps) {
   return (
     <Card className="p-6 hover:bg-muted/50 cursor-pointer group max-w-sm h-40">
