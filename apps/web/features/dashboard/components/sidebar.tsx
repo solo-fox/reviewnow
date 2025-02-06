@@ -8,8 +8,9 @@ import signOutAction from "../actions/signout.action";
 import LoadingIcon from "@/_components/loading-icon";
 import ErrorAlert from "@/_components/error-alert";
 import { useAction } from "@/hooks/useAction";
+import { cn } from "@workspace/ui/lib/utils";
 
-export default function Sidebar() {
+export default function Sidebar(props: { classname?: string }) {
   const {
     mutate: signOut,
     isPending,
@@ -19,7 +20,12 @@ export default function Sidebar() {
   });
 
   return (
-    <div className="flex flex-col min-h-svh w-[280px] border-r">
+    <div
+      className={cn(
+        "hidden md:flex flex-col h-svh w-[280px] border-r",
+        props.classname,
+      )}
+    >
       <div className="flex items-center gap-6 h-[3rem] p-4 border-b">
         <p className="text-xl font-bold">Dashboard</p>
       </div>

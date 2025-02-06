@@ -15,7 +15,11 @@ export default async function Projects() {
   await new Promise((resolve) => setTimeout(resolve, 3000));
 
   return (
-    <div className="grid grid-cols-2 gap-4 w-full h-0 flex-grow overflow-y-scroll">
+    <div className="flex flex-col md:grid md:grid-cols-2 gap-4 w-full h-0 flex-grow overflow-y-scroll">
+      <ProjectCard name="reviewnow" description="Hard coded example" />
+      <ProjectCard name="reviewnow" description="Hard coded example" />
+      <ProjectCard name="reviewnow" description="Hard coded example" />
+      <ProjectCard name="reviewnow" description="Hard coded example" />
       <ProjectCard name="reviewnow" description="Hard coded example" />
     </div>
   );

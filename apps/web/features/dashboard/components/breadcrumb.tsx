@@ -7,7 +7,7 @@ export default function Breadcrumb() {
   const segments = pathname.split("/").filter((segment) => segment !== "");
 
   return (
-    <>
+    <div className="hidden md:block">
       {segments.map((segment, index) => (
         <div key={`${segment}-${index}`} className="flex items-center gap-6">
           <p className="text-muted-foreground">/</p>
@@ -16,6 +16,6 @@ export default function Breadcrumb() {
           </p>
         </div>
       ))}
-    </>
+    </div>
   );
 }

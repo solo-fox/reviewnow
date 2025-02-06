@@ -8,11 +8,11 @@ interface ProjectCardProps {
 
 export default function ProjectCard(props: ProjectCardProps) {
   return (
-    <Card className="p-6 hover:bg-muted/50 cursor-pointer group max-w-sm h-40">
+    <Card className="p-6 hover:bg-muted/50 cursor-pointer group w-full md:max-w-sm min-h-40">
       <div className="flex items-start justify-between">
         <div>
           <h3 className="text-lg font-medium">{props.name}</h3>
-          <p className="text-sm text-muted-foreground mt-1">
+          <p className="text-sm text-muted-foreground mt-1 truncate">
             {props.description}
           </p>
         </div>

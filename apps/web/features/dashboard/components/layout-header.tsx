@@ -5,14 +5,17 @@ import Breadcrumb from "./breadcrumb";
 import UserOrg, { UserOrgSkeleton } from "./user-org";
 import { Suspense } from "react";
 import { ErrorBoundary } from "@/_components/error-boundary";
+import MobileSidebar from "./mobile-sidebar";
 
-export default function Header() {
+export default function LayoutHeader() {
   return (
-    <nav className="flex justify-between items-center w-full h-[3rem] border-b p-4">
-      <div className="flex flex-grow gap-6 items-center">
+    <nav className="flex justify-between items-center w-full h-[3rem] border-b p-4 gap-6">
+      <div className="flex items-center">
+        <MobileSidebar />
         <Logo />
-        <p className="text-muted-foreground">/</p>
+      </div>
 
+      <div className="hidden md:flex flex-grow gap-6 items-center">
         <ErrorBoundary>
           <Suspense fallback={<UserOrgSkeleton />}>
             <UserOrg />
@@ -24,7 +27,7 @@ export default function Header() {
       <div className="flex items-center gap-4">
         <ThemeSwitcher />
         <Bell className="size-4" />
-        <CircleHelp className="size-4" />
+        <CircleHelp className="hidden md:block size-4" />
       </div>
     </nav>
   );
