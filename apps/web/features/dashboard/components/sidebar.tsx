@@ -9,6 +9,7 @@ import LoadingIcon from "@/_components/loading-icon";
 import ErrorAlert from "@/_components/error-alert";
 import { useAction } from "@/hooks/useAction";
 import { cn } from "@workspace/ui/lib/utils";
+import routes from "@/lib/routes";
 
 export default function Sidebar(props: { classname?: string }) {
   const {
@@ -32,7 +33,10 @@ export default function Sidebar(props: { classname?: string }) {
 
       <div className="gap-4 flex flex-col p-4 border-b">
         <p className="text-xs text-muted-foreground">Projects</p>
-        <Link href="#" className="text-sm flex items-center gap-4">
+        <Link
+          href={routes.protected.dashboard}
+          className="text-sm flex items-center gap-4"
+        >
           <Frame className="size-4" />
           All Projects
         </Link>
@@ -40,11 +44,17 @@ export default function Sidebar(props: { classname?: string }) {
 
       <div className="gap-4 flex flex-col p-4 border-b">
         <p className="text-xs text-muted-foreground">Documentation</p>
-        <Link href="#" className="text-sm flex items-center gap-4">
+        <Link
+          href={routes.resources.docs}
+          className="text-sm flex items-center gap-4"
+        >
           <ArrowUpRight className="size-4" />
           Guides
         </Link>
-        <Link href="#" className="text-sm flex items-center gap-4">
+        <Link
+          href={routes.resources.api}
+          className="text-sm flex items-center gap-4"
+        >
           <ArrowUpRight className="size-4" />
           API Reference
         </Link>
@@ -53,7 +63,7 @@ export default function Sidebar(props: { classname?: string }) {
       <div className="gap-4 flex flex-col p-4 border-b">
         <p className="text-xs text-muted-foreground">Account</p>
         <Link
-          href="/dashboard/settings"
+          href={routes.protected.settings}
           className="text-sm flex items-center gap-4"
         >
           <Cog className="size-4" />
