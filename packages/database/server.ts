@@ -11,16 +11,16 @@ export type ClientConnection = SupabaseClient<Database>;
 
 export default function Client({
   url,
-  anon_key,
+  anonKey,
   getAll,
   setAll,
 }: {
   url: string;
-  anon_key: string;
+  anonKey: string;
   getAll: () => any;
   setAll: (cookiesToSet: CookieToSet) => void;
 }) {
-  let client = createServerClient<Database>(url, anon_key, {
+  let client = createServerClient<Database>(url, anonKey, {
     cookies: {
       getAll,
       setAll,

@@ -4,13 +4,13 @@ import { ServerActionError, createServerAction } from "@/lib/action-utils";
 import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
 
-const signUpAction = createServerAction(
-  async (user: { email: string; password: string }) => {
+const signInAction = createServerAction(
+  async (payload: { email: string; password: string }) => {
     const supabase = await createClient();
 
-    const { error } = await supabase.auth.signUp({
-      email: user.email,
-      password: user.password,
+    const { error } = await supabase.auth.signInWithPassword({
+      email: payload.email,
+      password: payload.password,
     });
 
     if (error) throw new ServerActionError(error.message);
@@ -21,4 +21,4 @@ const signUpAction = createServerAction(
   },
 );
 
-export default signUpAction;
+export default signInAction;

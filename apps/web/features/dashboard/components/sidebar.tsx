@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowUpRight, Cog, LogOut, Frame } from "lucide-react";
 import { Button } from "@workspace/ui/components/button";
 import { useMutation } from "@tanstack/react-query";
-import signOutAction from "../actions/signout.action";
+import signOutAction from "../actions/sign-out.action";
 import LoadingIcon from "@/_components/loading-icon";
 import ErrorAlert from "@/_components/error-alert";
 import { useAction } from "@/hooks/useAction";

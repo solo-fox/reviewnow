@@ -8,11 +8,11 @@ export type ProfileView = Database["public"]["Tables"]["profiles"]["Row"];
 export default class Profile {
   constructor(public client: SupabaseClient<Database>) {}
 
-  public async view(user_id: string): Promise<NonNullable<ProfileView>> {
+  public async view(userId: string): Promise<NonNullable<ProfileView>> {
     const { data, error } = await this.client
       .from("profiles")
       .select("*")
-      .eq("id", user_id)
+      .eq("id", userId)
       .limit(1)
       .single();
 
@@ -26,11 +26,11 @@ export default class Profile {
     return data;
   }
 
-  async update(user_id: string, payload: Partial<ProfileView>): Promise<void> {
+  async update(userId: string, payload: Partial<ProfileView>): Promise<void> {
     const { error } = await this.client
       .from("profiles")
       .update(payload)
-      .eq("id", user_id);
+      .eq("id", userId);
 
     if (error) {
       logger.error(error);

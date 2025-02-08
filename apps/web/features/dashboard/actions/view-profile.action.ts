@@ -4,7 +4,7 @@ import { ServerActionError, createServerAction } from "@/lib/action-utils";
 import { createClient } from "@/lib/server";
 import Profile from "@workspace/database/models/Profile";
 
-const profileAction = createServerAction(async () => {
+const viewProfileAction = createServerAction(async () => {
   const supabase = await createClient();
   const user = await supabase.auth.getUser();
 
@@ -17,4 +17,4 @@ const profileAction = createServerAction(async () => {
   }
 });
 
-export default profileAction;
+export default viewProfileAction;

@@ -22,13 +22,13 @@ import {
 } from "@workspace/ui/components/form";
 import { Input } from "@workspace/ui/components/input";
 import { useForm } from "react-hook-form";
-import newProjectSchema from "../schema/newproject.schema";
+import newProjectSchema from "../schema/new-project.schema";
 import { z } from "zod";
 import ErrorAlert from "@/_components/error-alert";
 import { Plus } from "lucide-react";
 import randomProjectName from "@/lib/projectnames";
 import { useAction } from "@/hooks/useAction";
-import newProjectAction from "../actions/newproject.action";
+import newProjectAction from "../actions/new-project.action";
 import { useToast } from "@workspace/ui/hooks/use-toast";
 
 export default function NewProject() {

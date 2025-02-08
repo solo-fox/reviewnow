@@ -8,8 +8,8 @@ const routes = {
     },
   },
   auth: {
-    signin: "/auth/signin",
-    signup: "/auth/signup",
+    signin: "/auth/sign-in",
+    signup: "/auth/sign-up",
   },
   protected: {
     dashboard: "/dashboard",

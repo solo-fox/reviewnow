@@ -7,7 +7,7 @@ export async function createClient(): Promise<ClientConnection> {
 
   return Client({
     url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    anon_key: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     getAll() {
       return cookieStore.getAll();
     },

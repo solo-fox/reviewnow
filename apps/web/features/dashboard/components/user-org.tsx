@@ -1,6 +1,6 @@
 import { Badge } from "@workspace/ui/components/badge";
 import Link from "next/link";
-import profileAction from "../actions/profile.action";
+import profileAction from "../actions/view-profile.action";
 import OnboardingDialog from "@/features/onboarding/components/onboarding-dialog";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
@@ -11,9 +11,10 @@ export function UserOrgSkeleton() {
 export default async function UserOrg() {
   const profile = await profileAction();
 
-  if (profile?.success && profile.data.org_name === null) {
+  if (profile.success === false) throw new Error(profile.error);
+
+  if (profile?.success && profile.data.org_name === null)
     return <OnboardingDialog />;
-  }
 
   return (
     <div className="flex items-center gap-4 text-sm">

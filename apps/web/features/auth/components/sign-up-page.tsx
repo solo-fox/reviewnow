@@ -1,4 +1,4 @@
-import signUpAction from "../actions/signup.action";
+import signUpAction from "../actions/sign-up.action";
 import routes from "@/lib/routes";
 import AuthForm from "./auth-form";
 

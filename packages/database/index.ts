@@ -3,12 +3,12 @@ import { Database } from "./database.types";
 
 export default function Client({
   url,
-  anon_key,
+  anonKey,
 }: {
   url: string;
-  anon_key: string;
+  anonKey: string;
 }) {
-  let client = createClient<Database>(url, anon_key);
+  let client = createClient<Database>(url, anonKey);
 
   return client;
 }

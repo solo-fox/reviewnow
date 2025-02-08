@@ -2,7 +2,11 @@
 
 import { AlertCircle } from "lucide-react";
 
-export default function ErrorAlert(props: { message: string }) {
+interface ErrorAlertProps {
+  message: string;
+}
+
+export default function ErrorAlert(props: ErrorAlertProps) {
   if (!props.message) return null;
 
   return (

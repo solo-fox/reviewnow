@@ -10,7 +10,7 @@ export default class Project {
   constructor(public client: SupabaseClient<Database>) {}
 
   public async create(
-    user_id: string,
+    userId: string,
     payload: {
       name: string;
       description: string | null;
@@ -32,7 +32,7 @@ export default class Project {
           },
         ],
         name: payload.name,
-        user_id,
+        user_id: userId,
       },
     ]);
 

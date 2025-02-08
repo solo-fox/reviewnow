@@ -5,12 +5,12 @@ import { SupabaseClient } from "@supabase/supabase-js";
 export type ClientConnection = SupabaseClient<Database>;
 export default function Client({
   url,
-  anon_key,
+  anonKey,
 }: {
   url: string;
-  anon_key: string;
+  anonKey: string;
 }) {
-  let client = createBrowserClient<Database>(url, anon_key);
+  let client = createBrowserClient<Database>(url, anonKey);
 
   return client;
 }
