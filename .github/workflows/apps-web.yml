@@ -1,4 +1,4 @@
-name: apps/web Preview
+name: apps/web build
 
 on:
   push:
@@ -45,6 +45,14 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Create .env file
+        run: |
+          cat <<EOF > apps/web/.env
+          NEXT_PUBLIC_SUPABASE_URL=https://dummy.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY=dummy-anon-key
+          NEXT_PUBLIC_SITE_URL=https://dummy-site.com
+          EOF
 
       - name: Build web app
         run: pnpm --filter web build
