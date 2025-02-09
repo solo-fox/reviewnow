@@ -3,8 +3,8 @@
 import { usePathname } from "next/navigation";
 
 export default function Breadcrumb() {
-  const pathname = usePathname();
-  const segments = pathname.split("/").filter((segment) => segment !== "");
+  const pathname = usePathname(),
+   segments = pathname.split("/").filter((segment) => segment !== "");
 
   return (
     <div className="hidden md:block">

@@ -7,7 +7,7 @@ interface ErrorAlertProps {
 }
 
 export default function ErrorAlert(props: ErrorAlertProps) {
-  if (!props.message) return null;
+  if (!props.message) {return null;}
 
   return (
     <div className="flex flex-nowrap gap-2 w-full h-full max-w-md p-0 bg-destructive text-destructive-foreground rounded-md">

@@ -1,5 +1,5 @@
-import Sidebar from "./sidebar";
 import LayoutHeader from "./layout-header";
+import Sidebar from "./sidebar";
 
 export default async function DashboardLayout({
   children,

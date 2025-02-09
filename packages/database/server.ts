@@ -9,7 +9,7 @@ type CookieToSet = {
 }[];
 export type ClientConnection = SupabaseClient<Database>;
 
-export default function Client({
+export default function client({
   url,
   anonKey,
   getAll,

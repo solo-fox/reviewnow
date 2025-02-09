@@ -1,11 +1,13 @@
 import { Bell, CircleHelp } from "lucide-react";
-import ThemeSwitcher from "@/_components/theme-switcher";
-import Logo from "@/_components/Logo";
-import Breadcrumb from "./breadcrumb";
-import UserOrg, { UserOrgSkeleton } from "./user-org";
 import { Suspense } from "react";
-import { ErrorBoundary } from "@/_components/error-boundary";
+
+import Breadcrumb from "./breadcrumb";
 import MobileSidebar from "./mobile-sidebar";
+import UserOrg, { UserOrgSkeleton } from "./user-org";
+
+import Logo from "@/_components/Logo";
+import { ErrorBoundary } from "@/_components/error-boundary";
+import ThemeSwitcher from "@/_components/theme-switcher";
 
 export default function LayoutHeader() {
   return (

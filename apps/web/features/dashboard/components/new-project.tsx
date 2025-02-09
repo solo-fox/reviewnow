@@ -1,6 +1,5 @@
 "use client";
 
-import LoadingIcon from "@/_components/loading-icon";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@workspace/ui/components/button";
@@ -21,15 +20,21 @@ import {
   FormMessage,
 } from "@workspace/ui/components/form";
 import { Input } from "@workspace/ui/components/input";
-import { useForm } from "react-hook-form";
-import newProjectSchema from "../schema/new-project.schema";
-import { z } from "zod";
-import ErrorAlert from "@/_components/error-alert";
-import { Plus } from "lucide-react";
-import randomProjectName from "@/lib/projectnames";
-import { useAction } from "@/hooks/useAction";
-import newProjectAction from "../actions/new-project.action";
 import { useToast } from "@workspace/ui/hooks/use-toast";
+import { Plus } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import newProjectAction from "../actions/new-project.action";
+import newProjectSchema from "../schema/new-project.schema";
+
+import ErrorAlert from "@/_components/error-alert";
+import LoadingIcon from "@/_components/loading-icon";
+import { useAction } from "@/hooks/useAction";
+import randomProjectName from "@/lib/projectnames";
+
+
+
 
 export default function NewProject() {
   const form = useForm<z.infer<typeof newProjectSchema>>({
@@ -38,10 +43,10 @@ export default function NewProject() {
       projectDescription: "My lovely project",
       projectName: randomProjectName(),
     },
-  });
-  const { toast } = useToast();
+  }),
+   { toast } = useToast(),
 
-  const {
+   {
     mutate: createNewProject,
     isPending,
     error,
@@ -54,7 +59,7 @@ export default function NewProject() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof newProjectSchema>) {
+  const onSubmit = (values: z.infer<typeof newProjectSchema>) => {
     createNewProject({
       projectName: values.projectName,
       projectDescription: values.projectDescription,

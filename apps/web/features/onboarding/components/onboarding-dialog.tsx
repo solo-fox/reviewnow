@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@workspace/ui/components/dialog";
+
 import ProjectSetup from "./project-setup";
 
 export default function OnboardingDialog() {

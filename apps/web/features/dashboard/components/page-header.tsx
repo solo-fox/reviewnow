@@ -1,5 +1,5 @@
-import Search from "./search";
 import NewProject from "./new-project";
+import Search from "./search";
 
 export default function PageHeader() {
   return (

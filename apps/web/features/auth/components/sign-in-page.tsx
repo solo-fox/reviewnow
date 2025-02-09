@@ -1,6 +1,8 @@
 import signInAction from "../actions/sign-in.action";
-import routes from "@/lib/routes";
+
 import AuthForm from "./auth-form";
+
+import routes from "@/lib/routes";
 
 export default function SignInPage() {
   return (

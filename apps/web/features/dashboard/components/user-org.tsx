@@ -1,8 +1,10 @@
 import { Badge } from "@workspace/ui/components/badge";
 import Link from "next/link";
-import profileAction from "../actions/view-profile.action";
-import OnboardingDialog from "@/features/onboarding/components/onboarding-dialog";
 import { Skeleton } from "@workspace/ui/components/skeleton";
+
+import profileAction from "../actions/view-profile.action";
+
+import OnboardingDialog from "@/features/onboarding/components/onboarding-dialog";
 
 export function UserOrgSkeleton() {
   return <Skeleton className="w-[150px] h-3" />;

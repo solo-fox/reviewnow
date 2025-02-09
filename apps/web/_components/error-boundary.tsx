@@ -1,6 +1,7 @@
 "use client";
 
 import { Component, ReactNode } from "react";
+
 import ErrorAlert from "./error-alert";
 
 interface ErrorBoundaryProps {
@@ -26,8 +27,8 @@ export class ErrorBoundary extends Component<
   }
 
   render() {
-    const { hasError, error } = this.state;
-    const { children } = this.props;
+    const { hasError, error } = this.state,
+     { children } = this.props;
 
     if (hasError) {
       // Render custom error fallback UI

@@ -13,16 +13,19 @@ import {
   FormMessage,
 } from "@workspace/ui/components/form";
 import { Input } from "@workspace/ui/components/input";
-import onboardSchema from "../schema/onboard.schema";
 import { Button } from "@workspace/ui/components/button";
 import { Plus } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
+import { useToast } from "@workspace/ui/hooks/use-toast";
+
+import onboardSchema from "../schema/onboard.schema";
 import onboardAction from "../actions/onboard.action";
+
 import { useAction } from "@/hooks/useAction";
 import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";
 import randomProjectName from "@/lib/projectnames";
-import { useToast } from "@workspace/ui/hooks/use-toast";
+
 
 export default function ProjectSetup() {
   const form = useForm<z.infer<typeof onboardSchema>>({
@@ -48,7 +51,7 @@ export default function ProjectSetup() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof onboardSchema>) {
+  const onSubmit = (values: z.infer<typeof onboardSchema>) => {
     onboard({
       orgName: values.orgName,
       projectName: values.projectName,

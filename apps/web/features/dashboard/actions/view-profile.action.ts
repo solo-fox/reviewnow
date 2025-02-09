@@ -1,14 +1,15 @@
 "use server";
 
-import { ServerActionError, createServerAction } from "@/lib/action-utils";
-import { createClient } from "@/lib/server";
 import Profile from "@workspace/database/models/Profile";
 
-const viewProfileAction = createServerAction(async () => {
-  const supabase = await createClient();
-  const user = await supabase.auth.getUser();
+import { ServerActionError, createServerAction } from "@/lib/action-utils";
+import { createClient } from "@/lib/server";
 
-  if (user.error) throw new ServerActionError(user.error.message);
+const viewProfileAction = createServerAction(async () => {
+  const supabase = await createClient(),
+   user = await supabase.auth.getUser();
+
+  if (user.error) {throw new ServerActionError(user.error.message);}
 
   try {
     return new Profile(supabase).view(user.data.user.id);

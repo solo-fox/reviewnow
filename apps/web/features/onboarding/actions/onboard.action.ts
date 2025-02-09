@@ -1,10 +1,11 @@
 "use server";
 
+import Profile from "@workspace/database/models/Profile";
+import Project from "@workspace/database/models/Project";
+
 import { ServerActionError, createServerAction } from "@/lib/action-utils";
 import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
-import Profile from "@workspace/database/models/Profile";
-import Project from "@workspace/database/models/Project";
 
 const onboardAction = createServerAction(
   async (payload: { orgName: string; projectName: string }) => {

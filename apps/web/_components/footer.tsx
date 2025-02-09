@@ -1,6 +1,8 @@
 import Link from "next/link";
-import ThemeSwitcher from "./theme-switcher";
+
 import Logo from "./Logo";
+import ThemeSwitcher from "./theme-switcher";
+
 import routes from "@/lib/routes";
 
 export default function Footer() {

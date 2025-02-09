@@ -1,5 +1,6 @@
-import Client from "@workspace/database/server";
 import { type NextRequest, NextResponse } from "next/server";
+import Client from "@workspace/database/server";
+
 import routes from "./routes";
 
 export const updateSession = async (request: NextRequest) => {
@@ -27,16 +28,16 @@ export const updateSession = async (request: NextRequest) => {
         response.cookies.set(name, value, options),
       );
     },
-  });
+  }),
 
   // This will refresh session if expired - required for Server Components
   // https://supabase.com/docs/guides/auth/server-side/nextjs
-  const user = await supabase.auth.getUser();
-  const isAuthenticated = !user.error;
-  const isSigninOrSignup =
+   user = await supabase.auth.getUser(),
+   isAuthenticated = !user.error,
+   isSigninOrSignup =
     request.nextUrl.pathname === routes.auth.signin ||
-    request.nextUrl.pathname === routes.auth.signup;
-  const isDashboard = request.nextUrl.pathname.startsWith(
+    request.nextUrl.pathname === routes.auth.signup,
+   isDashboard = request.nextUrl.pathname.startsWith(
     routes.protected.dashboard,
   );
 

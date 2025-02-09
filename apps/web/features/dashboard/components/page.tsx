@@ -1,7 +1,9 @@
 import { Suspense } from "react";
-import Projects, { ProjectsSkeleton } from "./projects";
-import { ErrorBoundary } from "@/_components/error-boundary";
+
 import PageHeader from "./page-header";
+import Projects, { ProjectsSkeleton } from "./projects";
+
+import { ErrorBoundary } from "@/_components/error-boundary";
 
 export default function DashboardPage() {
   return (

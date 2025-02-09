@@ -1,13 +1,14 @@
 "use client";
 
-import * as React from "react";
-import { Menu } from "lucide-react";
 import { Button } from "@workspace/ui/components/button";
 import {
   Drawer,
   DrawerContent,
   DrawerTrigger,
 } from "@workspace/ui/components/drawer";
+import { Menu } from "lucide-react";
+import * as React from "react";
+
 import Sidebar from "./sidebar";
 
 export default function MobileSidebar() {

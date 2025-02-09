@@ -1,4 +1,5 @@
 import { Skeleton } from "@workspace/ui/components/skeleton";
+
 import ProjectCard from "./project-card";
 
 export function ProjectsSkeleton() {

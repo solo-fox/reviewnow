@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { Database } from "./database.types";
 
-export default function Client({
+export default function client({
   url,
   anonKey,
 }: {

@@ -1,14 +1,15 @@
-import routes from "@/lib/routes";
-import { createClient } from "@/lib/server";
 import logger from "@workspace/logger";
 
-export async function GET(request: Request) {
-  const requestUrl = new URL(request.url);
-  const code = requestUrl.searchParams.get("code");
+import routes from "@/lib/routes";
+import { createClient } from "@/lib/server";
+
+export const GET = async (request: Request) => {
+  const requestUrl = new URL(request.url),
+    code = requestUrl.searchParams.get("code");
 
   if (code) {
-    const supabase = await createClient();
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    const supabase = await createClient(),
+      { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (error) {
       logger.error(error);
@@ -24,4 +25,4 @@ export async function GET(request: Request) {
   }
 
   return Response.redirect(new URL(routes.auth.signin, routes.base), 302);
-}
+};
