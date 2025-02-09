@@ -26,4 +26,4 @@ export const useAction = <TArgs = void, TData = any>(
 
     return action;
   };
-}
+};

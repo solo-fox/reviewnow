@@ -25,7 +25,6 @@ import { z } from "zod";
 
 import authSchema from "../schema/auth.schema";
 
-
 import OAuthButton from "./oauth-button";
 
 import ErrorAlert from "@/_components/error-alert";
@@ -46,28 +45,26 @@ interface AuthFormProps {
 
 export default function AuthForm(props: AuthFormProps) {
   const authForm = useForm<z.infer<typeof authSchema>>({
-    resolver: zodResolver(authSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  }),
+      resolver: zodResolver(authSchema),
+      defaultValues: {
+        email: "",
+        password: "",
+      },
+    }),
+    {
+      mutate: auth,
+      isPending,
 
-   {
-    mutate: auth,
-    isPending,
-    
-    error,
-  } = useMutation({
-    mutationFn: useAction(props.action),
-  }),
-
-   onSubmit = (values: z.infer<typeof authSchema>) => {
-    auth({
-      email: values.email,
-      password: values.password,
-    });
-  };
+      error,
+    } = useMutation({
+      mutationFn: useAction(props.action),
+    }),
+    onSubmit = (values: z.infer<typeof authSchema>) => {
+      auth({
+        email: values.email,
+        password: values.password,
+      });
+    };
 
   return (
     <Card>

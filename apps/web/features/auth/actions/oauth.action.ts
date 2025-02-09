@@ -6,15 +6,16 @@ import { createClient } from "@/lib/server";
 
 const oauthAction = createServerAction(async () => {
   const supabase = await createClient(),
+    { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "github",
+      options: {
+        redirectTo: routes.api.auth.callback,
+      },
+    });
 
-   { data, error } = await supabase.auth.signInWithOAuth({
-    provider: "github",
-    options: {
-      redirectTo: routes.api.auth.callback,
-    },
-  });
-
-  if (error) {throw new ServerActionError(error.message);}
+  if (error) {
+    throw new ServerActionError(error.message);
+  }
 
   return {
     redirectTo: data.url,

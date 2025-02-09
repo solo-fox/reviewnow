@@ -9,9 +9,11 @@ import { createClient } from "@/lib/server";
 const newProjectAction = createServerAction(
   async (payload: { projectName: string; projectDescription: string }) => {
     const supabase = await createClient(),
-     user = await supabase.auth.getUser();
+      user = await supabase.auth.getUser();
 
-    if (user.error) {throw new ServerActionError(user.error.message);}
+    if (user.error) {
+      throw new ServerActionError(user.error.message);
+    }
 
     try {
       const projectId = await new Project(supabase).create(user.data.user.id, {

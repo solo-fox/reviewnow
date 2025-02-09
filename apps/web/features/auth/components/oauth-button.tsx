@@ -11,7 +11,7 @@ export default function OAuthButton() {
   const {
     mutate: auth,
     isPending,
-    
+
     error,
   } = useMutation({
     mutationFn: useAction(oauthAction),

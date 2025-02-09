@@ -16,7 +16,7 @@ import LoadingIcon from "./loading-icon";
 
 export default function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false),
-   { theme, setTheme } = useTheme();
+    { theme, setTheme } = useTheme();
 
   // UseEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {

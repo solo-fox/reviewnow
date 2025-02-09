@@ -26,7 +26,6 @@ import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";
 import randomProjectName from "@/lib/projectnames";
 
-
 export default function ProjectSetup() {
   const form = useForm<z.infer<typeof onboardSchema>>({
     resolver: zodResolver(onboardSchema),
@@ -56,7 +55,7 @@ export default function ProjectSetup() {
       orgName: values.orgName,
       projectName: values.projectName,
     });
-  }
+  };
 
   return (
     <Form {...form}>

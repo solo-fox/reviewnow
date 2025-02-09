@@ -6,10 +6,11 @@ import { createClient } from "@/lib/server";
 
 const signOutAction = createServerAction(async () => {
   const supabase = await createClient(),
+    { error } = await supabase.auth.signOut();
 
-   { error } = await supabase.auth.signOut();
-
-  if (error) {throw new ServerActionError(error.message);}
+  if (error) {
+    throw new ServerActionError(error.message);
+  }
 
   return {
     redirectTo: routes.auth.signin,

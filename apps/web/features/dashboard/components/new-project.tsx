@@ -33,38 +33,34 @@ import LoadingIcon from "@/_components/loading-icon";
 import { useAction } from "@/hooks/useAction";
 import randomProjectName from "@/lib/projectnames";
 
-
-
-
 export default function NewProject() {
   const form = useForm<z.infer<typeof newProjectSchema>>({
-    resolver: zodResolver(newProjectSchema),
-    defaultValues: {
-      projectDescription: "My lovely project",
-      projectName: randomProjectName(),
-    },
-  }),
-   { toast } = useToast(),
-
-   {
-    mutate: createNewProject,
-    isPending,
-    error,
-  } = useMutation({
-    mutationFn: useAction(newProjectAction),
-    onSuccess: () => {
-      toast({
-        title: "Project created",
-      });
-    },
-  });
+      resolver: zodResolver(newProjectSchema),
+      defaultValues: {
+        projectDescription: "My lovely project",
+        projectName: randomProjectName(),
+      },
+    }),
+    { toast } = useToast(),
+    {
+      mutate: createNewProject,
+      isPending,
+      error,
+    } = useMutation({
+      mutationFn: useAction(newProjectAction),
+      onSuccess: () => {
+        toast({
+          title: "Project created",
+        });
+      },
+    });
 
   const onSubmit = (values: z.infer<typeof newProjectSchema>) => {
     createNewProject({
       projectName: values.projectName,
       projectDescription: values.projectDescription,
     });
-  }
+  };
 
   return (
     <Dialog>

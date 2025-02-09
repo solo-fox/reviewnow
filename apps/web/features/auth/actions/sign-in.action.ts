@@ -7,13 +7,14 @@ import { createClient } from "@/lib/server";
 const signInAction = createServerAction(
   async (payload: { email: string; password: string }) => {
     const supabase = await createClient(),
+      { error } = await supabase.auth.signInWithPassword({
+        email: payload.email,
+        password: payload.password,
+      });
 
-     { error } = await supabase.auth.signInWithPassword({
-      email: payload.email,
-      password: payload.password,
-    });
-
-    if (error) {throw new ServerActionError(error.message);}
+    if (error) {
+      throw new ServerActionError(error.message);
+    }
 
     return {
       redirectTo: routes.protected.dashboard,

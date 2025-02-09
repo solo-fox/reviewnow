@@ -28,7 +28,7 @@ export class ErrorBoundary extends Component<
 
   render() {
     const { hasError, error } = this.state,
-     { children } = this.props;
+      { children } = this.props;
 
     if (hasError) {
       // Render custom error fallback UI
