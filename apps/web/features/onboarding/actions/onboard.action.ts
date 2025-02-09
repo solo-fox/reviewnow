@@ -26,6 +26,7 @@ const onboardAction = createServerAction(
       return {
         redirectTo: routes.protected.project(projectId),
       };
+      // eslint-disable-next-line
     } catch (error: any) {
       throw new ServerActionError(error.message);
     }

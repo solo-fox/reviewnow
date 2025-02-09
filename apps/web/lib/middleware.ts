@@ -3,6 +3,8 @@ import Client from "@workspace/database/server";
 
 import routes from "./routes";
 
+import { env } from "@/env";
+
 export const updateSession = async (request: NextRequest) => {
   // Create an unmodified response
   let response = NextResponse.next({
@@ -12,8 +14,8 @@ export const updateSession = async (request: NextRequest) => {
   });
 
   const supabase = Client({
-      url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      url: env.NEXT_PUBLIC_SUPABASE_URL,
+      anonKey: env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
       getAll() {
         return request.cookies.getAll();
       },

@@ -1,5 +1,7 @@
+import { env } from "@/env";
+
 const routes = {
-  base: process.env.NEXT_PUBLIC_SITE_URL,
+  base: env.NEXT_PUBLIC_SITE_URL,
   home: "/",
   error: "/error",
   auth: {

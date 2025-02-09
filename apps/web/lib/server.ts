@@ -2,11 +2,14 @@ import client, { ClientConnection } from "@workspace/database/server";
 import logger from "@workspace/logger";
 import { cookies } from "next/headers";
 
+import { env } from "@/env";
+
 export const createClient = async (): Promise<ClientConnection> => {
   const cookieStore = await cookies();
 
   return client({
-    anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    anonKey: env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    url: env.NEXT_PUBLIC_SUPABASE_URL,
     getAll: () => cookieStore.getAll(),
     setAll: (cookiesToSet) => {
       try {
@@ -22,7 +25,5 @@ export const createClient = async (): Promise<ClientConnection> => {
         }
       }
     },
-
-    url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
   });
 };

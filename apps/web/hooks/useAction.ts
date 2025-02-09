@@ -6,6 +6,7 @@ import { ServerActionResult } from "@/lib/action-utils";
 
 export type AsyncAction<TArgs, TResult> = (args: TArgs) => Promise<TResult>;
 
+// eslint-disable-next-line
 export const useAction = <TArgs = void, TData = any>(
   fn: AsyncAction<TArgs, ServerActionResult<TData>>,
 ) => {
