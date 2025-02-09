@@ -17,7 +17,7 @@ const viewProfileAction = createServerAction(async () => {
     return new Profile(supabase).view(user.data.user.id);
     // eslint-disable-next-line
   } catch (error: any) {
-    throw new ServerActionError(error.message);
+    throw new ServerActionError((error as Error).message);
   }
 });
 

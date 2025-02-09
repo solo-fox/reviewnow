@@ -28,7 +28,7 @@ const onboardAction = createServerAction(
       };
       // eslint-disable-next-line
     } catch (error: any) {
-      throw new ServerActionError(error.message);
+      throw new ServerActionError((error as Error).message);
     }
   },
 );

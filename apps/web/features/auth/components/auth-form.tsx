@@ -76,7 +76,7 @@ export default function AuthForm(props: AuthFormProps) {
       </CardHeader>
 
       <CardContent className="flex flex-col gap-6 justify-center">
-        <ErrorAlert message={(error as Error)?.message as string} />
+        <ErrorAlert message={(error as Error)?.message} />
         <Form {...authForm}>
           <form
             method="post"

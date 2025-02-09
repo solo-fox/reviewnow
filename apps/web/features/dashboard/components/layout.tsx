@@ -1,7 +1,7 @@
 import LayoutHeader from "./layout-header";
 import Sidebar from "./sidebar";
 
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

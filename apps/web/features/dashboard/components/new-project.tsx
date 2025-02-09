@@ -76,7 +76,7 @@ export default function NewProject() {
         </DialogHeader>
 
         <Form {...form}>
-          <ErrorAlert message={(error as Error)?.message as string} />
+          <ErrorAlert message={(error as Error)?.message} />
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}

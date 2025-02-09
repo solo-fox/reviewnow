@@ -1,6 +1,4 @@
-import React from "react";
-
-export default async function Home() {
+export default function Home() {
   return (
     <>
       <p>Home</p>
