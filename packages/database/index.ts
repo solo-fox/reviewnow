@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+
 import { Database } from "./database.types";
 
 export default function client({
@@ -8,7 +9,7 @@ export default function client({
   url: string;
   anonKey: string;
 }) {
-  let client = createClient<Database>(url, anonKey);
+  const client = createClient<Database>(url, anonKey);
 
   return client;
 }

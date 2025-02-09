@@ -1,5 +1,6 @@
-import { createServerClient, CookieOptions } from "@supabase/ssr";
+import { CookieOptions, createServerClient } from "@supabase/ssr";
 import { SupabaseClient } from "@supabase/supabase-js";
+
 import { Database } from "./database.types";
 
 type CookieToSet = {
@@ -17,10 +18,11 @@ export default function client({
 }: {
   url: string;
   anonKey: string;
+  // eslint-disable-next-line
   getAll: () => any;
   setAll: (cookiesToSet: CookieToSet) => void;
 }) {
-  let client = createServerClient<Database>(url, anonKey, {
+  const client = createServerClient<Database>(url, anonKey, {
     cookies: {
       getAll,
       setAll,

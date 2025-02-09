@@ -1,7 +1,8 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { Database } from "../database.types";
 import errorMessages from "@workspace/error";
 import logger from "@workspace/logger";
+
+import { Database } from "../database.types";
 
 export type ProfileView = Database["public"]["Tables"]["profiles"]["Row"];
 

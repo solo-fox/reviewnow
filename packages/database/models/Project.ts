@@ -1,8 +1,9 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { Database } from "../database.types";
 import errorMessages from "@workspace/error";
 import logger from "@workspace/logger";
 import uuidAPIKey from "uuid-apikey";
+
+import { Database } from "../database.types";
 
 export type ProjectView = Database["public"]["Tables"]["projects"]["Row"];
 
