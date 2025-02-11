@@ -6,8 +6,7 @@ import { cn } from "@workspace/ui/lib/utils";
 import { ArrowUpRight, Cog, Frame, LogOut } from "lucide-react";
 import Link from "next/link";
 
-import signOutAction from "../actions/sign-out.action";
-
+import signOutAction from "@/actions/auth/sign-out.action";
 import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";
 import { useAction } from "@/hooks/useAction";

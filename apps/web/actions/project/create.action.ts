@@ -1,12 +1,11 @@
 "use server";
 
-import Project from "@workspace/database/models/Project";
+import ProjectModel from "@workspace/database/models/Project";
 
 import { ServerActionError, createServerAction } from "@/lib/action-utils";
-import routes from "@/lib/routes";
 import { createClient } from "@/lib/server";
 
-const newProjectAction = createServerAction(
+const createProjectAction = createServerAction(
   async (payload: { projectName: string; projectDescription: string }) => {
     const supabase = await createClient(),
       user = await supabase.auth.getUser();
@@ -16,14 +15,10 @@ const newProjectAction = createServerAction(
     }
 
     try {
-      const projectId = await new Project(supabase).create(user.data.user.id, {
+      return await new ProjectModel(supabase).create(user.data.user.id, {
         name: payload.projectName,
         description: payload.projectDescription,
       });
-
-      return {
-        redirectTo: routes.protected.project(projectId),
-      };
       // eslint-disable-next-line
     } catch (error: any) {
       throw new ServerActionError((error as Error).message);
@@ -31,4 +26,4 @@ const newProjectAction = createServerAction(
   },
 );
 
-export default newProjectAction;
+export default createProjectAction;

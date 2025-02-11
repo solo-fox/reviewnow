@@ -2,16 +2,20 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import errorMessages from "@workspace/error";
 import logger from "@workspace/logger";
 
-import { Database } from "../database.types";
+import { Database, Tables } from "../database.types";
 
-export type ProfileView = Database["public"]["Tables"]["profiles"]["Row"];
+import { Model } from "./model.interface";
 
-export default class Profile {
+export type Profile = Tables<"profiles">;
+
+export default class ProfileModel implements Partial<Model<Profile>> {
+  public readonly tableName = "profiles";
+
   constructor(public client: SupabaseClient<Database>) {}
 
-  public async view(userId: string): Promise<NonNullable<ProfileView>> {
+  public async findById(userId: string): Promise<Profile | null> {
     const { data, error } = await this.client
-      .from("profiles")
+      .from(this.tableName)
       .select("*")
       .eq("id", userId)
       .limit(1)
@@ -19,23 +23,40 @@ export default class Profile {
 
     if (error) {
       logger.error(error);
-      throw new Error(errorMessages.profile.view.serverError);
+      throw new Error(errorMessages.serverError);
     }
-    if (data === undefined || data === null)
-      throw new Error(errorMessages.profile.view.notFound);
 
     return data;
   }
 
-  async update(userId: string, payload: Partial<ProfileView>): Promise<void> {
-    const { error } = await this.client
-      .from("profiles")
+  public async update(
+    userId: string,
+    payload: Partial<Profile>,
+  ): Promise<Profile | null> {
+    const { data, error } = await this.client
+      .from(this.tableName)
       .update(payload)
+      .eq("id", userId)
+      .select("*")
+      .single();
+
+    if (error) {
+      logger.error(error);
+      throw new Error(errorMessages.serverError);
+    }
+    return data;
+  }
+
+  public async delete(userId: string): Promise<boolean> {
+    const { error } = await this.client
+      .from(this.tableName)
+      .delete()
       .eq("id", userId);
 
     if (error) {
       logger.error(error);
-      throw new Error(errorMessages.profile.view.serverError);
+      throw new Error(errorMessages.serverError);
     }
+    return true;
   }
 }

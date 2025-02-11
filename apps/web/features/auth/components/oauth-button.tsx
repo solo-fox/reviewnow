@@ -1,8 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@workspace/ui/components/button";
 
-import oauthAction from "../actions/oauth.action";
-
+import oauthAction from "@/actions/auth/oauth.action";
 import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";
 import { useAction } from "@/hooks/useAction";

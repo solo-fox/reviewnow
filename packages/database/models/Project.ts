@@ -3,77 +3,126 @@ import errorMessages from "@workspace/error";
 import logger from "@workspace/logger";
 import uuidAPIKey from "uuid-apikey";
 
-import { Database } from "../database.types";
+import { Database, Tables } from "../database.types";
 
-export type ProjectView = Database["public"]["Tables"]["projects"]["Row"];
+import { Model, Search } from "./model.interface";
 
-export default class Project {
+export type Project = Tables<"projects">;
+
+export default class ProjectModel implements Model<Project> {
+  public readonly tableName = "projects";
+
   constructor(public client: SupabaseClient<Database>) {}
 
-  public async list(
+  public async create(
     userId: string,
-    payload: {
-      limit: number;
-      offset: number;
-      search?: string;
-    },
-  ): Promise<NonNullable<ProjectView[]>> {
+    payload: Partial<Project>,
+  ): Promise<Project> {
+    const date = new Date().toISOString();
+    const api_key = uuidAPIKey.create();
+
+    const newProject: Database["public"]["Tables"]["projects"]["Insert"] = {
+      id: api_key.uuid,
+      api_key: api_key.apiKey,
+      api_limit: 1000,
+      description: payload.description ?? null,
+      logs: [
+        {
+          timestamp: date,
+          message: "Project was created.",
+        },
+      ],
+      name: payload.name as string,
+      user_id: userId,
+    };
+
+    const { data, error } = await this.client
+      .from(this.tableName)
+      .insert([newProject])
+      .select("*")
+      .single();
+
+    if (error) {
+      logger.error(error);
+      throw new Error(errorMessages.serverError);
+    }
+
+    return data;
+  }
+
+  public async findById(userId: string, id: string): Promise<Project | null> {
+    const { data, error } = await this.client
+      .from(this.tableName)
+      .select("*")
+      .eq("user_id", userId)
+      .eq("id", id)
+      .limit(1)
+      .single();
+
+    if (error) {
+      logger.error(error);
+      throw new Error(errorMessages.serverError);
+    }
+
+    return data;
+  }
+
+  public async findAll(userId: string, payload: Search): Promise<Project[]> {
     const { limit, offset, search } = payload;
 
-    let { data, error } = await this.client
-      .from("projects")
+    let query = this.client
+      .from(this.tableName)
       .select("*")
       .eq("user_id", userId)
       .order("created_at", { ascending: false })
       .range(offset, offset + limit - 1);
 
-    if (search !== undefined) {
-      query = query.ilike("name", `%${search}%`); // Case-insensitive search
+    if (search) {
+      query = query.ilike("name", `%${search}%`);
     }
+
+    const { data, error } = await query;
 
     if (error) {
       logger.error(error);
-      throw new Error(errorMessages.project.list.serverError);
+      throw new Error(errorMessages.serverError);
     }
 
-    if (data === undefined || data === null)
-      throw new Error(errorMessages.project.list.notFound);
+    return data ?? [];
+  }
+
+  public async update(
+    userId: string,
+    payload: Required<Pick<Project, "id">> & Partial<Project>,
+  ): Promise<Project | null> {
+    const { data, error } = await this.client
+      .from(this.tableName)
+      .update(payload)
+      .eq("user_id", userId)
+      .eq("id", payload.id)
+      .select("*")
+      .single();
+
+    if (error) {
+      logger.error(error);
+      throw new Error(errorMessages.serverError);
+    }
 
     return data;
   }
 
-  public async create(
-    userId: string,
-    payload: {
-      name: string;
-      description: string | null;
-    },
-  ): Promise<string> {
-    const date = new Date().toISOString(); // ISO format for consistency
-    const api_key = uuidAPIKey.create();
-
-    const { error } = await this.client.from("projects").insert([
-      {
-        id: api_key.uuid,
-        api_key: api_key.apiKey,
-        api_limit: 1000,
-        description: payload.description,
-        logs: [
-          {
-            timestamp: date,
-            message: "Project was created.",
-          },
-        ],
-        name: payload.name,
-        user_id: userId,
-      },
-    ]);
+  public async delete(userId: string, id: string): Promise<boolean> {
+    const { error } = await this.client
+      .from(this.tableName)
+      .delete()
+      .eq("user_id", userId)
+      .eq("id", id);
 
     if (error) {
       logger.error(error);
-      throw new Error(errorMessages.project.create.serverError);
+      throw new Error(errorMessages.serverError);
     }
 
-    return api_key.uuid;
+    return true;
   }
 }

@@ -19,8 +19,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@workspace/ui/hooks/use-toast";
 
 import onboardSchema from "../schema/onboard.schema";
-import onboardAction from "../actions/onboard.action";
 
+import onboardAction from "@/actions/auth/onboard.action";
 import { useAction } from "@/hooks/useAction";
 import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";

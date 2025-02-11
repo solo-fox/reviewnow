@@ -18,48 +18,17 @@ export type Database = {
         };
         Insert: {
           id: string;
-
           notes?: string | null;
           org_name?: string | null;
           plan?: string;
         };
         Update: {
           id?: string;
-
           notes?: string | null;
           org_name?: string | null;
           plan?: string;
         };
         Relationships: [];
-      };
-      project_metrics: {
-        Row: {
-          api_calls: number;
-          id: number;
-          project_id: string;
-          usage_date: string;
-        };
-        Insert: {
-          api_calls?: number;
-          id?: number;
-          project_id: string;
-          usage_date?: string;
-        };
-        Update: {
-          api_calls?: number;
-          id?: number;
-          project_id?: string;
-          usage_date?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "metrics_project_id_fkey";
-            columns: ["project_id"];
-            isOneToOne: true;
-            referencedRelation: "projects";
-            referencedColumns: ["id"];
-          },
-        ];
       };
       projects: {
         Row: {
@@ -69,7 +38,6 @@ export type Database = {
           created_at: string;
           description: string | null;
           id: string;
-
           logs: Json | null;
           name: string;
           restricted: boolean;
@@ -82,7 +50,6 @@ export type Database = {
           created_at?: string;
           description?: string | null;
           id?: string;
-
           logs?: Json | null;
           name: string;
           restricted?: boolean;
@@ -95,21 +62,12 @@ export type Database = {
           created_at?: string;
           description?: string | null;
           id?: string;
-
           logs?: Json | null;
           name?: string;
           restricted?: boolean;
           user_id?: string;
         };
-        Relationships: [
-          {
-            foreignKeyName: "projects_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
-          },
-        ];
+        Relationships: [];
       };
       reviews: {
         Row: {

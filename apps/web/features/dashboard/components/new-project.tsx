@@ -25,17 +25,17 @@ import { Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import newProjectAction from "../actions/new-project.action";
-import newProjectSchema from "../schema/new-project.schema";
+import createProjectSchema from "../schema/create-project.schema";
 
+import createProjectAction from "@/actions/project/create.action";
 import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";
 import { useAction } from "@/hooks/useAction";
 import randomProjectName from "@/lib/projectnames";
 
 export default function NewProject() {
-  const form = useForm<z.infer<typeof newProjectSchema>>({
-      resolver: zodResolver(newProjectSchema),
+  const form = useForm<z.infer<typeof createProjectSchema>>({
+      resolver: zodResolver(createProjectSchema),
       defaultValues: {
         projectDescription: "My lovely project",
         projectName: randomProjectName(),
@@ -47,7 +47,7 @@ export default function NewProject() {
       isPending,
       error,
     } = useMutation({
-      mutationFn: useAction(newProjectAction),
+      mutationFn: useAction(createProjectAction),
       onSuccess: () => {
         toast({
           title: "Project created",
@@ -55,7 +55,7 @@ export default function NewProject() {
       },
     });
 
-  const onSubmit = (values: z.infer<typeof newProjectSchema>) => {
+  const onSubmit = (values: z.infer<typeof createProjectSchema>) => {
     createNewProject({
       projectName: values.projectName,
       projectDescription: values.projectDescription,

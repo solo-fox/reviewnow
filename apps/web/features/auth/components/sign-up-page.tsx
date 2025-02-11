@@ -1,7 +1,6 @@
-import signUpAction from "../actions/sign-up.action";
-
 import AuthForm from "./auth-form";
 
+import signUpAction from "@/actions/auth/sign-up.action";
 import routes from "@/lib/routes";
 
 export default function SignUpPage() {

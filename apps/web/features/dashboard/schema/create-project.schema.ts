@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 
-const newProjectSchema = z.object({
+const createProjectSchema = z.object({
   projectName: z.string().min(2, {
     message: "Project name must be at least 2 characters.",
   }),
@@ -11,4 +11,4 @@ const newProjectSchema = z.object({
   }),
 });
 
-export default newProjectSchema;
+export default createProjectSchema;

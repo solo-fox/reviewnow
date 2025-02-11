@@ -4,7 +4,6 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "gen:types": "node ./scripts/generate-types.js",
     "lint": "eslint --fix"
   },
   "dependencies": {
