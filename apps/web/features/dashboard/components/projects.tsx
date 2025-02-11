@@ -1,6 +1,8 @@
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
 import ProjectCard from "./project-card";
+import listProjectsAction from "../actions/list-projects.action";
+import LoadMoreProjects from "./load-more-projects";
 
 export function ProjectsSkeleton() {
   return (
@@ -12,16 +14,20 @@ export function ProjectsSkeleton() {
 }
 
 export default async function Projects() {
-  // Simulate a delay of 3 seconds
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  const projects = await listProjectsAction({ limit: 5, offset: 0 });
+
+  if (projects.success === false) throw new Error(projects.error);
 
   return (
     <div className="flex flex-col md:grid md:grid-cols-2 gap-4 w-full h-0 flex-grow overflow-y-scroll">
-      <ProjectCard name="reviewnow" description="Hard coded example" />
-      <ProjectCard name="reviewnow" description="Hard coded example" />
-      <ProjectCard name="reviewnow" description="Hard coded example" />
-      <ProjectCard name="reviewnow" description="Hard coded example" />
-      <ProjectCard name="reviewnow" description="Hard coded example" />
+      {projects.data.projects.map((project) => (
+        <ProjectCard
+          key={project.id}
+          name={project.name}
+          description={project.description}
+        />
+      ))}
+      {projects.data.nextOffset && <LoadMoreProjects nextOffset={projects.data.nextOffset} />}
     </div>
   );
 }

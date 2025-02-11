@@ -3,7 +3,7 @@ import { ChevronRight } from "lucide-react";
 
 interface ProjectCardProps {
   name: string;
-  description: string;
+  description: string | null;
 }
 
 export default function ProjectCard(props: ProjectCardProps) {
@@ -13,7 +13,7 @@ export default function ProjectCard(props: ProjectCardProps) {
         <div>
           <h3 className="text-lg font-medium">{props.name}</h3>
           <p className="text-sm text-muted-foreground mt-1 truncate">
-            {props.description}
+            {props.description || "No description provided."}
           </p>
         </div>
         <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition-colors" />

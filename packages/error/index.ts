@@ -16,6 +16,10 @@ const errorMessages = {
       serverError:
         "There was an error creating the project. Try again later. If the problem persists, contact support.",
     },
+    list: {
+      serverError: "There was an error retrieving your projects. Try again later. If the problem persists, contact support.",
+      notFound: "No Projects found."
+    }
   },
 };
 
