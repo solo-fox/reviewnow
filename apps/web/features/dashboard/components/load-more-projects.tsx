@@ -1,55 +1,78 @@
 "use client";
 
-import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import listProjectsAction from "../actions/list-projects.action";
+import { useEffect } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import type { Project } from "@workspace/database/models/Project";
+
 import ProjectCard from "./project-card";
+import { ProjectsSkeleton } from "./projects";
+
+import findAllProjectsAction from "@/actions/project/findall.action";
 import { useAction } from "@/hooks/useAction";
-import { ProjectView } from "@workspace/database/models/Project";
 import ErrorAlert from "@/_components/error-alert";
 
+import { useInView } from "react-intersection-observer";
+
 export default function LoadMoreProjects({
-  nextOffset,
+  initialOffset,
 }: {
-  nextOffset: number;
+  initialOffset: number;
 }) {
-  const [projects, setProjects] = useState<ProjectView[]>([]);
-  const [offset, setOffset] = useState(nextOffset);
+  const fetchProjects = useAction(findAllProjectsAction);
 
   const {
     data,
-    mutate: load,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
     error,
-    isPending,
-  } = useMutation({
-    mutationFn: useAction(listProjectsAction),
-    onSuccess: () => {
-      if (data?.success) {
-        setProjects([...projects, ...data.data.projects]);
-        setOffset(data?.data.nextOffset);
-      }
+  } = useInfiniteQuery({
+    queryKey: ["projects"],
+    queryFn: async ({ pageParam = initialOffset }) =>
+      await fetchProjects({ limit: 4, offset: pageParam, search: null }),
+    getNextPageParam: (lastPage) => {
+      return lastPage.nextOffset ?? undefined;
     },
+    initialPageParam: initialOffset,
   });
 
+  const { ref, inView } = useInView({
+    triggerOnce: false,
+    threshold: 0,
+  });
+
+  // Fetch the next page when the observer is in view
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, !isFetchingNextPage, fetchNextPage]);
+
+  if (status === "error") {
+    return <ErrorAlert message={(error as Error)?.message} />;
+  }
+
   return (
-    <div>
-      <ErrorAlert message={(error as Error).message} />
-      {projects.map((project) => (
-        <ProjectCard
-          key={project.id}
-          name={project.name}
-          description={project.description}
-        />
-      ))}
-      {offset && (
-        <button
-          onClick={() => load({ limit: 5, offset })}
-          disabled={isPending}
-          className="mt-4 p-2 bg-blue-500 text-white rounded"
-        >
-          {isPending ? "Loading..." : "Load More"}
-        </button>
-      )}
-    </div>
+    <>
+      <div className="mt-4 grid md:grid-cols-2 gap-4">
+        {data?.pages.map((page) =>
+          page.projects.map((project: Project) => (
+            <ProjectCard
+              id={project.id}
+              key={project.id}
+              name={project.name}
+              description={project.description}
+            />
+          )),
+        )}
+      </div>
+
+      {isFetchingNextPage && <ProjectsSkeleton />}
+
+      <div ref={ref} className="text-foreground h-20 mt-4 flex justify-center">
+       
+      </div>
+    </>
   );
 }
