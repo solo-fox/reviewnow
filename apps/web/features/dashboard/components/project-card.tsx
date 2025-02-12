@@ -1,6 +1,7 @@
+import routes from "@/lib/routes";
 import { Card } from "@workspace/ui/components/card";
 import { ChevronRight } from "lucide-react";
-import Link from "next/link"
+import Link from "next/link";
 
 interface ProjectCardProps {
   id: string;
@@ -10,7 +11,7 @@ interface ProjectCardProps {
 
 export default function ProjectCard(props: ProjectCardProps) {
   return (
-    <Link href={props.id}>
+    <Link href={routes.protected.project(props.id)}>
       <Card className="p-6 hover:bg-muted/50 cursor-pointer group w-full md:max-w-sm h-48">
         <div className="flex items-start justify-between">
           <div>
@@ -23,6 +24,5 @@ export default function ProjectCard(props: ProjectCardProps) {
         </div>
       </Card>
     </Link>
-
   );
 }

@@ -70,9 +70,10 @@ export default function LoadMoreProjects({
 
       {isFetchingNextPage && <ProjectsSkeleton />}
 
-      <div ref={ref} className="text-foreground h-20 mt-4 flex justify-center">
-       
-      </div>
+      <div
+        ref={ref}
+        className="text-foreground h-20 mt-4 flex justify-center"
+      ></div>
     </>
   );
 }

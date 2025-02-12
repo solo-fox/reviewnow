@@ -7,7 +7,7 @@ import { ErrorBoundary } from "@/_components/error-boundary";
 
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col gap-6 h-full p-4">
+    <div className="flex flex-col h-full">
       <PageHeader />
       <ErrorBoundary>
         <Suspense fallback={<ProjectsSkeleton />}>

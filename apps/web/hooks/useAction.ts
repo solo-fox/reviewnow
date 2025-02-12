@@ -12,9 +12,7 @@ export const useAction = <TArgs = void, TData = any>(
 ) => {
   const router = useRouter();
 
-  return async function callback(
-    args?: TArgs,
-  ): Promise<TData> {
+  return async function callback(args?: TArgs): Promise<TData> {
     // Handle functions that do not require arguments
     const action = await (args !== undefined
       ? fn(args)
@@ -25,6 +23,6 @@ export const useAction = <TArgs = void, TData = any>(
       router.push((action.data as { redirectTo: string }).redirectTo);
     }
 
-    return action.data
+    return action.data;
   };
 };
