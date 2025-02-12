@@ -78,7 +78,8 @@ export default class ProjectModel implements Model<Project> {
       .range(offset, offset + limit - 1);
 
     if (search) {
-      query = query.ilike("name", `%${search}%`);
+      query = query
+        .ilike("name", `%${search}%`)
     }
 
     const { data, error } = await query;

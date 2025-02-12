@@ -12,7 +12,7 @@ export default function ErrorAlert(props: ErrorAlertProps) {
   }
 
   return (
-    <div className="flex rounded-md bg-destructive text-destructive-foreground min-w-md overflow-hidden">
+    <div className="flex rounded-md bg-destructive text-destructive-foreground min-w-sm max-w-md overflow-hidden">
       <div className="relative flex-shrink-0 flex items-center gap-2 bg-background text-destructive dark:text-foreground p-2 border border-dashed border-destructive">
         <AlertCircle className="size-4" />
         <span className="text-sm font-medium">Error</span>
