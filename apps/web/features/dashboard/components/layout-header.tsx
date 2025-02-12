@@ -11,7 +11,7 @@ import ThemeSwitcher from "@/_components/theme-switcher";
 
 export default function LayoutHeader() {
   return (
-    <nav className="flex justify-between items-center w-full h-[3rem] border-b p-4 gap-6">
+    <nav className="sticky top-0 flex justify-between items-center w-full h-[3rem] border-b p-4 gap-6 bg-background">
       <div className="flex items-center">
         <MobileSidebar />
         <Logo />

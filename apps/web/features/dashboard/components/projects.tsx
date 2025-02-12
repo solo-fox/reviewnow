@@ -22,7 +22,7 @@ export default async function Projects() {
   if (projects.success === false) throw new Error(projects.error);
 */
   return (
-    <div className="z-10 flex flex-col gap-4 w-full h-0 flex-grow overflow-y-auto p-4">
+    <div className="flex flex-col gap-4 w-full flex-grow p-4">
       <div className="grid md:grid-cols-2 gap-4">
         {/*{projects.data.projects.map((project) => (
           <ProjectCard

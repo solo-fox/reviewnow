@@ -14,7 +14,7 @@ function ErrorContent() {
   const [message] = useQueryState("message", { defaultValue: "" });
 
   return (
-    <div className="min-h-svh flex flex-col justify-center items-center p-6 gap-6">
+    <div className="min-h-dvh flex flex-col justify-center items-center p-6 gap-6">
       <div className="dotted-background"></div>
       <Illustration />
       <h1 className="mt-6 font-bold tracking-tight sm:text-4xl">

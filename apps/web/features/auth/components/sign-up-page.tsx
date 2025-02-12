@@ -5,7 +5,7 @@ import routes from "@/lib/routes";
 
 export default function SignUpPage() {
   return (
-    <div className="min-h-svh flex justify-center items-center p-6">
+    <div className="min-h-dvh flex justify-center items-center p-6">
       <AuthForm
         action={signUpAction}
         header={"Sign Up"}

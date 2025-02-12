@@ -24,7 +24,7 @@ export default function Sidebar(props: { classname?: string }) {
   return (
     <div
       className={cn(
-        "hidden md:flex flex-col h-svh w-[280px] border-r",
+        "sticky top-0 hidden md:flex flex-col h-dvh w-[280px] border-r",
         props.classname,
       )}
     >
