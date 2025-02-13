@@ -31,7 +31,7 @@ export default function Search() {
         onChange={(e) => {
           handleSearch(e.target.value);
         }}
-        defaultValue={searchParams.get("query")?.toString()}
+        value={searchParams.get("query")?.toString()}
       />
     </div>
   );

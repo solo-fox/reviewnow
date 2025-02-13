@@ -1,13 +1,12 @@
-import { Skeleton } from "@workspace/ui/components/skeleton";
-import ProjectCard from "./project-card";
+import Image from "next/image";
+import ProjectCard, { ProjectCardSkeleton } from "./project-card";
 import LoadMoreProjects from "./load-more-projects";
 import findAllProjectsAction from "@/actions/project/findall.action";
 
 export function ProjectsSkeleton() {
   return (
     <div className="grid md:grid-cols-2 gap-4 p-4 w-full">
-      <Skeleton className="border min-w-sm max-w-sm h-48" />
-      <Skeleton className="border min-w-sm max-w-sm h-48" />
+      <ProjectCardSkeleton />
     </div>
   );
 }
@@ -17,8 +16,6 @@ interface ProjectsProps {
 }
 
 export default async function Projects(props: ProjectsProps) {
-  console.log(props.searchQuery);
-
   const projects = await findAllProjectsAction({
     limit: 6,
     offset: 0,
@@ -29,6 +26,24 @@ export default async function Projects(props: ProjectsProps) {
 
   return (
     <div className="flex flex-col gap-4 w-full flex-grow">
+      {projects.data.projects.length === 0 && (
+        <div className="w-full flex flex-col justify-center items-center">
+          <Image
+            alt="logo"
+            src="/not-found.svg"
+            width={0}
+            height={0}
+            fetchPriority="low"
+            className="animate-bounce size-40"
+          />
+          <h1>
+            No Projects Found {props.searchQuery && "props.searchQuery"}
+            <span className="rounded-md bg-zinc-800 px-4 border border-zinc-600 bg-card">
+              {props.searchQuery && props.searchQuery}
+            </span>
+          </h1>
+        </div>
+      )}
       <div className="grid md:grid-cols-2 gap-4 p-4">
         {projects.data.projects.map((project) => (
           <ProjectCard

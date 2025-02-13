@@ -2,6 +2,7 @@ import routes from "@/lib/routes";
 import { Card } from "@workspace/ui/components/card";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { Skeleton } from "@workspace/ui/components/skeleton";
 
 interface ProjectCardProps {
   id: string;
@@ -9,6 +10,12 @@ interface ProjectCardProps {
   description: string | null;
 }
 
+export function ProjectCardSkeleton() {
+  return (
+      <Skeleton className="p-6 cursor-pointer group w-full md:max-w-sm h-48" />
+  );
+}
+  
 export default function ProjectCard(props: ProjectCardProps) {
   return (
     <Link href={routes.protected.project(props.id)}>
