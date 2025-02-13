@@ -3,7 +3,7 @@ import { env } from "@/env";
 const routes = {
   base: env.NEXT_PUBLIC_SITE_URL,
   home: "/",
-  error: "/error",
+  error: (message: string) => `/error?=${encodeURIComponent(message)}`,
   auth: {
     signin: "/auth/sign-in",
     signup: "/auth/sign-up",
@@ -11,11 +11,11 @@ const routes = {
   protected: {
     dashboard: "/dashboard",
     settings: "/dashboard/settings",
-    project: (id: string) => `/project/${id}`,
+    project: (id: string) => `/project/${encodeURIComponent(id)}`,
   },
   api: {
     auth: {
-      callback: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+      callback: `${env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
     },
   },
   resources: {

@@ -13,8 +13,7 @@ export const GET = async (request: Request) => {
 
     if (error) {
       logger.error(error);
-      const errorUrl = new URL(routes.error, routes.base);
-      errorUrl.searchParams.set("message", error.message);
+      const errorUrl = new URL(routes.error(error.message), routes.base);
       return Response.redirect(errorUrl.toString(), 302);
     }
 
