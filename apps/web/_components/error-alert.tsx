@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertCircle, Copy } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 
 interface ErrorAlertProps {
   message: string | null;

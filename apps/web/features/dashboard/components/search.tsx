@@ -2,12 +2,12 @@
 
 import { Input } from "@workspace/ui/components/input";
 import { SearchCheck } from "lucide-react";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function Search() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const { replace } = useRouter();
+  const router = useRouter();
 
   function handleSearch(term: string) {
     const params = new URLSearchParams(searchParams);
@@ -16,7 +16,7 @@ export default function Search() {
     } else {
       params.delete("searchquery");
     }
-    replace(`${pathname}?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`);
   }
 
   return (

@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
 import Illustration from "./illustration";
 
 import Footer from "@/_components/footer";
 import ErrorAlert from "@/_components/error-alert";
 import routes from "@/lib/routes";
-import { useSearchParams } from "next/navigation";
 
 function ErrorContent() {
   const searchParams = useSearchParams();

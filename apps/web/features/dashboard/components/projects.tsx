@@ -1,9 +1,11 @@
 import Image from "next/image";
+import { Plus } from "lucide-react";
+
 import ProjectCard, { ProjectCardSkeleton } from "./project-card";
 import LoadMoreProjects from "./load-more-projects";
-import findAllProjectsAction from "@/actions/project/findall.action";
 import NewProject from "./new-project";
-import { Plus } from "lucide-react"
+
+import findAllProjectsAction from "@/actions/project/findall.action";
 
 export function ProjectsSkeleton() {
   return (
@@ -48,7 +50,11 @@ export default async function Projects(props: ProjectsProps) {
       )}
       {projects.data.projects.length === 0 && (
         <div className="flex flex-col gap-4 w-full justify-center items-center">
-        <h1 className="flex items-center fon-semibold text-center text-2xl"> <Plus size={30} className="inline-block align-middle mx-1"/> Create a Project.</h1>
+          <h1 className="flex items-center fon-semibold text-center text-2xl">
+            {" "}
+            <Plus size={30} className="inline-block align-middle mx-1" /> Create
+            a Project.
+          </h1>
           <NewProject />
         </div>
       )}

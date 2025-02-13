@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import type { Project } from "@workspace/database/models/Project";
+import { useInView } from "react-intersection-observer";
 
 import ProjectCard from "./project-card";
 import { ProjectsSkeleton } from "./projects";
@@ -10,8 +11,6 @@ import { ProjectsSkeleton } from "./projects";
 import findAllProjectsAction from "@/actions/project/findall.action";
 import { useAction } from "@/hooks/useAction";
 import ErrorAlert from "@/_components/error-alert";
-
-import { useInView } from "react-intersection-observer";
 
 export default function LoadMoreProjects({
   initialOffset,
@@ -44,13 +43,17 @@ export default function LoadMoreProjects({
 
   // Fetch the next page when the observer is in view
   useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
+    async function fetchData() {
+      if (inView && hasNextPage && !isFetchingNextPage) {
+        await fetchNextPage();
+      }
     }
-  }, [inView, hasNextPage, !isFetchingNextPage, fetchNextPage]);
+    //eslint-disable-next-line
+    fetchData();
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   if (status === "error") {
-    return <ErrorAlert message={(error as Error)?.message} />;
+    return <ErrorAlert message={error?.message} />;
   }
 
   return (

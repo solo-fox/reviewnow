@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import NewProject from "./new-project";
 import Search from "./search";
 
