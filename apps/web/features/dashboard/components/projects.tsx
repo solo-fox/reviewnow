@@ -2,6 +2,8 @@ import Image from "next/image";
 import ProjectCard, { ProjectCardSkeleton } from "./project-card";
 import LoadMoreProjects from "./load-more-projects";
 import findAllProjectsAction from "@/actions/project/findall.action";
+import NewProject from "./new-project";
+import { Plus } from "lucide-react"
 
 export function ProjectsSkeleton() {
   return (
@@ -25,8 +27,8 @@ export default async function Projects(props: ProjectsProps) {
   if (projects.success === false) throw new Error(projects.error);
 
   return (
-    <div className="flex flex-col gap-4 w-full flex-grow">
-      {projects.data.projects.length === 0 && (
+    <div className="w-full flex-grow">
+      {projects.data.projects.length === 0 && props.searchQuery && (
         <div className="w-full flex flex-col justify-center items-center">
           <Image
             alt="logo"
@@ -42,6 +44,12 @@ export default async function Projects(props: ProjectsProps) {
               {props.searchQuery && props.searchQuery}
             </span>
           </h1>
+        </div>
+      )}
+      {projects.data.projects.length === 0 && (
+        <div className="flex flex-col gap-4 w-full justify-center items-center">
+        <h1 className="flex items-center fon-semibold text-center text-2xl"> <Plus size={30} className="inline-block align-middle mx-1"/> Create a Project.</h1>
+          <NewProject />
         </div>
       )}
       <div className="grid md:grid-cols-2 gap-4 p-4">
