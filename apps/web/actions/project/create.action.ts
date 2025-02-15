@@ -15,10 +15,15 @@ const createProjectAction = createServerAction(
     }
 
     try {
-      return await new ProjectModel(supabase).create(user.data.user.id, {
-        name: payload.projectName,
-        description: payload.projectDescription,
-      });
+      const project = await new ProjectModel(supabase).create(
+        user.data.user.id,
+        {
+          name: payload.projectName,
+          description: payload.projectDescription,
+        },
+      );
+
+      return project;
       // eslint-disable-next-line
     } catch (error: any) {
       throw new ServerActionError((error as Error).message);

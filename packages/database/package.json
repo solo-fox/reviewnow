@@ -17,6 +17,7 @@
   "exports": {
     "./server": "./server.ts",
     "./browser": "./browser.ts",
-    "./models/*": "./models/*.ts"
+    "./models/*": "./models/*.ts",
+    "./types": "./database.types.ts"
   }
 }
