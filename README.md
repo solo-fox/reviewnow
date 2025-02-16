@@ -21,7 +21,8 @@ ReviewNow helps developers easily add feedback sections and beta preview managem
 - ✅ **API Server** for handling feedback data
 - ✅ **Admin Dashboard** for analytics and review insights
 
-## 🌐 Live Preview  
+## 🌐 Live Preview
+
 You can view a live preview of ReviewNow at:  
 [reviewnow.vercel.app](https://reviewnow.vercel.app)
 
@@ -44,8 +45,9 @@ You can view a live preview of ReviewNow at:
 
 ## 💡 Get Involved
 
-Contributions are welcome! If you'd like to contribute, please open an issue or submit a pull request on the [GitHub Repo](https://github.com/solo-fox/reviewnow).  
+Contributions are welcome! If you'd like to contribute, please open an issue or submit a pull request on the [GitHub Repo](https://github.com/solo-fox/reviewnow).
 
-For feedback or inquiries, feel free to:  
-- Open an issue on [GitHub](https://github.com/your-org/reviewnow/issues)  
+For feedback or inquiries, feel free to:
+
+- Open an issue on [GitHub](https://github.com/your-org/reviewnow/issues)
 - Send an email to [abdelrahmansh.work@gmail.com](mailto:abdelrahmansh.work@gmail.com)
