@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import Logo from "./Logo";
+import Logo from "./logo";
 import ThemeSwitcher from "./theme-switcher";
 
 import { routes } from "@/lib/routes";

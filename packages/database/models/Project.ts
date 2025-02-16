@@ -55,7 +55,7 @@ export default class ProjectModel implements Model<Project> {
       .order("created_at", { ascending: false })
       .range(offset, offset + limit - 1);
 
-    if (search) {
+    if (search && search.length > 0) {
       query = query.ilike("name", `%${search}%`);
     }
 
