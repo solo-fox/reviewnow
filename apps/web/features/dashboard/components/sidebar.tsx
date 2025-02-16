@@ -6,19 +6,19 @@ import { cn } from "@workspace/ui/lib/utils";
 import { ArrowUpRight, Cog, Frame, LogOut } from "lucide-react";
 import Link from "next/link";
 
-import signOutAction from "@/actions/auth/sign-out.action";
+import { signOut } from "@/actions/auth/sign-out.action";
 import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";
-import { useAction } from "@/hooks/useAction";
-import routes from "@/lib/routes";
+import { useServerAction } from "@/hooks/useServerAction";
+import { routes } from "@/lib/routes";
 
 export default function Sidebar(props: { classname?: string }) {
   const {
-    mutate: signOut,
+    mutate: signOutUser,
     isPending,
     error,
   } = useMutation({
-    mutationFn: useAction(signOutAction),
+    mutationFn: useServerAction(signOut),
   });
 
   return (
@@ -74,7 +74,7 @@ export default function Sidebar(props: { classname?: string }) {
         <Button
           disabled={isPending}
           variant={"ghost"}
-          onClick={() => signOut()}
+          onClick={() => signOutUser()}
           className="m-0 p-0 text-sm flex items-center justify-start gap-4 hover:text-destructive hover:bg-background"
         >
           {!isPending ? <LogOut className="size-4" /> : <LoadingIcon />}

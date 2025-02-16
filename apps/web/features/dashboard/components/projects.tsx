@@ -5,7 +5,8 @@ import ProjectCard, { ProjectCardSkeleton } from "./project-card";
 import LoadMoreProjects from "./load-more-projects";
 import NewProject from "./new-project";
 
-import findAllProjectsAction from "@/actions/project/findall.action";
+import { paginateProjects } from "@/actions/project/paginate.action";
+import { runServerAction } from "@/lib/action-utils";
 
 export function ProjectsSkeleton() {
   return (
@@ -20,17 +21,15 @@ interface ProjectsProps {
 }
 
 export default async function Projects(props: ProjectsProps) {
-  const projects = await findAllProjectsAction({
+  const projects = await runServerAction(paginateProjects, {
     limit: 6,
     offset: 0,
     search: props.searchQuery,
   });
 
-  if (projects.success === false) throw new Error(projects.error);
-
   return (
     <div className="w-full flex-grow">
-      {projects.data.projects.length === 0 && props.searchQuery && (
+      {projects.projects.length === 0 && props.searchQuery && (
         <div className="w-full flex flex-col justify-center items-center">
           <Image
             alt="logo"
@@ -48,7 +47,7 @@ export default async function Projects(props: ProjectsProps) {
           </h1>
         </div>
       )}
-      {projects.data.projects.length === 0 && (
+      {projects.projects.length === 0 && (
         <div className="flex flex-col gap-4 w-full justify-center items-center">
           <h1 className="flex items-center fon-semibold text-center text-2xl">
             {" "}
@@ -59,7 +58,7 @@ export default async function Projects(props: ProjectsProps) {
         </div>
       )}
       <div className="grid md:grid-cols-2 gap-4 p-4">
-        {projects.data.projects.map((project) => (
+        {projects.projects.map((project) => (
           <ProjectCard
             id={project.id}
             key={project.id}
@@ -68,8 +67,8 @@ export default async function Projects(props: ProjectsProps) {
           />
         ))}
       </div>
-      {projects.data.nextOffset && (
-        <LoadMoreProjects initialOffset={projects.data.nextOffset} />
+      {projects.nextOffset && (
+        <LoadMoreProjects initialOffset={projects.nextOffset} />
       )}
     </div>
   );

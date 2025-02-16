@@ -1,10 +1,10 @@
 "use server";
 
 import { ServerActionError, createServerAction } from "@/lib/action-utils";
-import routes from "@/lib/routes";
+import { routes } from "@/lib/routes";
 import { createClient } from "@/lib/server";
 
-const signOutAction = createServerAction(async () => {
+export const signOut = createServerAction(async () => {
   const supabase = await createClient(),
     { error } = await supabase.auth.signOut();
 
@@ -16,5 +16,3 @@ const signOutAction = createServerAction(async () => {
     redirectTo: routes.auth.signin,
   };
 });
-
-export default signOutAction;

@@ -1,10 +1,10 @@
 "use server";
 
 import { ServerActionError, createServerAction } from "@/lib/action-utils";
-import routes from "@/lib/routes";
+import { routes } from "@/lib/routes";
 import { createClient } from "@/lib/server";
 
-const signUpAction = createServerAction(
+export const signUp = createServerAction(
   async (payload: { email: string; password: string }) => {
     const supabase = await createClient(),
       { error } = await supabase.auth.signUp({
@@ -21,5 +21,3 @@ const signUpAction = createServerAction(
     };
   },
 );
-
-export default signUpAction;

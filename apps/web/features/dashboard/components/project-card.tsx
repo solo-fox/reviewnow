@@ -3,7 +3,7 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
-import routes from "@/lib/routes";
+import { routes } from "@/lib/routes";
 
 interface ProjectCardProps {
   id: string;

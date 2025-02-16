@@ -1,10 +1,10 @@
 "use server";
 
 import { ServerActionError, createServerAction } from "@/lib/action-utils";
-import routes from "@/lib/routes";
+import { routes } from "@/lib/routes";
 import { createClient } from "@/lib/server";
 
-const oauthAction = createServerAction(async () => {
+export const signInWithGithub = createServerAction(async () => {
   const supabase = await createClient(),
     { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",
@@ -21,5 +21,3 @@ const oauthAction = createServerAction(async () => {
     redirectTo: data.url,
   };
 });
-
-export default oauthAction;

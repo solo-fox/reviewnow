@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 import { env } from "@/env";
 
-export const createClient = async (): Promise<ClientConnection> => {
+export async function createClient(): Promise<ClientConnection> {
   const cookieStore = await cookies();
 
   return client({
@@ -26,4 +26,4 @@ export const createClient = async (): Promise<ClientConnection> => {
       }
     },
   });
-};
+}

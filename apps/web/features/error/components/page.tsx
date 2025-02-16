@@ -8,7 +8,7 @@ import Illustration from "./illustration";
 
 import Footer from "@/_components/footer";
 import ErrorAlert from "@/_components/error-alert";
-import routes from "@/lib/routes";
+import { routes } from "@/lib/routes";
 
 function ErrorContent() {
   const searchParams = useSearchParams();

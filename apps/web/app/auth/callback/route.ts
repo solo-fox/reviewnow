@@ -1,9 +1,9 @@
 import logger from "@workspace/logger";
 
-import routes from "@/lib/routes";
+import { routes } from "@/lib/routes";
 import { createClient } from "@/lib/server";
 
-export const GET = async (request: Request) => {
+export async function GET(request: Request) {
   const requestUrl = new URL(request.url),
     code = requestUrl.searchParams.get("code");
 
@@ -24,4 +24,4 @@ export const GET = async (request: Request) => {
   }
 
   return Response.redirect(new URL(routes.auth.signin, routes.base), 302);
-};
+}

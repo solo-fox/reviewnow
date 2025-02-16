@@ -27,40 +27,41 @@ import { z } from "zod";
 
 import createProjectSchema from "../schema/create-project.schema";
 
-import createProjectAction from "@/actions/project/create.action";
+import { createProject } from "@/actions/project/create.action";
 import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";
-import { useAction } from "@/hooks/useAction";
+import { useServerAction } from "@/hooks/useServerAction";
 import randomProjectName from "@/lib/projectnames";
 
 export default function NewProject() {
   const form = useForm<z.infer<typeof createProjectSchema>>({
-      resolver: zodResolver(createProjectSchema),
-      defaultValues: {
-        projectDescription: "My lovely project",
-        projectName: randomProjectName(),
-      },
-    }),
-    { toast } = useToast(),
-    {
-      mutate: createNewProject,
-      isPending,
-      error,
-    } = useMutation({
-      mutationFn: useAction(createProjectAction),
-      onSuccess: () => {
-        toast({
-          title: "Project created",
-        });
-      },
-    });
+    resolver: zodResolver(createProjectSchema),
+    defaultValues: {
+      projectDescription: "My lovely project",
+      projectName: randomProjectName(),
+    },
+  });
+  const { toast } = useToast();
 
-  const onSubmit = (values: z.infer<typeof createProjectSchema>) => {
-    createNewProject({
+  const {
+    mutate: newProject,
+    isPending,
+    error,
+  } = useMutation({
+    mutationFn: useServerAction(createProject),
+    onSuccess: () => {
+      toast({
+        title: "Project created",
+      });
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof createProjectSchema>) {
+    newProject({
       projectName: values.projectName,
       projectDescription: values.projectDescription,
     });
-  };
+  }
 
   return (
     <Dialog>

@@ -29,7 +29,7 @@ import OAuthButton from "./oauth-button";
 
 import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";
-import { AsyncAction, useAction } from "@/hooks/useAction";
+import { AsyncAction, useServerAction } from "@/hooks/useServerAction";
 import { ServerActionResult } from "@/lib/action-utils";
 
 interface AuthFormProps {
@@ -45,26 +45,31 @@ interface AuthFormProps {
 
 export default function AuthForm(props: AuthFormProps) {
   const authForm = useForm<z.infer<typeof authSchema>>({
-      resolver: zodResolver(authSchema),
-      defaultValues: {
-        email: "",
-        password: "",
-      },
-    }),
-    {
-      mutate: auth,
-      isPending,
+    resolver: zodResolver(authSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-      error,
-    } = useMutation({
-      mutationFn: useAction(props.action),
-    }),
-    onSubmit = (values: z.infer<typeof authSchema>) => {
-      auth({
-        email: values.email,
-        password: values.password,
-      });
-    };
+  const {
+    mutate: auth,
+    isPending,
+    error,
+  } = useMutation<
+    { redirectTo: string },
+    Error,
+    { email: string; password: string }
+  >({
+    mutationFn: useServerAction(props.action),
+  });
+
+  function onSubmit(values: z.infer<typeof authSchema>) {
+    auth({
+      email: values.email,
+      password: values.password,
+    });
+  }
 
   return (
     <Card>

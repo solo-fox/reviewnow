@@ -13,7 +13,7 @@ export default class ProfileModel implements Partial<Model<Profile>> {
 
   constructor(public client: SupabaseClient<Database>) {}
 
-  public async findById(userId: string): Promise<Profile | null> {
+  public async find(userId: string): Promise<Profile> {
     const { data, error } = await this.client
       .from(this.tableName)
       .select("*")

@@ -3,11 +3,11 @@ import errorMessages from "@workspace/error";
 import logger from "@workspace/logger";
 import uuidAPIKey from "uuid-apikey";
 
-import { Database, Tables } from "../database.types";
+import { Database, TablesInsert } from "../database.types";
 
 import { Model, Search } from "./model.interface";
 
-export type Project = Tables<"projects">;
+export type Project = Database["public"]["Tables"]["projects"]["Row"];
 
 export default class ProjectModel implements Model<Project> {
   public readonly tableName = "projects";
@@ -21,17 +21,12 @@ export default class ProjectModel implements Model<Project> {
     const date = new Date().toISOString();
     const api_key = uuidAPIKey.create();
 
-    const newProject: Database["public"]["Tables"]["projects"]["Insert"] = {
+    const newProject: TablesInsert<"projects"> = {
       id: api_key.uuid,
       api_key: api_key.apiKey,
       api_limit: 1000,
       description: payload.description ?? null,
-      logs: [
-        {
-          timestamp: date,
-          message: "Project was created.",
-        },
-      ],
+      logs: [{ timestamp: date, message: "Project was created." }],
       name: payload.name as string,
       user_id: userId,
     };
@@ -50,24 +45,7 @@ export default class ProjectModel implements Model<Project> {
     return data;
   }
 
-  public async findById(userId: string, id: string): Promise<Project | null> {
-    const { data, error } = await this.client
-      .from(this.tableName)
-      .select("*")
-      .eq("user_id", userId)
-      .eq("id", id)
-      .limit(1)
-      .single();
-
-    if (error) {
-      logger.error(error);
-      throw new Error(errorMessages.serverError);
-    }
-
-    return data;
-  }
-
-  public async findAll(userId: string, payload: Search): Promise<Project[]> {
+  public async paginate(userId: string, payload: Search): Promise<Project[]> {
     const { limit, offset, search } = payload;
 
     let query = this.client
@@ -91,6 +69,23 @@ export default class ProjectModel implements Model<Project> {
     return data ?? [];
   }
 
+  public async find(userId: string, id: string): Promise<Project> {
+    const { data, error } = await this.client
+      .from(this.tableName)
+      .select("*")
+      .eq("user_id", userId)
+      .eq("id", id)
+      .limit(1)
+      .single();
+
+    if (error) {
+      logger.error(error);
+      throw new Error(errorMessages.serverError);
+    }
+
+    return data;
+  }
+
   public async update(
     userId: string,
     payload: Required<Pick<Project, "id">> & Partial<Project>,
@@ -111,7 +106,9 @@ export default class ProjectModel implements Model<Project> {
     return data;
   }
 
-  public async delete(userId: string, id: string): Promise<boolean> {
+  public async delete(userId: string, id?: string): Promise<boolean> {
+    if (!id) return false;
+
     const { error } = await this.client
       .from(this.tableName)
       .delete()

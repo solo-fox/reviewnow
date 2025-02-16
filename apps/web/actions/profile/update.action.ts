@@ -3,7 +3,7 @@ import ProfileModel, { Profile } from "@workspace/database/models/Profile";
 import { ServerActionError, createServerAction } from "@/lib/action-utils";
 import { createClient } from "@/lib/server";
 
-const updateProfileAction = createServerAction(
+export const updateProfile = createServerAction(
   async (payload: Partial<Profile>) => {
     const supabase = await createClient(),
       user = await supabase.auth.getUser();
@@ -20,5 +20,3 @@ const updateProfileAction = createServerAction(
     }
   },
 );
-
-export default updateProfileAction;

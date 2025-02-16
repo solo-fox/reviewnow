@@ -5,7 +5,7 @@ import ProjectModel from "@workspace/database/models/Project";
 import { ServerActionError, createServerAction } from "@/lib/action-utils";
 import { createClient } from "@/lib/server";
 
-const createProjectAction = createServerAction(
+export const createProject = createServerAction(
   async (payload: { projectName: string; projectDescription: string }) => {
     const supabase = await createClient(),
       user = await supabase.auth.getUser();
@@ -30,5 +30,3 @@ const createProjectAction = createServerAction(
     }
   },
 );
-
-export default createProjectAction;

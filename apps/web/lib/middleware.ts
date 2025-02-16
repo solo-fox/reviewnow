@@ -1,11 +1,11 @@
 import { type NextRequest, NextResponse } from "next/server";
 import Client from "@workspace/database/server";
 
-import routes from "./routes";
+import { routes } from "./routes";
 
 import { env } from "@/env";
 
-export const updateSession = async (request: NextRequest) => {
+export async function updateSession(request: NextRequest) {
   // Create an unmodified response
   let response = NextResponse.next({
     request: {
@@ -57,4 +57,4 @@ export const updateSession = async (request: NextRequest) => {
   // No redirect needed in other cases
 
   return response;
-};
+}

@@ -8,8 +8,8 @@ import { useInView } from "react-intersection-observer";
 import ProjectCard from "./project-card";
 import { ProjectsSkeleton } from "./projects";
 
-import findAllProjectsAction from "@/actions/project/findall.action";
-import { useAction } from "@/hooks/useAction";
+import { paginateProjects } from "@/actions/project/paginate.action";
+import { useServerAction } from "@/hooks/useServerAction";
 import ErrorAlert from "@/_components/error-alert";
 
 export default function LoadMoreProjects({
@@ -17,7 +17,7 @@ export default function LoadMoreProjects({
 }: {
   initialOffset: number;
 }) {
-  const fetchProjects = useAction(findAllProjectsAction);
+  const fetchProjects = useServerAction(paginateProjects);
 
   const {
     data,

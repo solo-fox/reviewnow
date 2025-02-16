@@ -20,8 +20,8 @@ import { useToast } from "@workspace/ui/hooks/use-toast";
 
 import onboardSchema from "../schema/onboard.schema";
 
-import onboardAction from "@/actions/auth/onboard.action";
-import { useAction } from "@/hooks/useAction";
+import { onboardUserWithProject } from "@/actions/auth/onboard-user-with-project.action";
+import { useServerAction } from "@/hooks/useServerAction";
 import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";
 import randomProjectName from "@/lib/projectnames";
@@ -42,7 +42,7 @@ export default function ProjectSetup() {
     isPending,
     error,
   } = useMutation({
-    mutationFn: useAction(onboardAction),
+    mutationFn: useServerAction(onboardUserWithProject),
     onSuccess: () => {
       toast({
         title: "Project created",
@@ -50,12 +50,12 @@ export default function ProjectSetup() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof onboardSchema>) => {
+  function onSubmit(values: z.infer<typeof onboardSchema>) {
     onboard({
       orgName: values.orgName,
       projectName: values.projectName,
     });
-  };
+  }
 
   return (
     <Form {...form}>

@@ -1,6 +1,6 @@
 import { env } from "@/env";
 
-const routes = {
+export const routes = {
   base: env.NEXT_PUBLIC_SITE_URL,
   home: "/",
   error: (message: string) => `/error?=${encodeURIComponent(message)}`,
@@ -25,5 +25,3 @@ const routes = {
     help: "#",
   },
 };
-
-export default routes;

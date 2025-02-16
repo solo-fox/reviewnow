@@ -5,7 +5,7 @@ import ProjectModel from "@workspace/database/models/Project";
 import { ServerActionError, createServerAction } from "@/lib/action-utils";
 import { createClient } from "@/lib/server";
 
-const findAllProjectsAction = createServerAction(
+export const paginateProjects = createServerAction(
   async (payload: { limit: number; offset: number; search: string | null }) => {
     const supabase = await createClient(),
       user = await supabase.auth.getUser();
@@ -15,7 +15,7 @@ const findAllProjectsAction = createServerAction(
     }
 
     try {
-      const projects = await new ProjectModel(supabase).findAll(
+      const projects = await new ProjectModel(supabase).paginate(
         user.data.user.id,
         payload,
       );
@@ -33,5 +33,3 @@ const findAllProjectsAction = createServerAction(
     }
   },
 );
-
-export default findAllProjectsAction;
