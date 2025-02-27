@@ -1,0 +1,30 @@
+"use server";
+
+import { organizations } from "@workspace/database/models/organizations";
+import {
+  createServerAction,
+  ServerActionError,
+} from "@/lib/action-utils";
+import { routes } from "@/lib/routes";
+import { createClient } from "@/lib/server";
+
+export const isUserOnboarded = createServerAction(async () => {
+  const supabase = await createClient(),
+    user = await supabase.auth.getUser();
+
+  if (user.error) {
+    throw new ServerActionError(user.error.message);
+  }
+
+  const orgData = await organizations.hasUserOrgs(supabase, {
+    userId: user.data.user.id,
+  });
+
+  if (orgData === null || orgData.length === 0 || orgData === undefined) {
+    return {
+      redirectTo: routes.auth.onboarding,
+    };
+  }
+
+  return true;
+});

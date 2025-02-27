@@ -1,9 +1,10 @@
+import { Toaster } from "@workspace/ui/components/toaster";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-import { Toaster } from "@workspace/ui/components/toaster";
 import "@workspace/ui/styles/globals.css";
-import QueryProvider from "@/_components/query-provider";
 import { NuqsAdapter } from "nuqs/adapters/next";
+
+import QueryProvider from "@/_components/query-provider";
 
 export const metadata = {
   title: {

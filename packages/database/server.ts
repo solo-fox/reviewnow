@@ -1,5 +1,6 @@
-import { createServerClient, CookieOptions } from "@supabase/ssr";
+import { CookieOptions, createServerClient } from "@supabase/ssr";
 import { SupabaseClient } from "@supabase/supabase-js";
+
 import { Database } from "./database.types";
 
 type CookieToSet = {
@@ -9,18 +10,19 @@ type CookieToSet = {
 }[];
 export type ClientConnection = SupabaseClient<Database>;
 
-export default function Client({
+export default function client({
   url,
-  anon_key,
+  anonKey,
   getAll,
   setAll,
 }: {
   url: string;
-  anon_key: string;
+  anonKey: string;
+  // eslint-disable-next-line
   getAll: () => any;
   setAll: (cookiesToSet: CookieToSet) => void;
 }) {
-  let client = createServerClient<Database>(url, anon_key, {
+  const client = createServerClient<Database>(url, anonKey, {
     cookies: {
       getAll,
       setAll,

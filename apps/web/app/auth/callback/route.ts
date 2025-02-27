@@ -1,19 +1,19 @@
-import routes from "@/lib/routes";
-import { createClient } from "@/lib/server";
 import logger from "@workspace/logger";
 
+import { routes } from "@/lib/routes";
+import { createClient } from "@/lib/server";
+
 export async function GET(request: Request) {
-  const requestUrl = new URL(request.url);
-  const code = requestUrl.searchParams.get("code");
+  const requestUrl = new URL(request.url),
+    code = requestUrl.searchParams.get("code");
 
   if (code) {
-    const supabase = await createClient();
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    const supabase = await createClient(),
+      { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (error) {
       logger.error(error);
-      const errorUrl = new URL(routes.error, routes.base);
-      errorUrl.searchParams.set("message", error.message);
+      const errorUrl = new URL(routes.error(error.message), routes.base);
       return Response.redirect(errorUrl.toString(), 302);
     }
 

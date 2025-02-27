@@ -1,8 +1,11 @@
-import Client from "@workspace/database/server";
 import { type NextRequest, NextResponse } from "next/server";
-import routes from "./routes";
+import Client from "@workspace/database/server";
 
-export const updateSession = async (request: NextRequest) => {
+import { routes } from "./routes";
+
+import { env } from "@/env";
+
+export async function updateSession(request: NextRequest) {
   // Create an unmodified response
   let response = NextResponse.next({
     request: {
@@ -11,34 +14,33 @@ export const updateSession = async (request: NextRequest) => {
   });
 
   const supabase = Client({
-    url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    anon_key: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    getAll() {
-      return request.cookies.getAll();
-    },
-    setAll(cookiesToSet) {
-      cookiesToSet.forEach(({ name, value }) =>
-        request.cookies.set(name, value),
-      );
-      response = NextResponse.next({
-        request,
-      });
-      cookiesToSet.forEach(({ name, value, options }) =>
-        response.cookies.set(name, value, options),
-      );
-    },
-  });
-
-  // This will refresh session if expired - required for Server Components
-  // https://supabase.com/docs/guides/auth/server-side/nextjs
-  const user = await supabase.auth.getUser();
-  const isAuthenticated = !user.error;
-  const isSigninOrSignup =
-    request.nextUrl.pathname === routes.auth.signin ||
-    request.nextUrl.pathname === routes.auth.signup;
-  const isDashboard = request.nextUrl.pathname.startsWith(
-    routes.protected.dashboard,
-  );
+      url: env.NEXT_PUBLIC_SUPABASE_URL,
+      anonKey: env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      getAll() {
+        return request.cookies.getAll();
+      },
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value }) =>
+          request.cookies.set(name, value),
+        );
+        response = NextResponse.next({
+          request,
+        });
+        cookiesToSet.forEach(({ name, value, options }) =>
+          response.cookies.set(name, value, options),
+        );
+      },
+    }),
+    // This will refresh session if expired - required for Server Components
+    // https://supabase.com/docs/guides/auth/server-side/nextjs
+    user = await supabase.auth.getUser(),
+    isAuthenticated = !user.error,
+    isSigninOrSignup =
+      request.nextUrl.pathname === routes.auth.signin ||
+      request.nextUrl.pathname === routes.auth.signup,
+    isDashboard = request.nextUrl.pathname.startsWith(
+      routes.protected.dashboard,
+    );
 
   // If the user is unauthenticated and trying to access protected routes
   if (isDashboard && !isAuthenticated) {
@@ -55,4 +57,4 @@ export const updateSession = async (request: NextRequest) => {
   // No redirect needed in other cases
 
   return response;
-};
+}

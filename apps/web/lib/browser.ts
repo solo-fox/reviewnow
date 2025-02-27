@@ -1,8 +1,10 @@
-import Client, { ClientConnection } from "@workspace/database/browser";
+import client, { ClientConnection } from "@workspace/database/browser";
+
+import { env } from "@/env";
 
 export function createClient(): ClientConnection {
-  return Client({
-    url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    anon_key: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  return client({
+    url: env.NEXT_PUBLIC_SUPABASE_URL,
+    anonKey: env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   });
 }

@@ -1,25 +1,28 @@
-const routes = {
-  base: process.env.NEXT_PUBLIC_SITE_URL,
-  error: "/error",
+import { env } from "@/env";
+
+export const routes = {
+  base: env.NEXT_PUBLIC_SITE_URL,
   home: "/",
-  api: {
-    auth: {
-      callback: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
-    },
-  },
+  error: (message: string) => `/error?=${encodeURIComponent(message)}`,
   auth: {
-    signin: "/auth/signin",
-    signup: "/auth/signup",
+    signin: "/auth/sign-in",
+    signup: "/auth/sign-up",
+    onboarding: "/auth/onboarding"
   },
   protected: {
     dashboard: "/dashboard",
-    project: (id: string) => `/project/${id}`,
+    settings: "/dashboard/settings",
+    project: (id: string) => `/project/${encodeURIComponent(id)}`,
+  },
+  api: {
+    auth: {
+      callback: `${env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+    },
   },
   resources: {
+    api: "#",
     docs: "#",
     contact: "#",
     help: "#",
   },
 };
-
-export default routes;

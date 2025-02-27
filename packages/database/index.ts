@@ -1,14 +1,15 @@
 import { createClient } from "@supabase/supabase-js";
+
 import { Database } from "./database.types";
 
-export default function Client({
+export default function client({
   url,
-  anon_key,
+  anonKey,
 }: {
   url: string;
-  anon_key: string;
+  anonKey: string;
 }) {
-  let client = createClient<Database>(url, anon_key);
+  const client = createClient<Database>(url, anonKey);
 
   return client;
 }
