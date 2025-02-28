@@ -1,3 +1,10 @@
-import OnboardingPage from "@/features/onboarding/components/page";
+import OnboardingCard from "@/features/onboarding/components/onboarding-card";
 
-export default OnboardingPage;
+export default function OnboardingPage() {
+  return (
+    <div className="fullscreen-centered">
+      <div className="dotted-background"></div>
+      <OnboardingCard />
+    </div>
+  );
+}

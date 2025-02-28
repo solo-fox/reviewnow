@@ -1,11 +1,11 @@
 "use server";
 
-import { projects } from "@workspace/database/models/projects";
+import { createProject } from "@workspace/database/models/projects";
 
 import { ServerActionError, createServerAction } from "@/lib/action-utils";
 import { createClient } from "@/lib/server";
 
-export const createProject = createServerAction(
+export const createProjectAction = createServerAction(
   async (payload: {
     orgId: string;
     projectName: string;
@@ -19,7 +19,7 @@ export const createProject = createServerAction(
     }
 
     try {
-      return await projects.create(supabase, {
+      return await createProject(supabase, {
         userId: user.data.user.id,
         orgId: payload.orgId,
         fields: {

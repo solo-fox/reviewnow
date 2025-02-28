@@ -1,19 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@workspace/ui/components/button";
 
-import { signInWithGithub } from "@/actions/auth/oauth.action";
+import { signInWithGithubAction } from "@/actions/auth/sign-in-with-github.action";
 import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";
 import { useServerAction } from "@/hooks/useServerAction";
 
 export default function OAuthButton() {
   const {
-    mutate: signIn,
+    mutate: signInWithGithub,
     isPending,
 
     error,
   } = useMutation({
-    mutationFn: useServerAction(signInWithGithub),
+    mutationFn: useServerAction(signInWithGithubAction),
   });
 
   return (
@@ -28,7 +28,7 @@ export default function OAuthButton() {
         disabled={isPending}
         variant="outline"
         className="w-full"
-        onClick={() => signIn()}
+        onClick={() => signInWithGithub()}
       >
         {!isPending ? (
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

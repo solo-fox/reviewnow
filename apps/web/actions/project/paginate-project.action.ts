@@ -1,11 +1,11 @@
 "use server";
 
-import { projects } from "@workspace/database/models/projects";
+import { paginateProjects } from "@workspace/database/models/projects";
 
 import { ServerActionError, createServerAction } from "@/lib/action-utils";
 import { createClient } from "@/lib/server";
 
-export const paginateProjects = createServerAction(
+export const paginateProjectsAction = createServerAction(
   async (payload: {
     orgId: string;
     options: { limit: number; offset: number; search: string | null };
@@ -18,7 +18,7 @@ export const paginateProjects = createServerAction(
     }
 
     try {
-      const projectsSet = await projects.paginate(supabase, {
+      const projectsSet = await paginateProjects(supabase, {
         userId: user.data.user.id,
         orgId: payload.orgId,
         options: payload.options,
@@ -29,7 +29,7 @@ export const paginateProjects = createServerAction(
         nextOffset:
           projectsSet.length < payload.options.limit
             ? null
-            : payload.options.offset + payload.options.limit, // Check if more data exists
+            : payload.options.offset + payload.options.limit,
       };
       // eslint-disable-next-line
     } catch (error: any) {

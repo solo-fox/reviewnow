@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: "Sign Up",
 };
 
-export default function SignInLayout({
+export default function SignUpLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

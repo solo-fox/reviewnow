@@ -23,18 +23,18 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { signInAction } from "@/actions/auth/sign-in.action";
+import { signUpAction } from "@/actions/auth/sign-up.action";
 import OAuthButton from "@/_components/oauth-button";
 
 import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";
 import { useServerAction } from "@/hooks/useServerAction";
-import {SignInSchema} from "../schema/sign-in.schema";
+import {SignUpSchema} from "../schema/sign-up.schema";
 import {routes} from "@/lib/routes"
 
-export default function SignInForm() {
-  const signInForm = useForm<z.infer<typeof SignInSchema>>({
-    resolver: zodResolver(SignInSchema),
+export default function SignUpForm() {
+  const signUpForm = useForm<z.infer<typeof SignUpSchema>>({
+    resolver: zodResolver(SignUpSchema),
     defaultValues: {
       email: "",
       password: ""
@@ -42,7 +42,7 @@ export default function SignInForm() {
   });
 
   const {
-    mutate: signIn,
+    mutate: signUp,
     isPending,
     error,
   } = useMutation<
@@ -50,32 +50,32 @@ export default function SignInForm() {
     Error,
     { email: string; password: string; }
   >({
-    mutationFn: useServerAction(signInAction),
+    mutationFn: useServerAction(signUpAction),
   });
 
-  function onSubmit(values: z.infer<typeof SignInSchema>) {
-    signIn(values);
+  function onSubmit(values: z.infer<typeof SignUpSchema>) {
+    signUp(values);
   }
 
   return (
     <Card className="w-2/5">
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl font-bold">Sign In</CardTitle>
+        <CardTitle className="text-2xl font-bold">Sign up</CardTitle>
         <CardDescription className="text-balance text-sm">
-          sign in to your account
+          Create an account to get started.
         </CardDescription>
       </CardHeader>
 
       <CardContent className="flex flex-col gap-6 justify-center">
         <ErrorAlert message={(error as Error)?.message} />
-        <Form {...signInForm}>
+        <Form {...signUpForm}>
           <form
             method="post"
-            onSubmit={signInForm.handleSubmit(onSubmit)}
+            onSubmit={signUpForm.handleSubmit(onSubmit)}
             className="flex flex-col gap-6 justify-center"
           >
             <FormField
-              control={signInForm.control}
+              control={signUpForm.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
@@ -89,7 +89,7 @@ export default function SignInForm() {
             />
 
             <FormField
-              control={signInForm.control}
+              control={signUpForm.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
@@ -111,9 +111,9 @@ export default function SignInForm() {
         <OAuthButton />
 
         <div className="text-center text-sm">
-          Don't have an account?{" "}
-          <Link href={routes.auth.signup} className="underline underline-offset-4">
-            Sign Up
+          Already have an account?{" "}
+          <Link href={routes.auth.signin} className="underline underline-offset-4">
+            Sign in
           </Link>
         </div>
       </CardContent>

@@ -5,7 +5,7 @@ import ProjectCard, { ProjectCardSkeleton } from "./project-card";
 import LoadMoreProjects from "./load-more-projects";
 import NewProject from "./new-project";
 
-import { paginateProjects } from "@/actions/project/paginate.action";
+import { paginateProjectsAction } from "@/actions/project/paginate-project.action";
 import { runServerAction } from "@/lib/action-utils";
 
 export function ProjectsSkeleton() {
@@ -21,10 +21,13 @@ interface ProjectsProps {
 }
 
 export default async function Projects(props: ProjectsProps) {
-  const projects = await runServerAction(paginateProjects, {
-    limit: 6,
-    offset: 0,
-    search: props.searchQuery,
+  const projects = await runServerAction(paginateProjectsAction, {
+    orgId: "",
+    options: {
+      limit: 6,
+      offset: 0,
+      search: props.searchQuery,
+    },
   });
 
   return (

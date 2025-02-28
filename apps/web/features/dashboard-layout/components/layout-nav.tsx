@@ -1,15 +1,15 @@
 import { Bell, CircleHelp } from "lucide-react";
 import { Suspense } from "react";
 
-import Breadcrumb from "./breadcrumb";
 import MobileSidebar from "./mobile-sidebar";
 import OrgSelector, { OrgSelectorSkeleton } from "./org-selector";
 
 import Logo from "@/_components/logo";
 import { ErrorBoundary } from "@/_components/error-boundary";
 import ThemeSwitcher from "@/_components/theme-switcher";
+import UriBreadcrumb from "@/_components/uri-breadcrumb";
 
-export default function LayoutHeader() {
+export default function LayoutNav() {
   return (
     <nav className="sticky top-0 flex justify-between items-center w-full h-[3rem] border-b p-4 gap-6 bg-background">
       <div className="flex items-center">
@@ -24,7 +24,7 @@ export default function LayoutHeader() {
           </Suspense>
         </ErrorBoundary>
 
-        <Breadcrumb />
+        <UriBreadcrumb />
       </div>
       <div className="flex items-center gap-4">
         <ThemeSwitcher />

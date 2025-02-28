@@ -5,9 +5,9 @@ export const routes = {
   home: "/",
   error: (message: string) => `/error?=${encodeURIComponent(message)}`,
   auth: {
-    signin: "/auth/sign-in",
-    signup: "/auth/sign-up",
-    onboarding: "/auth/onboarding"
+    signin: "/sign-in",
+    signup: "/sign-up",
+    onboarding: "/onboarding"
   },
   protected: {
     dashboard: "/dashboard",

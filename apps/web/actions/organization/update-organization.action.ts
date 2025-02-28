@@ -1,12 +1,12 @@
-import { organizations } from "@workspace/database/models/organizations";
+import { updateOrganization } from "@workspace/database/models/organizations";
 
 import { ServerActionError, createServerAction } from "@/lib/action-utils";
 import { createClient } from "@/lib/server";
-import { TablesInsert } from "@workspace/database/types";
+import { TablesUpdate } from "@workspace/database/types";
 
-export const createOrganization = createServerAction(
+export const updateOrganizationAction = createServerAction(
   async (
-    payload: Partial<TablesInsert<"organizations">>
+    payload: Omit<TablesUpdate<"organizations">, "id"> & { id: string },
   ) => {
     const supabase = await createClient(),
       user = await supabase.auth.getUser();
@@ -16,8 +16,9 @@ export const createOrganization = createServerAction(
     }
 
     try {
-      return await organizations.create(supabase, {
+      return await updateOrganization(supabase, {
         userId: user.data.user.id,
+        orgId: payload.id,
         fields: payload,
       });
       // eslint-disable-next-line

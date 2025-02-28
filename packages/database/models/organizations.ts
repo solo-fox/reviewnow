@@ -4,7 +4,7 @@ import logger from "@workspace/logger";
 
 import { Database, Tables, TablesInsert, TablesUpdate } from "../types";
 
-async function create(
+export async function createOrganization(
   client: SupabaseClient<Database>,
   payload: {
     userId: string;
@@ -30,7 +30,7 @@ async function create(
   return data;
 }
 
-async function all(
+export async function getAllOrganizations(
   client: SupabaseClient<Database>,
   payload: {
     userId: string;
@@ -49,7 +49,7 @@ async function all(
   return data;
 }
 
-async function update(
+export async function updateOrganization(
   client: SupabaseClient<Database>,
   payload: {
     userId: string;
@@ -73,7 +73,7 @@ async function update(
   return data;
 }
 
-async function del(
+export async function deleteOrganization(
   client: SupabaseClient<Database>,
   payload: {
     orgId: string;
@@ -94,7 +94,7 @@ async function del(
   return true;
 }
 
-async function hasUserOrgs(
+export async function hasUserOrganizations(
   client: SupabaseClient<Database>,
   payload: { userId: string },
 ): Promise<{ id: string }[] | null> {
@@ -112,11 +112,3 @@ async function hasUserOrgs(
 
   return data;
 }
-
-export const organizations = {
-  all,
-  create,
-  update,
-  del,
-  hasUserOrgs,
-};

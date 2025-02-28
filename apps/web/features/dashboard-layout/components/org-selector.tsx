@@ -1,4 +1,4 @@
-import { allOrganizations } from "@/actions/organization/all.action";
+import { getAllOrganizationsAction } from "@/actions/organization/get-all-organizations.action";
 import { runServerAction } from "@/lib/action-utils";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 import OrgDropdown from "./org-dropdown";
@@ -13,7 +13,7 @@ export function OrgSelectorSkeleton() {
 }
 
 export default async function OrgSelector() {
-  const organizations = await runServerAction(allOrganizations);
+  const organizations = await runServerAction(getAllOrganizationsAction);
 
   
   return (

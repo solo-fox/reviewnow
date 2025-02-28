@@ -4,7 +4,7 @@ import { ServerActionError, createServerAction } from "@/lib/action-utils";
 import { routes } from "@/lib/routes";
 import { createClient } from "@/lib/server";
 
-export const signIn = createServerAction(
+export const signInAction = createServerAction(
   async (payload: { email: string; password: string }) => {
     const supabase = await createClient(),
       { error } = await supabase.auth.signInWithPassword({

@@ -1,11 +1,11 @@
 "use server";
 
-import { organizations } from "@workspace/database/models/organizations";
+import { getAllOrganizations } from "@workspace/database/models/organizations";
 
 import { ServerActionError, createServerAction } from "@/lib/action-utils";
 import { createClient } from "@/lib/server";
 
- export const allOrganizations = createServerAction(async () => {
+ export const getAllOrganizationsAction = createServerAction(async () => {
   const supabase = await createClient(),
     user = await supabase.auth.getUser();
 
@@ -14,7 +14,7 @@ import { createClient } from "@/lib/server";
   }
 
   try {
-    return await organizations.all(supabase, {
+    return await getAllOrganizations(supabase, {
       userId: user.data.user.id,
     });
     // eslint-disable-next-line

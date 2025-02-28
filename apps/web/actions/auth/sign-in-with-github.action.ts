@@ -4,7 +4,7 @@ import { ServerActionError, createServerAction } from "@/lib/action-utils";
 import { routes } from "@/lib/routes";
 import { createClient } from "@/lib/server";
 
-export const signInWithGithub = createServerAction(async () => {
+export const signInWithGithubAction = createServerAction(async () => {
   const supabase = await createClient(),
     { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",

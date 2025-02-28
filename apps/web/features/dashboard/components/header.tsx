@@ -3,7 +3,7 @@ import Image from "next/image";
 import NewProject from "./new-project";
 import Search from "./search";
 
-export default function ProjectsHeader() {
+export default function Header() {
   return (
     <div className="sticky top-[3rem] flex flex-col items-center w-full h-48 relative">
       <div className="backdrop-blur-sm absolute inset-0 bg-background/50 dark:bg-background/50"></div>

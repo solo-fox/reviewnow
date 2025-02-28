@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
-import PageHeader from "./page-header";
-import Projects, { ProjectsSkeleton } from "./projects";
+import Header from "@/features/dashboard/components/header";
+import Projects, { ProjectsSkeleton } from "@/features/dashboard/components/projects";
 
 import { ErrorBoundary } from "@/_components/error-boundary";
 
@@ -16,8 +16,8 @@ export default async function DashboardPage(props: DashboardPageProps) {
   const searchQuery = searchParams?.searchquery || "";
 
   return (
-    <div className="flex flex-col h-full">
-      <PageHeader />
+    <div className="fullscreen-base">
+      <Header />
       {/* <ErrorBoundary>
         <Suspense key={searchQuery} fallback={<ProjectsSkeleton />}>
           <Projects searchQuery={searchQuery} />

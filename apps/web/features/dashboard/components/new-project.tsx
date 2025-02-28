@@ -27,7 +27,7 @@ import { z } from "zod";
 
 import createProjectSchema from "../schema/create-project.schema";
 
-import { createProject } from "@/actions/project/create.action";
+import { createProjectAction } from "@/actions/project/create-project.action";
 import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";
 import { useServerAction } from "@/hooks/useServerAction";
@@ -44,11 +44,11 @@ export default function NewProject() {
   const { toast } = useToast();
 
   const {
-    mutate: newProject,
+    mutate: createProject,
     isPending,
     error,
   } = useMutation({
-    mutationFn: useServerAction(createProject),
+    mutationFn: useServerAction(createProjectAction),
     onSuccess: () => {
       toast({
         title: "Project created",
@@ -57,7 +57,8 @@ export default function NewProject() {
   });
 
   function onSubmit(values: z.infer<typeof createProjectSchema>) {
-    newProject({
+    createProject({
+      orgId: "",
       projectName: values.projectName,
       projectDescription: values.projectDescription,
     });

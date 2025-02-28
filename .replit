@@ -1,0 +1,22 @@
+modules = ["nodejs-20", "web", "nix"]
+run = "pnpm run dev"
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "pnpm run dev"]
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+
+[workflows]
+
+[[workflows.workflow]]
+name = "Server"
+mode = "sequential"
+author = 38784889
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd server && npm run build && npm run dev"

@@ -1,6 +1,6 @@
 "use server";
 
-import { organizations } from "@workspace/database/models/organizations";
+import { hasUserOrganizations } from "@workspace/database/models/organizations";
 import {
   createServerAction,
   ServerActionError,
@@ -8,7 +8,7 @@ import {
 import { routes } from "@/lib/routes";
 import { createClient } from "@/lib/server";
 
-export const isUserOnboarded = createServerAction(async () => {
+export const isUserOnboardedAction = createServerAction(async () => {
   const supabase = await createClient(),
     user = await supabase.auth.getUser();
 
@@ -16,7 +16,7 @@ export const isUserOnboarded = createServerAction(async () => {
     throw new ServerActionError(user.error.message);
   }
 
-  const orgData = await organizations.hasUserOrgs(supabase, {
+  const orgData = await hasUserOrganizations(supabase, {
     userId: user.data.user.id,
   });
 

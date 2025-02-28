@@ -4,7 +4,7 @@ import { ServerActionError, createServerAction } from "@/lib/action-utils";
 import { routes } from "@/lib/routes";
 import { createClient } from "@/lib/server";
 
-export const signOut = createServerAction(async () => {
+export const signOutAction = createServerAction(async () => {
   const supabase = await createClient(),
     { error } = await supabase.auth.signOut();
 

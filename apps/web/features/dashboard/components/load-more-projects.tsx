@@ -2,13 +2,13 @@
 
 import { useEffect } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import type { Project } from "@workspace/database/models/Project";
+import type { Tables } from "@workspace/database/types";
 import { useInView } from "react-intersection-observer";
 
 import ProjectCard from "./project-card";
 import { ProjectsSkeleton } from "./projects";
 
-import { paginateProjects } from "@/actions/project/paginate.action";
+import { paginateProjectsAction } from "@/actions/project/paginate-project.action";
 import { useServerAction } from "@/hooks/useServerAction";
 import ErrorAlert from "@/_components/error-alert";
 
@@ -17,7 +17,7 @@ export default function LoadMoreProjects({
 }: {
   initialOffset: number;
 }) {
-  const fetchProjects = useServerAction(paginateProjects);
+  const fetchProjects = useServerAction(paginateProjectsAction);
 
   const {
     data,
@@ -29,7 +29,10 @@ export default function LoadMoreProjects({
   } = useInfiniteQuery({
     queryKey: ["projects"],
     queryFn: async ({ pageParam = initialOffset }) =>
-      await fetchProjects({ limit: 4, offset: pageParam, search: null }),
+      await fetchProjects({
+        orgId: "",
+        options: { limit: 4, offset: pageParam, search: null },
+      }),
     getNextPageParam: (lastPage) => {
       return lastPage.nextOffset ?? undefined;
     },
@@ -60,7 +63,7 @@ export default function LoadMoreProjects({
     <>
       <div className="mt-4 grid md:grid-cols-2 gap-4">
         {data?.pages.map((page) =>
-          page.projects.map((project: Project) => (
+          page.projects.map((project: Tables<"projects">) => (
             <ProjectCard
               id={project.id}
               key={project.id}

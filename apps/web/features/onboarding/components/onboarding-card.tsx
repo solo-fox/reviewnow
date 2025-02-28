@@ -11,16 +11,16 @@ import { Plus } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@workspace/ui/hooks/use-toast";
 
-import onboardSchema from "../schema/onboard.schema";
-import { onboardUserWithProject } from "@/actions/auth/onboard-user-with-project.action";
+import onboardingSchema from "../schema/onboarding.schema";
+import { onboardUserWithProjectAction } from "@/actions/auth/onboard-user-with-project.action";
 import { useServerAction } from "@/hooks/useServerAction";
 import ErrorAlert from "@/_components/error-alert";
 import LoadingIcon from "@/_components/loading-icon";
 import randomProjectName from "@/lib/projectnames";
 
 export default function OnboardingCard() {
-  const form = useForm<z.infer<typeof onboardSchema>>({
-    resolver: zodResolver(onboardSchema),
+  const form = useForm<z.infer<typeof onboardingSchema>>({
+    resolver: zodResolver(onboardingSchema),
     defaultValues: {
       orgName: "",
       projectName: randomProjectName(),
@@ -34,13 +34,13 @@ export default function OnboardingCard() {
     isPending,
     error,
   } = useMutation({
-    mutationFn: useServerAction(onboardUserWithProject),
+    mutationFn: useServerAction(onboardUserWithProjectAction),
     onSuccess: () => {
       toast({ title: "Project created" });
     },
   });
 
-  function onSubmit(values: z.infer<typeof onboardSchema>) {
+  function onSubmit(values: z.infer<typeof onboardingSchema>) {
     onboard({
       orgName: values.orgName,
       projectName: values.projectName,

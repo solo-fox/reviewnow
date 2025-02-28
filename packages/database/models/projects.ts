@@ -5,7 +5,7 @@ import uuidAPIKey from "uuid-apikey";
 
 import { Database, SearchOptions, Tables, TablesInsert } from "../types";
 
-async function create(
+export async function createProject(
   client: SupabaseClient<Database>,
   payload: {
     userId: string;
@@ -41,7 +41,7 @@ async function create(
   return data;
 }
 
-async function paginate(
+export async function paginateProjects(
   client: SupabaseClient<Database>,
   payload: {
     userId: string;
@@ -73,7 +73,7 @@ async function paginate(
   return data ?? [];
 }
 
-async function find(
+async function findProject(
   client: SupabaseClient<Database>,
   payload: {
     userId: string;
@@ -97,9 +97,3 @@ async function find(
 
   return data;
 }
-
-export const projects = {
-  create,
-  find,
-  paginate,
-};

@@ -1,3 +1,9 @@
-import SignUpPage from "@/features/auth/components/sign-up-page";
+import SignUpForm from "@/features/sign-up/components/sign-up-form";
 
-export default SignUpPage;
+export default function SignUpPage() {
+  return (
+    <div className="fullscreen-centered">
+      <SignUpForm />
+    </div>
+  );
+}
