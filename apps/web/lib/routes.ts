@@ -11,6 +11,7 @@ export const routes = {
   },
   protected: {
     dashboard: "/dashboard",
+    dashboardId: (id: string) => `/dashboard/${encodeURIComponent(id)}`,
     settings: "/dashboard/settings",
     project: (id: string) => `/project/${encodeURIComponent(id)}`,
   },

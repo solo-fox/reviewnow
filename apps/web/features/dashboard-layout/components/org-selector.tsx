@@ -20,8 +20,6 @@ export default async function OrgSelector() {
     <div className="flex items-center gap-4 text-sm">
       <OrgDropdown
         organizations={organizations}
-        placeholder="Select organization..."
-        defaultValue={organizations[0]?.id}
       />
     </div>
   );

@@ -9,7 +9,7 @@ export default function Header() {
       <div className="backdrop-blur-sm absolute inset-0 bg-background/50 dark:bg-background/50"></div>
       <div className="w-full h-20 relative">
         <Image
-          src="./dashboard-header.svg"
+          src="../dashboard-header.svg"
           width={0}
           height={0}
           alt="Dashboard svg illustration geometry"

@@ -4,6 +4,9 @@ import Client from "@workspace/database/server";
 import { routes } from "./routes";
 
 import { env } from "@/env";
+import { runServerAction } from "./action-utils";
+import { isUserOnboardedAction } from "@/actions/auth/is-user-onboarded.action";
+import logger from "@workspace/logger";
 
 export async function updateSession(request: NextRequest) {
   // Create an unmodified response
@@ -53,8 +56,6 @@ export async function updateSession(request: NextRequest) {
       new URL(routes.protected.dashboard, request.url),
     );
   }
-
-  // No redirect needed in other cases
 
   return response;
 }

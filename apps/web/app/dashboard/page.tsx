@@ -1,29 +1,35 @@
-import { Suspense } from "react";
-
-import Header from "@/features/dashboard/components/header";
-import Projects, { ProjectsSkeleton } from "@/features/dashboard/components/projects";
-
 import { ErrorBoundary } from "@/_components/error-boundary";
+import OrgSelector, {
+  OrgSelectorSkeleton,
+} from "@/features/dashboard-layout/components/org-selector";
+import { Suspense } from "react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@workspace/ui/components/card";
 
-interface DashboardPageProps {
-  searchParams?: Promise<{
-    searchquery?: string;
-  }>;
-}
-
-export default async function DashboardPage(props: DashboardPageProps) {
-  const searchParams = await props.searchParams;
-  const searchQuery = searchParams?.searchquery || "";
-
+export default function DashboardSelectOrgPage() {
   return (
-    <div className="fullscreen-base">
-      <Header />
-      {/* <ErrorBoundary>
-        <Suspense key={searchQuery} fallback={<ProjectsSkeleton />}>
-          <Projects searchQuery={searchQuery} />
-        </Suspense>
-      </ErrorBoundary>
-      */}
+    <div className="fullscreen-centered">
+      <div className="dotted-background"></div>
+      <Card className="w-2/5">
+        <CardHeader className="text-center">
+          <CardTitle className="text-2xl font-bold">Select an Organization</CardTitle>
+          <CardDescription className="text-balance text-sm">
+            Choose an organization to continue managing your dashboard.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-6 items-center justify-center">
+          <ErrorBoundary>
+            <Suspense fallback={<OrgSelectorSkeleton />}>
+              <OrgSelector />
+            </Suspense>
+          </ErrorBoundary>
+        </CardContent>
+      </Card>
     </div>
   );
 }

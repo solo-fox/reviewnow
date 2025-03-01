@@ -3,8 +3,21 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Card, CardContent, CardHeader, CardTitle } from "@workspace/ui/components/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@workspace/ui/components/form";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@workspace/ui/components/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@workspace/ui/components/form";
 import { Input } from "@workspace/ui/components/input";
 import { Button } from "@workspace/ui/components/button";
 import { Plus } from "lucide-react";
@@ -48,11 +61,14 @@ export default function OnboardingCard() {
   }
 
   return (
-    <Card className="w-lg mx-auto p-6 shadow-lg">
+    <Card className="w-2/5">
       <CardHeader className="text-center">
-        <CardTitle className="font-bold text-3xl bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+        <CardTitle className="text-2xl font-bold">
           Let us finish this.
         </CardTitle>
+        <CardDescription className="text-balance text-sm">
+          You are required to have at least one org.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ErrorAlert message={(error as Error)?.message} />

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useParams, useRouter, usePathname } from "next/navigation";
 import { Check, ChevronsUpDown } from "lucide-react";
 
 import { cn } from "@workspace/ui/lib/utils";
@@ -20,23 +21,43 @@ import {
 } from "@workspace/ui/components/popover";
 import { Badge } from "@workspace/ui/components/badge";
 import { Tables } from "@workspace/database/types";
-
+import LoadingIcon from "@/_components/loading-icon";
 
 interface OrgDropdownProps {
   organizations: Tables<"organizations">[];
   placeholder?: string;
-  defaultValue?: string;
 }
 
-export default function OrgDropdown({
-  organizations,
-  placeholder = "Select organization...",
-  defaultValue,
-}: OrgDropdownProps) {
+export default function OrgDropdown({ organizations }: OrgDropdownProps) {
+  const params = useParams();
+  const router = useRouter();
+  const pathname = usePathname(); 
+  const orgIdFromUrl = params?.id as string;
+
+  const [selectedValue, setSelectedValue] = React.useState(orgIdFromUrl || "");
   const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState(defaultValue || "");
+  const [isLoading, setIsLoading] = React.useState(false); 
+
 
   const selectedOrg = organizations.find((org) => org.id === selectedValue);
+
+  React.useEffect(() => {
+    if (orgIdFromUrl) {
+      setSelectedValue(orgIdFromUrl);
+    }
+  }, [orgIdFromUrl]);
+
+
+  React.useEffect(() => {
+    setIsLoading(false);
+  }, [pathname]);
+
+  const handleSelect = (orgId: string) => {
+    setIsLoading(true); // Start loading
+    setSelectedValue(orgId);
+    router.replace(`/dashboard/${orgId}`);
+    setOpen(false);
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -46,10 +67,17 @@ export default function OrgDropdown({
           role="combobox"
           aria-expanded={open}
           className="justify-between"
+          disabled={isLoading} 
         >
-          {selectedOrg ? selectedOrg.name : placeholder}
-          <Badge>{selectedOrg ? selectedOrg.plan : "Free"}</Badge>
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          {isLoading ? (
+            <LoadingIcon  /> 
+          ) : (
+            <>
+              {selectedOrg ? selectedOrg.name : "Select organization..."}
+              <Badge>{selectedOrg ? selectedOrg.plan : "free"}</Badge>
+              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-fit p-0">
@@ -62,16 +90,12 @@ export default function OrgDropdown({
                 <CommandItem
                   key={org.id}
                   value={org.id}
-                  onSelect={() => {
-                    setSelectedValue(org.id);
-                    
-                    setOpen(false);
-                  }}
+                  onSelect={() => handleSelect(org.id)}
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      selectedValue === org.id ? "opacity-100" : "opacity-0"
+                      selectedValue === org.id ? "opacity-100" : "opacity-0",
                     )}
                   />
                   {org.name}

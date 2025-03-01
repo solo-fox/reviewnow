@@ -96,4 +96,16 @@
     @apply w-full min-h-dvh flex flex-col;
   }
 
+  .gradient-background {
+    background-color: transparent;
+    background-image:
+      radial-gradient(circle at 0% 100%, hsla(256, 82%, 77%, 0.35) 3.1%, transparent 40%),
+      radial-gradient(circle at 20% 100%, hsla(197, 77%, 74%, 0.35) 3.1%, transparent 40%),
+      radial-gradient(circle at 40% 100%, hsla(147, 77%, 74%, 0.35) 3.1%, transparent 40%),
+      radial-gradient(circle at 60% 100%, hsla(88, 77%, 74%, 0.35) 3.1%, transparent 40%),
+      radial-gradient(circle at 80% 100%, hsla(23, 77%, 74%, 0.35) 3.1%, transparent 40%),
+      radial-gradient(circle at 100% 100%, hsla(234, 100%, 50%, 0.35) 3%, transparent 40%);
+    background-blend-mode: overlay, normal, normal, normal, normal, normal, normal;
+  }
+
 }

@@ -17,7 +17,7 @@ export default function LayoutNav() {
         <Logo />
       </div>
 
-      <div className="hidden md:flex flex-grow gap-6 items-center">
+      <div className="hidden md:flex flex-grow items-center">
         <ErrorBoundary>
           <Suspense fallback={<OrgSelectorSkeleton />}>
             <OrgSelector />

@@ -18,7 +18,7 @@ export const onboardUserWithProjectAction = createServerAction(
     });
 
     return {
-      redirectTo: routes.protected.dashboard,
+      redirectTo: routes.protected.dashboardId(orgData.id)
     };
   },
 );

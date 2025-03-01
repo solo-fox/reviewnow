@@ -1,10 +1,7 @@
 "use server";
 
 import { hasUserOrganizations } from "@workspace/database/models/organizations";
-import {
-  createServerAction,
-  ServerActionError,
-} from "@/lib/action-utils";
+import { createServerAction, ServerActionError } from "@/lib/action-utils";
 import { routes } from "@/lib/routes";
 import { createClient } from "@/lib/server";
 
@@ -22,9 +19,13 @@ export const isUserOnboardedAction = createServerAction(async () => {
 
   if (orgData === null || orgData.length === 0 || orgData === undefined) {
     return {
-      redirectTo: routes.auth.onboarding,
+      onboarded: false,
+      orgId: null,
     };
   }
 
-  return true;
+  return {
+    onboarded: true,
+    orgId: orgData[0]?.id,
+  };
 });
